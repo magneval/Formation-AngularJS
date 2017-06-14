@@ -18,6 +18,7 @@
 :link-qr-code: image::https://api.qrserver.com/v1/create-qr-code/?data=magneval.github.io/Formation-AngularJS/client.html&amp;size=100x100&.png[]
 
 //include::includes/include.adoc[]
+image::AngularJS-large.png
 
 == Formation AngularJS
 
