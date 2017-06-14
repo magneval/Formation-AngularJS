@@ -1,0 +1,33 @@
+// ---
+// layout: master
+// title: Formation AngularJS
+// :backend: deckjs
+// ---
+:revealjs_mouseWheel: true
+:revealjsdir: .
+:revealjs_history: true
+:revealjs_hideAddressBar: true
+:imagesdir: ./images
+:source-highlighter: highlightjs
+:theme: jekyll-theme-hacker
+
+= Formation AngularJS
+
+:link-github-project: https://github.com/magneval/Formation-AngularJS
+:link-github-project-ghpages: https://magneval.github.io/Formation-AngularJS
+:link-qr-code: image::https://api.qrserver.com/v1/create-qr-code/?data=magneval.github.io/Formation-AngularJS/client.html&amp;size=100x100&.png[]
+
+include::includes/include.adoc[]
+
+== Formation AngularJS
+
+Charles de MAGNEVAL +
+Charles.de_magneval@open-groupe.com +
+v1.0, 2017-06-14 +
+ +
+https://github.com/magneval/
+
+image::https://api.qrserver.com/v1/create-qr-code/?data=magneval.github.io/Formation-AngularJS/client.html&amp;size=100x100&.png[qrCode, id="qrCode", name="qrCode"]
+
+=== Plan
+[%step]
