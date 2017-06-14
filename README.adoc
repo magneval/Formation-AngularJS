@@ -17,7 +17,7 @@
 :link-github-project-ghpages: https://magneval.github.io/Formation-AngularJS
 :link-qr-code: image::https://api.qrserver.com/v1/create-qr-code/?data=magneval.github.io/Formation-AngularJS/client.html&amp;size=100x100&.png[]
 
-include::includes/include.adoc[]
+//include::includes/include.adoc[]
 
 == Formation AngularJS
 
@@ -31,3 +31,17 @@ image::https://api.qrserver.com/v1/create-qr-code/?data=magneval.github.io/Forma
 
 === Plan
 [%step]
+- Rappels
+- AngularJS
+- Premiers pas
+- Contrôleurs et Scopes
+- Routeur
+- Modules et Services
+- Formulaires
+- Architectures REST
+- I18N
+- Filtres
+- Directives
+- Authentification
+- Tests
+- Au-delà d'AngularJS
