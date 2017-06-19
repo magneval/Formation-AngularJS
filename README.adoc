@@ -69,7 +69,7 @@ Dans ce chapitre nous allons revoir certaines notions de Javascripts
 - Le mot clef this
 - le format JSon
 - Les outils du développeur
-- Les services REST
+- Les services REST 
 
 === Rappels +
 ==== Les fonctions
@@ -80,6 +80,11 @@ Dans ce chapitre nous allons revoir certaines notions de Javascripts
   * un corps entre accolades
 - Une fonction sans nom est dite anonyme
 - La propriété *name* d'une fonction donne son nom
+
+[NOTE.speaker]
+--
+http://plnkr.co/edit/TXzzaiLeYkFaJLDNyKU0?p=preview
+--
 
 === Rappels +
 ==== La porté des variables
