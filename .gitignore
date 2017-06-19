@@ -52,3 +52,7 @@ build-iPhoneSimulator/
 #/nbproject/private/
 
 /Slides
+/reveal.js
+/output
+\#*\#
+/Gemfile.lock
