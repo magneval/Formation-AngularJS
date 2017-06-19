@@ -83,7 +83,7 @@ Dans ce chapitre nous allons revoir certaines notions de Javascripts
 
 [NOTE.speaker]
 --
-http://plnkr.co/edit/TXzzaiLeYkFaJLDNyKU0?p=preview
+http://plnkr.co/edit/TXzzaiLeYkFaJLDNyKU0
 --
 
 === Rappels +

@@ -13,19 +13,19 @@ script:
  - bundle exec asciidoctor-revealjs README.adoc -D output
 
 after_success:
+  - cp ./.gitignore ./output
+  - cp ./package.json ./output
+  - cp -R ./images ./output
+  - cp -R ./docs ./output
+  - cp -R ./reveal.js/css ./output
+  - cp -R ./reveal.js/js ./output
+  - cp -R ./reveal.js/lib ./output
+  - cp -R ./reveal.js/plugin ./output
   - cd output   
   - wget https://cdnjs.cloudflare.com/ajax/libs/socket.io/1.7.3/socket.io.js
   - mkdir socket.io
   - mv socket.io.js socket.io
   - mv README.html index.html
-  - cp ../.gitignore .
-  - cp ../package.json .
-  - cp -R ../images ./images
-  - cp -R ../docs ./docs
-  - cp -R ../reveal.js/css ./reveal.js
-  - cp -R ../reveal.js/js ./reveal.js
-  - cp -R ../reveal.js/lib ./reveal.js
-  - cp -R ../reveal.js/plugin ./reveal.js
   - sed -f ../Client.sed index.html >client.html
   - sed -f ../Master.sed client.html >master.html
   - sed -f ../Notes.sed plugin/notes-server/notes.html >notes.html
