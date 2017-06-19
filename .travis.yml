@@ -7,7 +7,7 @@ bundler_args:
 
 before_install:
   - mkdir -p output/reveal.js
-  - git clone -b 3.3.0 --depth 1 https://github.com/hakimel/reveal.js.git
+  - git clone -b 3.3.0 --depth 1 https://github.com/hakimel/reveal.js.git output/reveal.js
 
 script:
  - bundle exec asciidoctor-revealjs README.adoc -D output
@@ -22,10 +22,6 @@ after_success:
   - cp ../package.json .
   - cp -R ../images images
   - cp -R ../docs docs
-  - cp -R ../reveal.js/css .
-  - cp -R ../reveal.js/js .
-  - cp -R ../reveal.js/lib .
-  - cp -R ../reveal.js/plugin .
   - sed -f ../Client.sed index.html >client.html
   - sed -f ../Master.sed client.html >master.html
   - sed -f ../Notes.sed plugin/notes-server/notes.html >notes.html

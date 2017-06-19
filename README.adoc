@@ -4,12 +4,14 @@
 // :backend: deckjs
 // ---
 :revealjs_mouseWheel: true
-:revealjsdir: .
+:revealjsdir: ./reveal.js
 :revealjs_history: true
 :revealjs_hideAddressBar: true
 :imagesdir: ./images/
 :source-highlighter: highlightjs
 :theme: jekyll-theme-hacker
+:revealjs_theme: white
+:customcss: css/Open.css
 
 = Formation AngularJS   
 
@@ -25,7 +27,9 @@ image::AngularJS-large.png[logo, id="logo", name="logo"]
 == Formation AngularJS
 
 Charles de MAGNEVAL +
-Charles.de_magneval@open-groupe.com +
+Charles.de_magneval@open-groupe.com
+
+image::logoOpen.png[logoOpen, id="logoOpen", name="logoOpen"]
 v1.0, 2017-06-14 +
  +
 https://github.com/magneval/
@@ -65,6 +69,13 @@ Dans ce chapitre nous allons revoir certaines notions de Javascripts
 
 === Rappels +
 ==== Les fonctions
+- Une fonction est définie par
+  * le mot-clé *function*
+  * un nom optionnel
+  * une liste optionnelle de paramètres entre parenthèses
+  * un corps entre accolades
+- Une fonction sans nom est dite anonyme
+- La propriété *name* d'une fonction donne son nom
 
 === Rappels +
 ==== La porté des variables

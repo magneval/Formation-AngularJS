@@ -1,0 +1,8 @@
+.reveal .slide-background {
+    background: 
+		url(../images/FondPageHautDroit.png) no-repeat right top,
+		url(../images/FondPageBasGauche.png) no-repeat left bottom,
+		url(../images/FondPageBasDroit.png) no-repeat right bottom
+    ;
+    background-size: 15%;
+}   
