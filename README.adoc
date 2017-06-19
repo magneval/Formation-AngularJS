@@ -81,10 +81,53 @@ Dans ce chapitre nous allons revoir certaines notions de Javascripts
 - Une fonction sans nom est dite anonyme
 - La propriété *name* d'une fonction donne son nom
 
+=== Rappels +
+==== Les fonctions
+- Une fonction, qu'elle soit nommée ou anonyme, peut être assignée à une variable
+
+```javascript
+// Fonction nommée "foo"
+function foo() { … }
+// Fonction anonyme
+function() { … }
+// Variable pointant sur une fonction existante
+var fooVar = foo;
+// Variable pointant sur une nouvelle fonction nommée
+var barVar = function bar() { … }
+// Variable pointant sur une nouvelle fonction anonyme
+var bazVar = function() { … }
+// Noms des fonctions
+foo.name === "foo"
+fooVar.name === "foo"
+barVar.name === "bar"
+bazVar.name === ""
+```
+
 [NOTE.speaker]
 --
 http://plnkr.co/edit/TXzzaiLeYkFaJLDNyKU0[functions^]
 --
+
+=== Rappels +
+==== Les fonctions
+- Il est possible de passer une fonction en paramètre d'une autre fonction
+  - Très utilisé pour les *callbacks*
+
+```javascript
+function callServer(onSuccessFn) {
+    Ajax.get(url, function(data) {
+	     onSuccessFn(data);
+    });	
+}
+function displayResult(data) {
+    alert(data);
+}
+callServer(displayResult);
+// Fonction anonyme
+callServer(function(data) {
+    alert(data);
+});
+```
 
 === Rappels +
 ==== La porté des variables
