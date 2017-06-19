@@ -83,7 +83,7 @@ Dans ce chapitre nous allons revoir certaines notions de Javascripts
 
 === Rappels +
 ==== Les fonctions
-- Une fonction, qu'elle soit nommée ou anonyme, peut être assignée à une variable
+- Une fonction peut être assignée à une variable
 
 ```javascript
 // Fonction nommée "unNom"
@@ -105,13 +105,13 @@ anonymeVar.name === ""
 
 [NOTE.speaker]
 --
+qu'elle soit nommée ou anonyme
 http://plnkr.co/edit/TXzzaiLeYkFaJLDNyKU0[functions^]
 --
 
 === Rappels +
 ==== Les fonctions
 - Il est possible de passer une fonction en paramètre d'une autre fonction
-  - Très utilisé pour les *callbacks*
 
 ```javascript
 function appelServeur(succesFonction) {
@@ -129,22 +129,29 @@ appelServeur(function(donnees) {
 });
 ```
 
+[NOTE.speaker]
+--
+Très utilisé pour les *callbacks*
+--
+
 === Rappels +
 ==== La porté des variables
-- La limite dans laquelle une variable existe est appelée portée ou *scope*
+- La limite d'existance 'une variable est appelée    *scope*
 - Visibilité des symboles au sein d'une portée
-  - Fonctions nommées : utilisable partout dans le scope (*forward-reference* possible)
-  - Variables déclarées avec `var` : le symbole existe partout dans le scope, mais sa valeur est undefined jusqu'à l'initialisation
-  - Variables sans `var` : le symbole devient une propriété de `window` et est globalement accessible (!!)
-- En Javascript, les scopes sont uniquement délimités par les corps des fonctions
-  - Pas par les accolades des blocs `if / for / while` !
+  * Fonctions nommées : utilisable partout dans le scope (*forward-reference* possible)
+  * `var` Variables : le symbole existe partout dans le scope, mais sa valeur est undefined jusqu'à l'initialisation
+  * [line-through]#var# Variables : le symbole devient une propriété de `window` et est globalement accessible (!!)
 
 [NOTE.speaker]
 --
-http://plnkr.co/edit/CnfFADCWVV7WMjLlrNSv[variables^]
-http://jsbin.com/wuyaquq/edit?html,css,js,console,output[variables^]
-// Code goes here
+- En Javascript, les scopes sont uniquement délimités par les corps des fonctions
+  * Pas par les accolades des blocs `if / for / while` !
+--
 
+=== Rappels +
+==== La porté des variables
+
+```javascript
 function scope() {
     console.log("foo = "+foo);
     console.log("answer1 = "+answer1);
@@ -173,16 +180,37 @@ function scope() {
 
 }
 scope() ;
+```
+
+[NOTE.speaker]
+--
+http://plnkr.co/edit/CnfFADCWVV7WMjLlrNSv[variables^]
+http://jsbin.com/wuyaquq/edit?html,css,js,console,output[variables^]
 --
 
 === Rappels +
 ==== La porté des variables
 
-=== Rappels +
-==== La porté des variables
+```javascript
+> a
+ReferenceError: a is not defined
+> var a; a
+undefined
+> (function() { var b = a; var a = 1; return b; }())
+undefined
+> (function() { c = 42; }())
+undefined
+> c
+42
+> window.c
+42
+```
 
 === Rappels +
 ==== Piéger des Variables
+
+Le moteur Javascript permet lors de l'analyse du code de "pièger" la référence une variable.
+
 
 === Rappels +
 ==== Le mot clef this
