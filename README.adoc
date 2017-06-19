@@ -11,14 +11,16 @@
 :source-highlighter: highlightjs
 :theme: jekyll-theme-hacker
 
-= Formation AngularJS
+= Formation AngularJS   
 
 :link-github-project: https://github.com/magneval/Formation-AngularJS
 :link-github-project-ghpages: https://magneval.github.io/Formation-AngularJS
+    
 :link-qr-code: image::https://api.qrserver.com/v1/create-qr-code/?data=magneval.github.io/Formation-AngularJS/client.html&amp;size=100x100&.png[]
 
 //include::includes/include.adoc[]
 image::AngularJS-large.png[canvas,size=contain]
+
 
 == Formation AngularJS
 
@@ -40,6 +42,9 @@ image::https://api.qrserver.com/v1/create-qr-code/?data=magneval.github.io/Forma
 - Modules et Services
 - Formulaires
 - Architectures REST
+
+=== Plan
+[%step]
 - I18N
 - Filtres
 - Directives
@@ -47,5 +52,43 @@ image::https://api.qrserver.com/v1/create-qr-code/?data=magneval.github.io/Forma
 - Tests
 - Au-delà d'AngularJS
 
+== Rappels
+Dans ce chapitre nous allons revoir certaines notions de Javascripts
+[%step]
+- Les fonctions
+- La porté des variables
+- Piéger des Variables
+- Le mot clef this
+- le format JSon
+- Les outils du développeur
+- Les services REST
 
+=== Rappels Les fonctions
+
+=== Rappels La porté des variables
+
+=== Rappels Piéger des Variables
+
+=== Rappels Le mot clef this
+
+=== Rappels le format JSon
+
+=== Rappels Les outils du développeur
+
+=== Rappels Les services REST
+
+=== Rappels
+Dans ce chapitre nous avons vu les notions de Javascripts
+[%step]
+- Les fonctions
+- La porté des variables
+- Piéger des Variables
+- Le mot clef this
+- le format JSon
+- Les outils du développeur
+- Les services REST
+
+[NOTE.speaker]
+--
 http://plnkr.co/edit/HHEk8Tg0C0UVKoxg01E6
+--
