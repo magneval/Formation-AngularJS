@@ -1,8 +1,18 @@
-.reveal .slide-background {
+.reveal .slide-background.stack .slide-background:not(:first-of-type) {
+    background: 
+		url(../images/FondPageHautDroit.png) no-repeat right top,
+		url(../images/FondPageBasGauche.png) no-repeat left bottom,
+		url(../images/LogoByOpenBleuUni.png) no-repeat right bottom
+    ;
+    background-size: 15%;
+}
+
+.reveal .slide-background.title,.reveal .slide-background.stack .slide-background:first-of-type {
     background: 
 		url(../images/FondPageHautDroit.png) no-repeat right top,
 		url(../images/FondPageBasGauche.png) no-repeat left bottom,
 		url(../images/FondPageBasDroit.png) no-repeat right bottom
     ;
     background-size: 15%;
-}   
+}
+

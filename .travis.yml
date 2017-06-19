@@ -13,7 +13,7 @@ script:
  - bundle exec asciidoctor-revealjs README.adoc -D output
 
 after_success:
-  - cd output
+  - cd output   
   - wget https://cdnjs.cloudflare.com/ajax/libs/socket.io/1.7.3/socket.io.js
   - mkdir socket.io
   - mv socket.io.js socket.io

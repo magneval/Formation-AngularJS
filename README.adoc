@@ -36,6 +36,8 @@ https://github.com/magneval/
 
 image::https://api.qrserver.com/v1/create-qr-code/?data=magneval.github.io/Formation-AngularJS/client.html&amp;size=100x100&.png[qrCode, id="qrCode", name="qrCode"]
 
+== Plan
+
 === Plan
 [%step]
 - Rappels
@@ -57,6 +59,8 @@ image::https://api.qrserver.com/v1/create-qr-code/?data=magneval.github.io/Forma
 - Au-delà d'AngularJS
 
 == Rappels
+
+=== Rappels
 Dans ce chapitre nous allons revoir certaines notions de Javascripts
 [%step]
 - Les fonctions
