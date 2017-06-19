@@ -86,21 +86,21 @@ Dans ce chapitre nous allons revoir certaines notions de Javascripts
 - Une fonction, qu'elle soit nommée ou anonyme, peut être assignée à une variable
 
 ```javascript
-// Fonction nommée "foo"
-function foo() { … }
+// Fonction nommée "unNom"
+function unNom() { … }
 // Fonction anonyme
 function() { … }
 // Variable pointant sur une fonction existante
-var fooVar = foo;
+var unNomVar = unNom;
 // Variable pointant sur une nouvelle fonction nommée
-var barVar = function bar() { … }
+var autreNomVar = function autreNom() { … }
 // Variable pointant sur une nouvelle fonction anonyme
-var bazVar = function() { … }
+var anonymeVar = function() { … }
 // Noms des fonctions
-foo.name === "foo"
-fooVar.name === "foo"
-barVar.name === "bar"
-bazVar.name === ""
+unNom.name === "unNom"
+unNomVar.name === "autreNom"
+autreNomVar.name === "bar"
+anonymeVar.name === ""
 ```
 
 [NOTE.speaker]
@@ -114,20 +114,69 @@ http://plnkr.co/edit/TXzzaiLeYkFaJLDNyKU0[functions^]
   - Très utilisé pour les *callbacks*
 
 ```javascript
-function callServer(onSuccessFn) {
-    Ajax.get(url, function(data) {
-	     onSuccessFn(data);
+function appelServeur(succesFonction) {
+    Ajax.get(url, function(donnees) {
+	     succesFonction(donnees);
     });	
 }
-function displayResult(data) {
-    alert(data);
+function afficheResultat(resultat) {
+    alert(resultat);
 }
-callServer(displayResult);
+appelServeur(afficheResultat);
 // Fonction anonyme
-callServer(function(data) {
-    alert(data);
+appelServeur(function(donnees) {
+    alert(donnees);
 });
 ```
+
+=== Rappels +
+==== La porté des variables
+- La limite dans laquelle une variable existe est appelée portée ou *scope*
+- Visibilité des symboles au sein d'une portée
+  - Fonctions nommées : utilisable partout dans le scope (*forward-reference* possible)
+  - Variables déclarées avec `var` : le symbole existe partout dans le scope, mais sa valeur est undefined jusqu'à l'initialisation
+  - Variables sans `var` : le symbole devient une propriété de `window` et est globalement accessible (!!)
+- En Javascript, les scopes sont uniquement délimités par les corps des fonctions
+  - Pas par les accolades des blocs `if / for / while` !
+
+[NOTE.speaker]
+--
+http://plnkr.co/edit/CnfFADCWVV7WMjLlrNSv[variables^]
+http://jsbin.com/wuyaquq/edit?html,css,js,console,output[variables^]
+// Code goes here
+
+function scope() {
+    console.log("foo = "+foo);
+    console.log("answer1 = "+answer1);
+
+	var answer1 = foo(); 
+  
+    console.log("answer1 = "+answer1);
+
+	function foo() {
+		return 42;
+	}
+    console.log("foo = "+foo);
+
+	var answer2 = foo();
+   
+    console.log("answer2 = "+answer2);
+    console.log("banana = "+banana);
+
+	if (true) {
+    console.log("banana = "+banana);
+		var banana = "banana";
+    console.log("banana = "+banana);
+	}
+
+	//alert(banana);
+
+}
+scope() ;
+--
+
+=== Rappels +
+==== La porté des variables
 
 === Rappels +
 ==== La porté des variables
