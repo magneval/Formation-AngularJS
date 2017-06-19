@@ -7,7 +7,7 @@
 :revealjsdir: .
 :revealjs_history: true
 :revealjs_hideAddressBar: true
-:imagesdir: ./images
+:imagesdir: ./images/
 :source-highlighter: highlightjs
 :theme: jekyll-theme-hacker
 
@@ -19,7 +19,7 @@
 :link-qr-code: image::https://api.qrserver.com/v1/create-qr-code/?data=magneval.github.io/Formation-AngularJS/client.html&amp;size=100x100&.png[]
 
 //include::includes/include.adoc[]
-image::AngularJS-large.png[canvas,size=contain]
+image::AngularJS-large.png[logo, id="logo", name="logo"]
 
 
 == Formation AngularJS
@@ -63,23 +63,35 @@ Dans ce chapitre nous allons revoir certaines notions de Javascripts
 - Les outils du développeur
 - Les services REST
 
-=== Rappels Les fonctions
+=== Rappels +
+==== Les fonctions
 
-=== Rappels La porté des variables
+=== Rappels +
+==== La porté des variables
 
-=== Rappels Piéger des Variables
+=== Rappels +
+==== Piéger des Variables
 
-=== Rappels Le mot clef this
+=== Rappels +
+==== Le mot clef this
 
-=== Rappels le format JSon
+=== Rappels +
+==== le format JSon
 
-=== Rappels Les outils du développeur
+=== Rappels +
+==== Les outils du développeur
 
-=== Rappels Les services REST
+=== Rappels +
+==== Les services REST
+
+=== Rappels +
+==== des questions 
+image::question-mark.jpg[question, id="question", name="question"]
 
 === Rappels
+
 Dans ce chapitre nous avons vu les notions de Javascripts
-[%step]
+
 - Les fonctions
 - La porté des variables
 - Piéger des Variables
