@@ -1,0 +1,41 @@
+language: ruby
+
+rvm:
+ - 2.2
+
+bundler_args: 
+
+before_install:
+  - mkdir -p output/reveal.js
+  - git clone -b 3.3.0 --depth 1 https://github.com/hakimel/reveal.js.git
+
+script:
+ - bundle exec asciidoctor-revealjs README.adoc -D output
+
+after_success:
+  - cd output
+  - wget https://cdnjs.cloudflare.com/ajax/libs/socket.io/1.7.3/socket.io.js
+  - mkdir socket.io
+  - mv socket.io.js socket.io
+  - mv README.html index.html
+  - cp ../.gitignore .
+  - cp ../package.json .
+  - cp -R ../images images
+  - cp -R ../docs docs
+  - cp -R ../reveal.js/css .
+  - cp -R ../reveal.js/js .
+  - cp -R ../reveal.js/lib .
+  - cp -R ../reveal.js/plugin .
+  - sed -f ../Client.sed index.html >client.html
+  - sed -f ../Master.sed client.html >master.html
+  - sed -f ../Notes.sed plugin/notes-server/notes.html >notes.html
+  - sed -f ../NotesMaster.sed plugin/notes-server/notes.js > plugin/notes-server/master.js 
+  - git init
+  - git config user.name "${GH_USER_NAME}"
+  - git config user.email "{GH_USER_EMAIL}"
+  - git add . 
+  - git add reveal.js 
+  - git add socket.io 
+  - git commit -m "Deploy to GitHub Pages"
+  - git push --force --quiet "https://${GH_TOKEN}@${GH_REF}" master:gh-pages > /dev/null 2>&1
+ 
