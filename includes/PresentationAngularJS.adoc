@@ -1,0 +1,143 @@
+:chapter: AngularJS
+
+include::./IntroChapitres.adoc[]
+
+=== AngularJS
+
+image::AngularJS-Shield-medium.png[canvas, float="right", align="center"]
+[horizontal]
+Développé par:: Google
+Versions:: {AngularJsLegacyVersion} (legacy) ou   {AngularJsVersion} (stable)
+Site:: https://angularjs.org
+Code:: https://github.com/angular/angular.js
+Documentation::
+** API : https://docs.angularjs.org/api
+** Blog : http://blog.angularjs.org
+
+
+
+=== AngularJS
+* AngularJS est un framework "full stack" : +
+ il intègre l'ensemble des composants nécessaires à la réalisation d'applications riches
+** Routage par URL (deep-linking)
+** Contrôleurs Javascript
+** Templates HTML
+** Directives (composants personnalisés)
+** Gestion des ressources REST
+** IOC
+** Tests unitaires et de bout en bout
+** ...
+
+
+
+=== AngularJS
+==== Points forts
+* *Javascript pur*
+
+Adhérence technique limitée, réactivité de l'interface
+
+* *Deep-linking*
+
+Les URLs des "pages" de l'application peuvent être bookmarkées
+
+* *Testabilité*
+
+Possibilité de jouer des tests unitaires ou de bout en bout
+
+* *Binding automatique*
+
+Binding automatique et bi-directionnel entre les placeholders des vues, et avec le modèle du contrôleur
+
+
+
+=== AngularJS
+==== Cas d'utilisation
+* Utilisable
+** *Localement* pour rendre dynamique un fragment de page `templating`, composants...
+** *Globalement* pour structurer une application full-Javascript MVC2 (routage, contrôleurs, templates, ressources REST...)
+* Aussi simple ou complexe que nécessaire !
+
+
+
+=== AngularJS
+==== concepts : Contrôleur
+* *Contrôleur*
+** Fonction Javascript contenant les données et la logique d'affichage relatives à un `scope`
+** Peut accéder à toutes les variables déclarées dans le contrôleur ou dans la vue gérée par le contrôleur
+* <<ControlleursScopes,Contrôleur>>
+
+
+
+=== AngularJS
+==== concepts : Service
+* *Service*
+** Comme son équivalent côté serveur, un service Angular représente un ensemble cohérent de fonctionnalités
+** Le module ng fournit un grand nombre de services $document, $http, $location, $parse, $route, $window...
+** Ce sont des singletons, injectés par IOC dans les contrôleurs
+* <<ModulesServices,Service>>
+
+
+
+=== AngularJS
+==== concepts : Directive
+* *Directive*
+** Une directive encapsule du code et/ou de la logique d'affichage qu'on associe à une balise ou un paramètre dans la page
+** Cela permet de créer des composants auto-contenus et réutilisables
+*** Bibliothèque de widgets prêts à l'emploi
+	- Handlers génériques pour certains événements
+* <<Directives,Directive>>
+
+
+
+=== AngularJS
+==== concepts : Filtre
+* *Filtre*
+** Un filtre est un composant permettant d'appliquer des transformations de données de manière déclarative directement dans la vue
+*** Mettre en forme des dates, des montants
+	- Filtrer ou ordonner une liste
+* <<Filtres,Filtre>>
+
+
+
+=== AngularJS
+==== concepts : Module
+* *Module*
+** Groupement logique de services, contrôleurs, directives et filtres
+** Configure également le mécanisme d'IOC permettant de les injecter dans les différents composants de l'application
+** On peut utiliser seulement le module par défaut, ou utiliser un module spécifique (toutes les applications non-triviales)
+** Un module peut dépendre d'autres modules
+*** Ex: myApp → myServices → ngResource
+* <<ModulesServices,Module>>
+
+
+
+=== AngularJS
+==== concepts : Ressource
+* *Ressource*
+** Permet d'accéder à une ressource serveur exposée en REST
+** Fournit des opérations de type CRUD (Create, Read, Update, Delete) par défaut, et autorise la création d'actions personnalisées
+* <<Ressources,Ressource>>
+
+
+
+=== AngularJS
+==== Forces
+** Framework complet
+** Peu intrusif
+** Bonne documentation / Tutoriaux
+** Architecture (Injection de dépendances, MVC)
+** Templates (HTML)
+
+=== AngularJS
+==== Faiblesses
+** <<Routeur,Routage>>
+** <<I18N,I18N>> (partiellement géré par défaut)
+** Directives et binding (difficile à appréhender lorsque l’on est habitué à la logique événementielle de jQuery)
+** Performances (si page lourde et non optimisé)
+** Navigateur < IE8 (pour qui ce n’est pas un problème ?)
+
+=== AngularJS
+==== Conclusion
+** LE framework par excellence pour les applications “single page” (porté par Google) et également un compagnon idéal pour l’intégration dans des applications “page par page” (très peu intrusif)
+
+include::./ConclusionChapitres.adoc[]

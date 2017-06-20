@@ -1,0 +1,9 @@
+=== {chapter} +
+==== des questions 
+image::question-mark.jpg[question, id="question", name="question"]
+
+=== {chapter}
+
+Dans ce chapitre nous avons vu les notions de suivantes
+
+include::./Plan{chapter}.adoc[]

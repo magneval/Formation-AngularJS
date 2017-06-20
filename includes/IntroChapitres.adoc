@@ -1,0 +1,6 @@
+== {chapter}
+
+=== {chapter}
+Dans ce chapitre nous allons voir les points suivants
+[%step]
+include::./Plan{chapter}.adoc[]
