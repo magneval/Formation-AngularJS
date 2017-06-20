@@ -40,50 +40,50 @@ image::https://api.qrserver.com/v1/create-qr-code/?data=magneval.github.io/Forma
 
 === Plan
 [%step]
-- Rappels
-- AngularJS
-- Premiers pas
-- Contrôleurs et Scopes
-- Routeur
-- Modules et Services
-- Formulaires
-- Architectures REST
+* Rappels
+* AngularJS
+* Premiers pas
+* Contrôleurs et Scopes
+* Routeur
+* Modules et Services
+* Formulaires
+* Architectures REST
 
 === Plan
 [%step]
-- I18N
-- Filtres
-- Directives
-- Authentification
-- Tests
-- Au-delà d'AngularJS
+* I18N
+* Filtres
+* Directives
+* Authentification
+* Tests
+* Au-delà d'AngularJS
 
 == Rappels
 
 === Rappels
 Dans ce chapitre nous allons revoir certaines notions de Javascripts
 [%step]
-- Les fonctions
-- La porté des variables
-- Piéger des Variables
-- Le mot clef this
-- le format JSon
-- Les outils du développeur
-- Les services REST 
+* Les fonctions
+* La porté des variables
+* Piéger des Variables
+* Le mot clef this
+* le format JSon
+* Les outils du développeur
+* Les services REST 
 
 === Rappels +
 ==== Les fonctions
-- Une fonction est définie par
-  * le mot-clé *function*
-  * un nom optionnel
-  * une liste optionnelle de paramètres entre parenthèses
-  * un corps entre accolades
-- Une fonction sans nom est dite anonyme
-- La propriété *name* d'une fonction donne son nom
+* Une fonction est définie par
+** le mot-clé *function*
+** un nom optionnel
+** une liste optionnelle de paramètres entre parenthèses
+** un corps entre accolades
+* Une fonction sans nom est dite anonyme
+* La propriété *name* d'une fonction donne son nom
 
 === Rappels +
 ==== Les fonctions
-- Une fonction peut être assignée à une variable
+* Une fonction peut être assignée à une variable
 
 ```javascript
 // Fonction nommée "unNom"
@@ -111,7 +111,7 @@ http://plnkr.co/edit/TXzzaiLeYkFaJLDNyKU0[functions^]
 
 === Rappels +
 ==== Les fonctions
-- Il est possible de passer une fonction en paramètre d'une autre fonction
+* Il est possible de passer une fonction en paramètre d'une autre fonction
 
 ```javascript
 function appelServeur(succesFonction) {
@@ -136,16 +136,16 @@ Très utilisé pour les *callbacks*
 
 === Rappels +
 ==== La porté des variables
-- La limite d'existance 'une variable est appelée    *scope*
-- Visibilité des symboles au sein d'une portée
-  * Fonctions nommées : utilisable partout dans le scope (*forward-reference* possible)
-  * `var` Variables : le symbole existe partout dans le scope, mais sa valeur est undefined jusqu'à l'initialisation
-  * [line-through]#var# Variables : le symbole devient une propriété de `window` et est globalement accessible (!!)
+* La limite d'existance 'une variable est appelée    *scope*
+* Visibilité des symboles au sein d'une portée
+** Fonctions nommées : utilisable partout dans le scope (*forward-reference* possible)
+** `var` Variables : le symbole existe partout dans le scope, mais sa valeur est undefined jusqu'à l'initialisation
+** [line-through]#var# Variables : le symbole devient une propriété de `window` et est globalement accessible (!!)
 
 [NOTE.speaker]
 --
-- En Javascript, les scopes sont uniquement délimités par les corps des fonctions
-  * Pas par les accolades des blocs `if / for / while` !
+* En Javascript, les scopes sont uniquement délimités par les corps des fonctions
+** Pas par les accolades des blocs `if / for / while` !
 --
 
 === Rappels +
@@ -155,36 +155,25 @@ Très utilisé pour les *callbacks*
 function scope() {
     console.log("foo = "+foo);
     console.log("answer1 = "+answer1);
-
-	var answer1 = foo(); 
-  
+    var answer1 = foo(); 
     console.log("answer1 = "+answer1);
-
-	function foo() {
-		return 42;
-	}
+    function foo() { return 42; }
     console.log("foo = "+foo);
-
-	var answer2 = foo();
-   
+    var answer2 = foo();
     console.log("answer2 = "+answer2);
     console.log("banana = "+banana);
-
-	if (true) {
-    console.log("banana = "+banana);
-		var banana = "banana";
-    console.log("banana = "+banana);
-	}
-
-	//alert(banana);
-
+    if (true) {
+        console.log("banana = "+banana);
+        var banana = "banana";
+        console.log("banana = "+banana);
+    }
 }
 scope() ;
 ```
 
 [NOTE.speaker]
 --
-http://plnkr.co/edit/CnfFADCWVV7WMjLlrNSv[variables^]
+http://plnkr.co/edit/D0DGcPQr8g4lRKz32uLM[variables^]
 http://jsbin.com/wuyaquq/edit?html,css,js,console,output[variables^]
 --
 
@@ -209,14 +198,133 @@ undefined
 === Rappels +
 ==== Piéger des Variables
 
-Le moteur Javascript permet lors de l'analyse du code de "pièger" la référence une variable.
+* Le moteur Javascript permet lors de l'analyse du code de "pièger" la référence une variable.
+* Une fonction référence le scope dans laquelle elle est déclarée pour son une utilisation future.
+* ce principe est appeler *closure*
 
+[NOTE.speaker]
+--
+Ce concept est très utilisé avec AngularJS
+Attention, il s'agit bien des pointeurs qui sont capturés
+
+https://openclassrooms.com/courses/les-closures-en-javascript[doc]
+--
+    
+=== Rappels +
+==== Piéger des Variables
+```javascript
+function additionFactory(x) {
+  return function(y) {
+    return x + y;
+  };
+};
+
+var ajouter5 = additionFactory(5);
+var ajouter10 = additionFactory(10);
+
+console.log(ajouter5(2));  // 7
+console.log(ajouter10(2)); // 12
+```
+
+[NOTE.speaker]
+--
+http://plnkr.co/edit/YGfJgJziHuy89JD5Th6u[exemple]
+--
 
 === Rappels +
 ==== Le mot clef this
+* En JavaScript this se rapporte toujours au « propriétaire » de la fonction que nous exécutons, ou plutôt, à l'objet dont la fonction est une méthode.
+** En tant que méthode d'un objet : `this =` l'objet
+** En tant que constructeur ("new") : `this =` l'objet créé
+* Il est possible de spécifier l'objet auquel `this` fait référence en utilisant la méthode `call()`
+
+[NOTE.speaker]
+--
+http://www.misfu.com/static/Javascript/this.html[doc]
+--
+
+=== Rappels +
+==== Le mot clef this
+```javascript
+function test() { alert(this); }
+
+test();                         // this = "window"
+var object = { essai: test };
+object.essai();                 // this = object
+test.call(object);              // this = object
+element.onclick = test;         // this = element
+```
+
+```html
+<element onclick="test()">      // this = "window"
+```
+
+[NOTE.speaker]
+--
+http://plnkr.co/edit/kCtZ7PviCaL1qNsOdTph[demo]
+--  
 
 === Rappels +
 ==== le format JSon
+**J**ava**S**cript **O**bject **N**otation (JSON):: 
+format de données textuelles dérivé de la notation des objets du langage JavaScript
+soit un tableaux::
+  ["elem1","elem2"]
+soit un Objet::
+  {"nom":"valeur"}
+
+[NOTE.speaker]
+--
+* les sous éléments peuvent être soit des tableaux, des Objets, ou des types de bases
+* extension : `.json`
+* media type : `application/json`
+--  
+
+=== Rappels +
+==== le format JSon
+[[app-listing]]
+[source,json]
+.menu.json
+----
+{
+    "value": "file",
+    "menuitem": [
+        { "value": "New", "onclick": "CreateNewDoc()" },
+        { "value": "Open", "onclick": "OpenDoc()" },
+        { "value": "Close", "onclick": "CloseDoc()" }
+    ]
+}
+----
+
+=== Rappels +
+==== le format JSon
+* parsing original
+    var donnees = eval('('+donnees_json+')');
+* version conseillé
+    var donnees = JSON.parse(donnees_json);
+
+=== Rappels +
+==== le format JSonP
+**J**ava**S**cript **O**bject **N**otation with **P**adding (JSONP)::
+format de données JSON "Paddé" par une methode callback
+[[app-listing]]
+[source,js]
+----
+showMenu({
+    "value": "file",
+    "menuitem": [
+        { "value": "New", "onclick": "CreateNewDoc()" },
+        { "value": "Open", "onclick": "OpenDoc()" },
+        { "value": "Close", "onclick": "CloseDoc()" }
+    ]
+})
+----
+
+[NOTE.speaker]
+--
+http://plnkr.co/edit/j3gyytvfwo5he2new4n5[demo]
+--  
+
 
 === Rappels +
 ==== Les outils du développeur
@@ -232,13 +340,13 @@ image::question-mark.jpg[question, id="question", name="question"]
 
 Dans ce chapitre nous avons vu les notions de Javascripts
 
-- Les fonctions
-- La porté des variables
-- Piéger des Variables
-- Le mot clef this
-- le format JSon
-- Les outils du développeur
-- Les services REST
+* Les fonctions
+* La porté des variables
+* Piéger des Variables
+* Le mot clef this
+* le format JSon
+* Les outils du développeur
+* Les services REST
 
 [NOTE.speaker]
 --
