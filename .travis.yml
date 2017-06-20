@@ -16,6 +16,7 @@ after_success:
   - cp ./.gitignore ./output
   - cp ./package.json ./output
   - cp -R ./css ./output
+  - cp -R ./js ./output
   - cp -R ./images ./output
   - cp -R ./docs ./output
   - cp -R ./reveal.js/css ./output/reveal.js
