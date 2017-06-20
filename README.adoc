@@ -268,17 +268,39 @@ http://plnkr.co/edit/kCtZ7PviCaL1qNsOdTph[demo]
 ==== le format JSon
 **J**ava**S**cript **O**bject **N**otation (JSON):: 
 format de données textuelles dérivé de la notation des objets du langage JavaScript
-soit un tableaux::
+
+[horizontal]
+extension::
+`.json`
+media type::
+`application/json`
+
+=== Rappels +
+==== le format JSon
+
+* les données sont soit sous forme de tableaux, soit sous forme d'objets
+
+Tableaux::
   ["elem1","elem2"]
-soit un Objet::
+Objet::
   {"nom":"valeur"}
 
 [NOTE.speaker]
 --
-* les sous éléments peuvent être soit des tableaux, des Objets, ou des types de bases
-* extension : `.json`
-* media type : `application/json`
+les éléments de tableau peuvent être des objets
 --  
+
+=== Rappels +
+==== le format JSon
+
+* les sous éléments peuvent être soit
+** des tableaux,
+** des Objets,
+** des types de bases :
+*** Nombre
+*** Booléen
+*** Chaîne
+*** null
 
 === Rappels +
 ==== le format JSon
@@ -288,7 +310,7 @@ soit un Objet::
 ----
 {
     "value": "file",
-    "menuitem": [
+    "menuItem": [
         { "value": "New", "onclick": "CreateNewDoc()" },
         { "value": "Open", "onclick": "OpenDoc()" },
         { "value": "Close", "onclick": "CloseDoc()" }
@@ -298,26 +320,33 @@ soit un Objet::
 
 === Rappels +
 ==== le format JSon
-* parsing original
+parsing original::
     var donnees = eval('('+donnees_json+')');
-* version conseillé
+
+version conseillé::
     var donnees = JSON.parse(donnees_json);
+
+
+* attention à la sécurité
 
 === Rappels +
 ==== le format JSonP
 **J**ava**S**cript **O**bject **N**otation with **P**adding (JSONP)::
 format de données JSON "Paddé" par une methode callback
+
 [[app-listing]]
 [source,js]
 ----
-showMenu({
-    "value": "file",
-    "menuitem": [
-        { "value": "New", "onclick": "CreateNewDoc()" },
-        { "value": "Open", "onclick": "OpenDoc()" },
-        { "value": "Close", "onclick": "CloseDoc()" }
-    ]
-})
+showMenu(
+    {
+        "value": "file",
+        "menuitem": [
+            { "value": "New", "onclick": "CreateNewDoc()" },
+            { "value": "Open", "onclick": "OpenDoc()" },
+            { "value": "Close", "onclick": "CloseDoc()" }
+        ]
+    }
+)
 ----
 
 [NOTE.speaker]
@@ -325,12 +354,127 @@ showMenu({
 http://plnkr.co/edit/j3gyytvfwo5he2new4n5[demo]
 --  
 
+=== Rappels +
+==== Les outils du développeur
+* Il existe plusieurs moyen de débugger le JavaScript :
+avec la fonction alert::
+
+```javascript
+alert("Hello world");
+```
+
+en ecrivant dans la console::
+
+```javascript
+console.log("Hello world");
+```
 
 === Rappels +
 ==== Les outils du développeur
 
+* Tous les navigateurs récents proposent également des outils d'analyse et de débuggage, accessibles via `F12`
+** Webkit (Chrome, Safari, Opera) : Web Developer Tools
+** Firefox : Firebug (+ plugins)
+** Internet Explorer : "F12 Tools"
+
+* Il existe aussi des pluggins qui permettent de débugger depuis l'IDE
+
+
+=== !
+
+image::DebuggueurF12.png[background, size=cover]
+
+=== Rappels +
+==== Les outils du développeur
+* *Batarang* est un inspecteur Web pour AngularJS
+** c'est une extention pour les outils basé sur Webkit
+** Il présente les scopes, les modèles et les services, et de mesurer les performances 
+
+=== !
+
+image::batarang_closeup.png[canvas,size=contain]
+
 === Rappels +
 ==== Les services REST
+REST (**RE**presentational **S**tate **T**ransfer):: Architecture pour les systèmes *hypermédia* distribués
+
+
+* doit respecter les contraintes suivantes :
+** Client-serveur Sans état auto-descriptif (cachable)
+** l'identification et la manipulation des ressources
+** Un système hiérarchisé par couches hypermédia
+** Code-on-demand (facultatif)
+
+[NOTE.speaker]
+--
+https://fr.wikipedia.org/wiki/Representational_state_transfer
+--
+
+=== Rappels +
+==== Les services REST
+* L'architecture REST s'appuie sur le protocole HTTP :
+** L'URL definie l'organisation des ressources
+** les méthodes HTTP definisse les action à mener :
+*** GET:: Liste ou Récupére des ressources
+*** POST:: Crée une nouvelle ressources
+*** PUT:: remplace une ressource exixtente
+*** DELETE:: suprime une ressource
+
+[NOTE.speaker]
+--
+une ressource ou une collection en fonction de l'URL
+--
+
+=== Rappels +
+==== Les services REST
+HATEOAS (**H**ypermedia **A**s **T**he **E**ngine **O**f **A**pplication **S**tate):: Hypermédia en tant que moteur de l'état d'application
+
+
+* Le type de contenu est négocié entre le client et le serveur (XML, JSON, YAML, Texte, CSV, Objets, ...)
+* les liens vers les autres ressources peuvent faire partie de la réponse
+** basé sur les standards ( XHTML Friends Network, Atom, RDF, ...)
+** apporte de la sémantique aux ressources
+
+
+[NOTE.speaker]
+--
+apporte de la sémantique aux ressources
+description dans la réponse plutôt que par la définition d'interface
+permet l'extensibilité
+ex: commande V1/V2
+--
+=== Rappels +
+==== Les services REST
+```HTTP
+GET /accounts/12345 HTTP/1.1
+Host: my.bank.com
+Accept: application/xml
+```
+
+```HTTP
+HTTP/1.1 200 OK
+Content-Type: application/xml
+Content-Length: ...
+```
+
+=== Rappels +
+==== Les services REST
+
+```XML
+<?xml version="1.0"?>
+<account>
+   <account_number>12345</account_number>
+   <balance currency="usd">100.00</balance>
+   <link rel="Contents" href="https://my.bank.com/accounts/" />
+   <link rel="deposit"
+        href="https://my.bank.com/accounts/12345/deposit" />
+   <link rel="withdraw"
+        href="https://my.bank.com/accounts/12345/withdraw" /> 
+   <link rel="transfer"
+        href="https://my.bank.com/accounts/12345/transfer" />
+...
+```
+
 
 === Rappels +
 ==== des questions 
@@ -352,3 +496,7 @@ Dans ce chapitre nous avons vu les notions de Javascripts
 --
 http://plnkr.co/edit/HHEk8Tg0C0UVKoxg01E6
 --
+
+== AngularJS
+
+=== AngularJS
