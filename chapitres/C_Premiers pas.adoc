@@ -42,7 +42,7 @@
 ** Page complète ou fragment
 ** Complété par des bindings et/ou directives AngularJS
 ** Peut rester valide au sens HTML
-    - Utilisation de data-*, des classes CSS...
+*** Utilisation de data-*, des classes CSS...
 * Au sein d'un template, un binding permet d'indiquer la présence d'un élément dynamique
 ** Lié à un modèle défini sur un *scope*
 ** Plusieurs notations disponibles
@@ -88,12 +88,12 @@
 === Templates et Bindings : Autres types de bindings
 * Autres types de bindings
 ** `ng-bind-html`
-    - Interprètent le binding comme du code HTML et supprime les éléments dangereux (voir $sanitize)
+*** Interprètent le binding comme du code HTML et supprime les éléments dangereux (voir $sanitize)
     ```
     <span ng-bind-html="comment"></span>
     ```
 ** `ng-bind-template`
-    - Permet de fournir un template, dans les cas où il est impossible de placer des `<span>` (ex : dans `<title>`)
+*** Permet de fournir un template, dans les cas où il est impossible de placer des `<span>` (ex : dans `<title>`)
     ```
     <title ng-bind-template="{{site}} - {{page}}"></title>
     ```

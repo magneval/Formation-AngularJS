@@ -260,11 +260,11 @@ describe('directives', function() {
 === Tests E2E : API
 * Sélections
 ** locators WebDriver
-    - `element(by.id('foo'))`
-    - `element(by.className('foo'))`
+*** `element(by.id('foo'))`
+*** `element(by.className('foo'))`
 ** locators Protractor (spécifiques Angular)
-    - `element(by.model('contact.name'))`
-    - `element(by.binding('contact.name'))`
+*** `element(by.model('contact.name'))`
+*** `element(by.binding('contact.name'))`
 
 
 

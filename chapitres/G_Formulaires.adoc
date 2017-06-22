@@ -180,10 +180,10 @@ Validateur "required" en erreur ?
 === Validation : État du formulaire et des champs
 * AngularJS expose 4 propriétés au niveau du formulaire et de chacun des champs de saisie
 ** `$valid` / `$invalid`
-    - Indiquent si l'élément passe le contrôle des validateurs
+*** Indiquent si l'élément passe le contrôle des validateurs
 ** `$pristine` / `$dirty`
-    - Indiquent si l'utilisateur a altéré l'élément 
-    - Un élément est considéré dirty dès qu'il subit une modification, même si la valeur initiale est restaurée ensuite
+*** Indiquent si l'utilisateur a altéré l'élément 
+*** Un élément est considéré dirty dès qu'il subit une modification, même si la valeur initiale est restaurée ensuite
 * Les classes CSS correspondantes sont appliquées aux éléments
 ** `ng-valid`, `ng-invalid`, `ng-pristine`, `ng-dirty`
 

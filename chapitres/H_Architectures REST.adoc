@@ -218,9 +218,9 @@ return $resource(
 * Paramétrage des actions préconfigurées
 ** `url` : l'URL de la ressource
 ** `method` : 
-    - `get`, `query` → GET
-    - `remove`, `delete` → DELETE
-    - `save` → POST
+*** `get`, `query` → GET
+*** `remove`, `delete` → DELETE
+*** `save` → POST
 
 
 
