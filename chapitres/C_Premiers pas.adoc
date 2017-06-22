@@ -1,6 +1,6 @@
 === Intégration
-* Avant de pouvoir utiliser AngularJS, il faut l'importer et l'activer dans la page
-* AngularJS est composé de plusieurs scripts, disponibles en version normale (développement) ou minifiée (production)
+* Avant de pouvoir utiliser AngularJS, il faut l'importer
+* AngularJS est composé de plusieurs scripts, soit en version développement ou minifiée (production)
 ** angular.js, angular-resource.js, angular-mocks.js...
 ** Permet d'optimiser le chargement de l'application
 * A déclarer de préférence à la fin de la page HTML
@@ -14,12 +14,15 @@
 </html>
 ```
 
-
+[NOTE.speaker]
+--
+Avant de pouvoir utiliser AngularJS, il faut l'importer et l'activer dans la page
+--
 
 === Activation
 * Une fois AngularJS importé, il faut l'activer dans la page
 ** Directive `ng-app`
-** Généralement placée sur la balise `<html>`
+** Généralement placée sur la balise `<html>` ou  `<body>`
 
 ```
 <html ng-app>
@@ -27,7 +30,7 @@
 </html>
 ```
 
-* Il est également possible de charger un module personnalisé (plus d'informations dans le chapitre sur les modules)
+* Il est également possible de charger un module personnalisé (CF. le chapitre sur les modules)
 
 ```
 <html ng-app="myModule">
@@ -37,13 +40,13 @@
 
 
 
-=== Templates et Bindings : Template
+=== Templates et Bindings :
+==== Template
 * Un *template* est un modèle de document
 ** Page complète ou fragment
 ** Complété par des bindings et/ou directives AngularJS
-** Peut rester valide au sens HTML
-*** Utilisation de data-*, des classes CSS...
-* Au sein d'un template, un binding permet d'indiquer la présence d'un élément dynamique
+** Doit être valide au sens HTML5 (data-...,CSS)
+* des bindings permettent d'indiquer les éléments dynamiques
 ** Lié à un modèle défini sur un *scope*
 ** Plusieurs notations disponibles
 
@@ -51,86 +54,109 @@
 
 === Templates et Bindings : Bindings
 * Plusieurs notations possibles pour un binding
-** Placeholder à accolades
-  ```
-  Hello {{name}}
-  ```
-** Attribut de balise (notation data-* valide HTML5)
-  ```
-  Hello <span ng-bind="name"></span>
-  Hello <span data-ng-bind="name"></span>
-  ```
+** Placeholder à accolades 
+
+```html
+Hi {{name}}
+```
+
+** Attribut de balise
+
+```html
+Hi <span ng-bind="name"></span>
+```
+
+```html
+Hi <span data-ng-bind="name"></span>
+```
+
 ** Classe CSS
-  ```
-  Hello <span class="ng-bind:name"></span>
-  ```
 
+```html
+Hi <span class="ng-bind:name"></span>
+```
 
+[NOTE.speaker]
+--
+(notation data-* valide HTML5)
+--
 
-=== Templates et Bindings : Cloaking
-* Les bindings de type {{foo}} peuvent être aperçus par l'utilisateur pendant une fraction de seconde avant qu'AngularJS ne les remplace par leur valeur
+=== Templates et Bindings :
+==== Cloaking
+* Les bindings de type ``{{name}}`` peuvent être aperçus par l'utilisateur pendant une instant avant qu'AngularJS ne les remplace par leur valeur
 * Solutions
 ** Utiliser les autres formes de binding
 ** Utiliser `ng-cloak` sur une balise parente pour la masquer temporairement
+
+=== Templates et Bindings :
+==== Cloaking
   
-```
-<div ng-cloak>
-	Hello {{name}}
+```html
+<div data-ng-cloak>
+    Hello {{name}}
 </div>
+```
 
+```html
 <div class="ng-cloak">
-	Hello {{name}}
+    Hello {{name}}
 </div>
 ```
 
-
-
-=== Templates et Bindings : Autres types de bindings
+=== Templates et Bindings :
+==== Autres types de bindings
 * Autres types de bindings
 ** `ng-bind-html`
 *** Interprètent le binding comme du code HTML et supprime les éléments dangereux (voir $sanitize)
-    ```
-    <span ng-bind-html="comment"></span>
-    ```
+```html
+<span data-ng-bind-html="comment"></span>
+```
+
+=== Templates et Bindings :
+==== Autres types de bindings
 ** `ng-bind-template`
 *** Permet de fournir un template, dans les cas où il est impossible de placer des `<span>` (ex : dans `<title>`)
-    ```
-    <title ng-bind-template="{{site}} - {{page}}"></title>
-    ```
+```html
+<title data-ng-bind-template="{{site}} - {{page}}"></title>
+```
 
 
 
-=== Templates et Bindings : Les modèles
-* Pour définir un modèle sur le scope courant (pour l'instant, celui de l'application, c'est-à-dire le scope racine `$rootScope`)
+=== Templates et Bindings :
+==== Les modèles
+* Pour définir un modèle sur le scope courant (pour l'instant, le scope racine `$rootScope`)
 ** `ng-init`
-  
-  Généralement placé sur la balise body
-  ```
-  <body ng-init='fruit="banana"'>
-  ```
+Généralement placé sur la balise body
+```html
+<body ng-init='name="Charles"'>
+```
+
 ** `ng-model`
-  
-  Utilisable sur les balises input, select, textarea
-  ```
-  <input type="text" ng-model="name"/>
-  Hello {{name}} !
-  ```
+Utilisable sur les balises de formulaire 
+*** input, select, textarea
+```html
+<input type="text" ng-model="name"/>
+Hello {{name}} !
+```
 
-
+[NOTE.speaker]
+--
+pour l'instant, celui de l'application, c'est-à-dire le scope racine `$rootScope`
+--
 
 === Gestion des listes
 * La directive `ng-repeat` permet d'afficher des listes (appliquer sur l'élément à répéter)
-```
+```html
 <ul>
-	<li ng-repeat="name in names"> {{name}} </li>
+    <li ng-repeat="name in names"> {{name}} </li>
 </ul>
 ```
 * Fonctionne également avec des maps
-```
+```html
 <ul>
-	<li ng-repeat="(name,age) in people">
-		{{name}} is {{age}}
-	</li>
+    <li ng-repeat="(name,age) in people">
+        {{name}} is {{age}}
+    </li>
 </ul>
 ```
 
@@ -143,10 +169,10 @@
 ** `$middle` (booléen) : si c'est un élément intermédiaire
 ** `$last` (booléen) : si c'est le dernier élément
 * Exemple : combinaison avec `ng-show` / `ng-hide`
-```
+```html
 <span ng-repeat="name in ['you','me','them']">
     {{name}} 
-	<span ng-hide="$last">,</span>
+    <span ng-hide="$last">,</span>
 </span>
 // you, me, them
 ```
@@ -161,24 +187,21 @@
 ** filter, limitTo, orderBy
 ** json
 * Syntaxe
-```
+```javascript
 {{ expression | filtre1 | filtre2:param1:param2 }}
 ```
 
-
-
 === Filtres
-<br/>
-```
+```html
 <ul ng-init="people=[{name:'you'},{name:'me'},{name:'them'}]">
 	<li ng-repeat="p in people | orderBy:'name'">
 		{{p.name | uppercase}}
 	</li>
 </ul>
 ```
-<figure>
-    <img src="ressources/images/uppercase.png" width="10%" style="position: absolute; top: 180px; right: 0; border: 1px solid black;"/>
-</figure>
+image::uppercase.png[uppercase, id="uppercase", name="uppercase"]
+
+=== Filtres
 
 ```
 <input type="text" ng-model="nameFilter"/>
@@ -188,44 +211,55 @@
 	</li>
 </ul>
 ```
-<figure>
-    <img src="ressources/images/sansFiltre.png" width="20%" style="display: block; float: left; margin: 0 100px; width: 25%; border: 1px solid black;"/>
-</figure>
+[.float-group]
+--
+[.left]
+.sans Filtre
+image::sansFiltre.png[sans Filtre]
 
-<figure>
-    <img src="ressources/images/avecFiltre.png" width="20%" style="display: block; float: left; margin: 0 100px; width: 25%; border: 1px solid black;"/>
-</figure>
-
-
+[.left]
+.avec Filtre
+image::avecFiltre.png[avec Filtre]
+--
 
 === Quelques directives utiles (1/3)
-* `ng-switch`
-** Ajout d'une structure DOM parmi plusieurs possibles en fonction d'une expression.
-** La directive s'appuie sur le pattern on/when/default
-* `ng-if`
-** Ajout ou suppression d'une partie du DOM en fonction d'une expression
-** A la différence des directives `ng-show` / `ng-hide`, les éléments HTML sont recréés plutôt simplement masqués
+* `ng-style`
+** Applique un style CSS à l'élément :
+```
+ng-style="myStyle"
+myStyle = {
+    color:'red',
+    margin:0
+}
+```
+* `ng-class`
+** Modifient la classe CSS de l'élément soit :
+*** par un nom de classe
+*** par une pair classe/condition
+
+
+[NOTE.speaker]
+--
+** `ng-class-even` / `ng-class-odd` (dans un `ng-repeat`)
+--
+
+=== Quelques directives utiles (2/3)
+* `ng-href` / `ng-src`
+** Garantissent que les attributs href et src ayant des placeholders ```{{foo}}``` seront bien évalué
+* `ng-show` / `ng-hide`
+** Affiche ou masque l'élément en fonction d'une expression
 * `ng-include`
 ** Compilation et ajout d'un fragment HTML externe
 
-
-
-=== Quelques directives utiles (2/3)
-* `ng-show` / `ng-hide`
-** Affiche ou masque l'élément en fonction d'une expression
-* `ng-href` / `ng-src`
-** Garantissent que les attributs href et src incorporant des placeholders {{foo}} seront bien calculés avant d'être utilisables
-* `ng-style`
-** Applique un style CSS à l'élément, sous la forme d'une map de propriétés : ng-style="myStyle" myStyle = {color:'red', margin:0}
-
-
-
 === Quelques directives utiles (3/3)
-* `ng-class`
-** `ng-class-even` / `ng-class-odd` (dans un `ng-repeat`)
-** Modifient la classe CSS de l'élément
+* `ng-if`
+** Ajout ou suppression d'une partie du DOM en fonction d'une expression
+** A la différence des directives `ng-show` / `ng-hide`, les éléments HTML sont recréés plutôt simplement masqués
+* `ng-switch`
+** La directive s'appuie sur le pattern on/when/default
+** Ajout d'une structure DOM parmi plusieurs possibles en fonction d'une expression.
 
-tp1
+include::../includes/TPs.adoc[]
 
 
 [NOTE.speaker]

@@ -45,13 +45,15 @@ Binding automatique et bi-directionnel entre les placeholders des vues, et avec 
 ** *Globalement* pour structurer une application full-Javascript MVC2 (routage, contrôleurs, templates, ressources REST...)
 * Aussi simple ou complexe que nécessaire !
 
-=== concepts : Contrôleur
+=== concepts :
+==== Contrôleur
 * *Contrôleur*
 ** Fonction Javascript contenant les données et la logique d'affichage relatives à un `scope`
 ** Peut accéder à toutes les variables déclarées dans le contrôleur ou dans la vue gérée par le contrôleur
 * <<ControlleursScopes,Contrôleur>>
 
-=== concepts : Service
+=== concepts :
+==== Service
 * *Service*
 ** Comme son équivalent côté serveur, un service Angular représente un ensemble cohérent de fonctionnalités
 ** Le module ng fournit un grand nombre de services $document, $http, $location, $parse, $route, $window...
@@ -66,7 +68,8 @@ Binding automatique et bi-directionnel entre les placeholders des vues, et avec 
 	- Handlers génériques pour certains événements
 * <<Directives,Directive>>
 
-=== concepts : Filtre
+=== concepts :
+==== Filtre
 * *Filtre*
 ** Un filtre est un composant permettant d'appliquer des transformations de données de manière déclarative directement dans la vue
 *** Mettre en forme des dates, des montants
@@ -82,25 +85,27 @@ Binding automatique et bi-directionnel entre les placeholders des vues, et avec 
 *** Ex: myApp → myServices → ngResource
 * <<ModulesServices,Module>>
 
-=== concepts : Ressource
+=== concepts :
+==== Ressource
 * *Ressource*
 ** Permet d'accéder à une ressource serveur exposée en REST
 ** Fournit des opérations de type CRUD (Create, Read, Update, Delete) par défaut, et autorise la création d'actions personnalisées
 * <<Ressources,Ressource>>
 
 === Forces
-** Framework complet
-** Peu intrusif
-** Bonne documentation / Tutoriaux
-** Architecture (Injection de dépendances, MVC)
-** Templates (HTML)
+* Framework complet
+* Peu intrusif
+* Bonne documentation / Tutoriaux
+* Architecture (Injection de dépendances, MVC)
+* Templates (HTML)
 
 === Faiblesses
-** <<Routeur,Routage>>
-** <<I18N,I18N>> (partiellement géré par défaut)
-** Directives et binding (difficile à appréhender lorsque l’on est habitué à la logique événementielle de jQuery)
-** Performances (si page lourde et non optimisé)
-** Navigateur < IE8 (pour qui ce n’est pas un problème ?)
+* <<Routeur,Routage>>
+* <<I18N,I18N>> (partiellement géré par défaut)
+* Directives et binding (difficile à appréhender lorsque l’on est habitué à la logique événementielle de jQuery)
+* Performances (si page lourde et non optimisé)
+* Navigateur < IE8 (pour qui ce n’est pas un problème ?)
 
 === Conclusion
-** LE framework par excellence pour les applications “single page” (porté par Google) et également un compagnon idéal pour l’intégration dans des applications “page par page” (très peu intrusif)
+* LE framework par excellence pour les applications “single page” (porté par Google) 
+et également un compagnon idéal pour l’intégration dans des applications “page par page” (très peu intrusif)
