@@ -51,7 +51,7 @@ include::./includes/Chapitre.adoc[]
 include::./includes/Chapitre.adoc[]
 
 :chapter: Contrôleurs et Scopes
-//include::./includes/Chapitre.adoc[]
+include::./includes/Chapitre.adoc[]
 
 :chapter: Routeur
 //include::./includes/Chapitre.adoc[]

@@ -1,8 +1,10 @@
 === Contrôleurs
-* AngularJS promeut le pattern MVC, et permet de découpler les données de la façon dont elles sont affichées
+* AngularJS promeut le pattern MVC, pour découpler les données de la façon dont elles sont affichées
 ** Permet de tester les algorithmes en isolation
-** Permet de varier les représentations (web, mobile...)
-* Ainsi, une application AngularJS est généralement composée
+** Permet de varier les représentations (web, mobile, graph, ...)
+
+=== Contrôleurs
+* Une application AngularJS est généralement composée
 ** De *contrôleurs* en Javascript : Javascript est un langage impératif, idéal pour implémenter les traitements métiers
 ** De *templates* (vues) en HTML : HTML est un langage déclaratif, pratique pour exprimer une mise en forme. Pour des raisons de performance, AngularJS compile le template sous la forme d'un arbre DOM, et utilise ce dernier pour appliquer les transformations.
 
@@ -10,7 +12,7 @@
 
 === Contrôleurs
 * Un contrôleur AngularJS encapsule un modèle de données et les opérations qui agissent sur ce modèle
-** Comparable à un prototype Javascript ou un objet Java / C#
+** Comme un prototype Javascript ou un objet Java/C#
 ** Développé en pur Javascript
 * Modèle et fonctions doivent être associés au `$scope` fourni par AngularJS en paramètre du contrôleur
 
@@ -24,13 +26,11 @@ function PeopleController($scope) {
 }
 ```
 
-
-
 === Contrôleurs
 * Pour afficher les données et appeler les fonctions du contrôleur, il faut l'associer à un template, qui peut être
 ** Une page entière
 ** Une vue, dans une application de type single-page
-** Une zone délimitée par une balise (ci-dessous, un `<div>`)
+** Une zone délimitée par une balise (exemple un `<div>`)
 * Directive `ng-controller`
 ```
 <div ng-controller="PeopleController">
@@ -41,48 +41,48 @@ function PeopleController($scope) {
 </div>
 ```
 
+[NOTE.speaker]
+--
+on peut associer un nom au controlleur avec le mot clef as
+ng-controller="PeopleController as peoples"
+--
 
-
-=== Scopes : Principes
+=== Scopes :
+==== Principes
 * Dans une application AngularJS, plusieurs scopes peuvent cohabiter 
 ** Le scope de l'application (scope racine ou `$rootScope`)
 ** Les scopes des contrôleurs
 ** Les scopes des directives
 ** Des scopes dynamiques (ex : au sein d'un `ng-repeat`)
+
+=== Scopes :
+==== Principes
 * Les scopes héritent de leurs scopes parents
 ** Permet d'architecturer l'application sous forme de modules isolés mais partageant un référentiel commun
 * *Batarang* (plugin pour Chrome) permet de visualiser l'imbrication et le contenu des différents scopes
 
 
 
-=== Scopes : Visualisation avec Batarang
+=== Scopes :  Visualisation avec Batarang
 image::batarang2.png[batarang, id="batarang", name="batarang"]
 
 
 
 === Scopes : Debug
-* Pour debugger (voir et modifier) le scope depuis son navigateur
-** Inspecter un élément du DOM, puis taper depuis la console :
-** Google Chrome / Batarang
-    
-	`$scope`
-** Firefox / Firebug
-    
-	`angular.element($0).scope()`
-	
-	ou
-	
-	`$($0).scope()`
+* Pour voir ou modifier le scope depuis son navigateur
+* Inspecter un élément du DOM, puis taper depuis la console :
+Google Chrome / Batarang:: `$scope`
+Firefox / Firebug:: `angular.element($0).scope()` ou`$($0).scope()`
+
+[NOTE.speaker]
+--
 * N'oubliez pas lors de modification de scope de prévenir Angular en invoquant le `$apply` sur le scope : `.$apply()`
-
-
+--
 
 === Scopes : Fonctionnement
 * Toute la magie d'AngularJS vient de sa gestion des scopes
 
 image::concepts-runtime.png[concepts-runtime, id="concepts-runtime", name="concepts-runtime",width=60%]
-
-
 
 === Scopes : Fonctionnement
 * Un événement natif est déclenché dans le navigateur
@@ -91,15 +91,22 @@ image::concepts-runtime.png[concepts-runtime, id="concepts-runtime", name="conce
 ** Il applique les modifications requises au modèle
 ** Ces modifications sont détectées par la méthode `$watch`, et peuvent déclencher d'autres modifications en cascade
 ** Ce cycle se répète jusqu'à ce que le modèle se stabilise
+
+=== Scopes :
+====  Fonctionnement
 * Les nouvelles valeurs du modèle sont appliquées au template
 * Enfin, le navigateur peut afficher le DOM mis à jour
 
-
-
-=== Scopes : $apply
+=== Scopes :
+==== $apply
 * Lorsque l'événement est généré par une balise gérée par AngularJS, il passe automatiquement par $apply
 ** Par exemple: ng-model sur un champ `<input>`
 ** Utiliser `$apply` uniquement depuis du Javascript pur ou des librairies tierces
+
+* **En debug, n'oubliez pas lors de modification de scope de prévenir Angular en invoquant le `$apply` sur le scope : `.$apply()`**
+
+=== Scopes :
+====  $apply
 * Pour appeler `$apply` manuellement (depuis un framework tiers par exemple), il faut récupérer une référence sur le scope
 ** Par injection depuis un composant AngularJS
 ** Ou en utilisant les API AngularJS
@@ -111,7 +118,8 @@ scope.$apply(function() { … });
 
 
 
-=== Scopes : $apply
+=== Scopes :
+====  $apply
 ```
 function PeopleController($scope) {
     $scope.names = ['you', 'me', 'them'];
@@ -135,12 +143,16 @@ function PeopleController($scope) {
 </div>
 ```
 
-
-
-=== Scopes : $watch
+=== Scopes :
+====  $watch
 * La méthode `$watch` permet de surveiller un champ du `$scope`
 * AngularJS utilise la technique du *"dirty-checking"* pour n'appeler l'observateur qu'en cas de réelle modification
-** 2 modes de comparaison : *by-reference* (égalité stricte des références) ou *by-value* (comparaison des valeurs des champs)
+** 2 modes de comparaison : 
+*** *by-reference* (égalité stricte des références) ou
+*** *by-value* (comparaison des valeurs des champs)
+
+=== Scopes :
+====  $watch
 
 ```javascript
 function PeopleController($scope) {
