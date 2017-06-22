@@ -262,4 +262,4 @@ marvin.$delete(
     });
 ```
 
-tp6
+include::../includes/TPs.adoc[]

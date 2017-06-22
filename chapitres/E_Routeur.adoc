@@ -121,4 +121,4 @@ function FooController($scope,$route) {
 ** [rw] `url()` = path + search + hash
 ** [ro] `absUrl()` = URL complète
 
-tp3
+include::../includes/TPs.adoc[]

@@ -216,4 +216,4 @@ Validateur "required" en erreur ?
     <img src="ressources/images/form3.png" width="20%" style="display: block; float: left; margin: 0 20px; width: 25%;"/>
 </figure>
 
-tp5
+include::../includes/TPs.adoc[]

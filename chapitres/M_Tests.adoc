@@ -309,5 +309,5 @@ $httpBackend.whenGET('/phones').respond();
 $httpBackend.whenGET(/^\/templates\//).passThrough();
 ```
 
-tp10
+include::../includes/TPs.adoc[]
 

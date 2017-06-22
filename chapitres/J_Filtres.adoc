@@ -65,4 +65,4 @@ $scope.value = $filter('myFilter')(data,'value1','value2');
 ** Possibilité d'utiliser des paramètres
 * Le filtre est accessible dans les templates dès que le module est en dépendance
 
-tp7
+include::../includes/TPs.adoc[]

@@ -78,4 +78,4 @@ $httpProvider.interceptors.push(function($q) {
 });
 ```
 
-tp9
+include::../includes/TPs.adoc[]

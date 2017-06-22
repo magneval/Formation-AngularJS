@@ -214,4 +214,4 @@ var$21.func$33('PeopleCtrl', function(param$13) {
 }]);
 ```
 
-tp4
+include::../includes/TPs.adoc[]

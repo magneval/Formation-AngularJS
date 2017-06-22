@@ -326,4 +326,4 @@ $compile(element.contents())(scope)
 * Ces outils peuvent s'avérer utile pour retrouver le contexte Angular dans un composant « non Angular »
 * http://docs.angularjs.org/api/angular.element
 
-tp8
+include::../includes/TPs.adoc[]
