@@ -1,4 +1,4 @@
-## Intégration
+=== Intégration
 - Avant de pouvoir utiliser AngularJS, il faut l'importer et l'activer dans la page
 - AngularJS est composé de plusieurs scripts, disponibles en version normale (développement) ou minifiée (production)
   - angular.js, angular-resource.js, angular-mocks.js...
@@ -16,7 +16,7 @@
 
 
 
-## Activation
+=== Activation
 - Une fois AngularJS importé, il faut l'activer dans la page
   - Directive `ng-app`
   - Généralement placée sur la balise `<html>`
@@ -37,7 +37,7 @@
 
 
 
-## Templates et Bindings : Template
+=== Templates et Bindings : Template
 - Un *template* est un modèle de document
   - Page complète ou fragment
   - Complété par des bindings et/ou directives AngularJS
@@ -49,7 +49,7 @@
 
 
 
-## Templates et Bindings : Bindings
+=== Templates et Bindings : Bindings
 - Plusieurs notations possibles pour un binding
   - Placeholder à accolades
   ```
@@ -67,7 +67,7 @@
 
 
 
-## Templates et Bindings : Cloaking
+=== Templates et Bindings : Cloaking
 - Les bindings de type {{foo}} peuvent être aperçus par l'utilisateur pendant une fraction de seconde avant qu'AngularJS ne les remplace par leur valeur
 - Solutions
   - Utiliser les autres formes de binding
@@ -85,7 +85,7 @@
 
 
 
-## Templates et Bindings : Autres types de bindings
+=== Templates et Bindings : Autres types de bindings
 - Autres types de bindings
   - `ng-bind-html`
     - Interprètent le binding comme du code HTML et supprime les éléments dangereux (voir $sanitize)
@@ -100,7 +100,7 @@
 
 
 
-## Templates et Bindings : Les modèles
+=== Templates et Bindings : Les modèles
 - Pour définir un modèle sur le scope courant (pour l'instant, celui de l'application, c'est-à-dire le scope racine `$rootScope`)
   - `ng-init`
   
@@ -118,7 +118,7 @@
 
 
 
-## Gestion des listes
+=== Gestion des listes
 - La directive `ng-repeat` permet d'afficher des listes (appliquer sur l'élément à répéter)
 ```
 <ul>
@@ -136,7 +136,7 @@
 
 
 
-## Gestion des listes
+=== Gestion des listes
 - La boucle expose différentes variables
   - `$index` (nombre) : index de l'élément courant (0..N-1)
   - `$first` (booléen) : si c'est le premier élément
@@ -153,7 +153,7 @@
 
 
 
-## Filtres
+=== Filtres
 - Un filtre permet d'altérer la valeur d'un binding
 - AngularJS en fournit un certain nombre, et il est possible de développer ses propres filtres
   - lowercase, uppercase, 
@@ -167,7 +167,7 @@
 
 
 
-## Filtres
+=== Filtres
 <br/>
 ```
 <ul ng-init="people=[{name:'you'},{name:'me'},{name:'them'}]">
@@ -198,7 +198,7 @@
 
 
 
-## Quelques directives utiles (1/3)
+=== Quelques directives utiles (1/3)
 - `ng-switch`
   - Ajout d'une structure DOM parmi plusieurs possibles en fonction d'une expression.
   - La directive s'appuie sur le pattern on/when/default
@@ -210,7 +210,7 @@
 
 
 
-## Quelques directives utiles (2/3)
+=== Quelques directives utiles (2/3)
 - `ng-show` / `ng-hide`
   - Affiche ou masque l'élément en fonction d'une expression
 - `ng-href` / `ng-src`
@@ -220,7 +220,7 @@
 
 
 
-## Quelques directives utiles (3/3)
+=== Quelques directives utiles (3/3)
 - `ng-class`
   - `ng-class-even` / `ng-class-odd` (dans un `ng-repeat`)
   - Modifient la classe CSS de l'élément

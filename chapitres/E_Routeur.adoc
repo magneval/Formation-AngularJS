@@ -1,4 +1,4 @@
-## Routeur
+=== Routeur
 - AngularJS permet de développer des applications multi-vues 
   - Architecture MVC côté client en pur Javascript
 
@@ -8,7 +8,7 @@
 
 
 
-## Routeur
+=== Routeur
 - Dans la page hôte, la directive `ng-view` indique l'emplacement où les vues seront insérées
 
 ```
@@ -23,7 +23,7 @@
 
 
 
-## Configuration du routage
+=== Configuration du routage
 - Le service `$routeProvider` permet de paramétrer la table de routage, qui associe des vues à des URLs particulières
   - when(route, config) : configure une route
   - otherwise(config) : si aucune route ne correspond
@@ -34,7 +34,7 @@
 
 
 
-## Configuration du routage
+=== Configuration du routage
 - Il existe d'autres possibilités de configuration
   - En particulier, on peut associer des propriétés personnalisées aux routes (ex : pour donner un titre de page à chaque vue)
 
@@ -57,7 +57,7 @@ app.config(function($routeProvider) {
 
 
 
-## Configuration du routage
+=== Configuration du routage
 - Il est également possible de spécifier des patterns d'URL
 
 ```javascript
@@ -76,7 +76,7 @@ $routeParams.id
 
 
 
-## Configuration du routage
+=== Configuration du routage
 - La configuration de routage est exposée par le service `$route`
   - routes configurées : `$route.routes`
   - propriétés de la route courante : `$route.current` (y compris les propriétés personnalisées)
@@ -90,7 +90,7 @@ $route.current.title
 
 
 
-## Configuration du routage
+=== Configuration du routage
 <br />
 ```javascript
 function FooController($scope,$route) {
@@ -102,7 +102,7 @@ function FooController($scope,$route) {
 
 
 
-## Format des URLs
+=== Format des URLs
 - Mode par default
 
   `http://server:port/zencontact/index.html#/list?a=b&c`
@@ -111,7 +111,7 @@ function FooController($scope,$route) {
 
 
 
-## Gestion de la barre d'adresse
+=== Gestion de la barre d'adresse
 - Le service `$location` permet de lire et de modifier l'URL dans la barre d'adresse du navigateur
   - Abstraction de `window.location`
   - Synchronisation bidirectionnelle

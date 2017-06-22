@@ -1,4 +1,4 @@
-## Concepts
+=== Concepts
 - AngularJS a été conçu avec l'objectif d'être facilement testable
 - C'est principalement l'injection de dépendance qui facilite les tests
 - Il est possible de démarrer un composant dans un contexte «mocké» pour pouvoir le tester en isolation
@@ -11,7 +11,7 @@
 
 
 
-## Jasmine
+=== Jasmine
 <br />
 <!-- .element: style="display: block; float: right; width: 20%" -->
 
@@ -36,7 +36,7 @@ describe("A suite", function() {
 
 
 
-## Jasmine
+=== Jasmine
 - Fournit la page SpecRunner.html
 
 <figure>
@@ -45,7 +45,7 @@ describe("A suite", function() {
 
 
 
-## ngMock
+=== ngMock
 - Boite à outils fournit par AngularJS pour les tests unitaires
 - Charger le fichier **angular-mocks.js** dans les tests
 - Définit des fonctions globales :  `dump`, `inject`, `module`, `TzDate`
@@ -57,7 +57,7 @@ describe("A suite", function() {
 
 
 
-## Jasmine & ngMock
+=== Jasmine & ngMock
 - Avec les outils proposés par `ngMock`, il est possible de faire un test Jasmine d'un composant d'AngularJS
 
 ```javascript
@@ -81,7 +81,7 @@ describe('MyApp', function() {
 
 
 
-## ngMock $httpBackend
+=== ngMock $httpBackend
 - `$httpBackend` est le service fourni par `ngMock` qui permet de mocker des requêtes HTTP
 - Il fonctionne dans le système d'injection de dépendance d'Angular et intercepte les requêtes lancées par `$http`
 - `$httpBackend.expect`
@@ -91,7 +91,7 @@ describe('MyApp', function() {
 
 
 
-## ngMock $httpBackend
+=== ngMock $httpBackend
 <br />
 ```javascript
 describe('MyController', function() {
@@ -113,7 +113,7 @@ describe('MyController', function() {
 
 
 
-## Karma
+=== Karma
 - Karma est un outil qui permet d'automatiser l’exécution des tests
 
 <figure>
@@ -122,7 +122,7 @@ describe('MyController', function() {
 
 
 
-## Configuration de Karma
+=== Configuration de Karma
 - Karma nécessite un fichier de configuration en JS, il contient :
   - Le framework de test (compatibilité avec plusieurs fmk)
   - La liste des scripts à charger
@@ -131,7 +131,7 @@ describe('MyController', function() {
 
 
 
-## Configuration de Karma
+=== Configuration de Karma
 <br />
 ```javascript
 module.exports = function(config){
@@ -153,7 +153,7 @@ module.exports = function(config){
 
 
 
-## Test d'un contrôleur
+=== Test d'un contrôleur
 - Le contrôleur à tester
 
 ```javascript
@@ -169,7 +169,7 @@ angular.module('myModule')
 
 
 
-## Test d'un contrôleur
+=== Test d'un contrôleur
 - Le test
 
 ```javascript
@@ -194,7 +194,7 @@ describe('MyController Test', function() {
 
 
 
-## Test d'une directive
+=== Test d'une directive
 <br />
 ```javascript
 describe('directives', function() {
@@ -220,7 +220,7 @@ describe('directives', function() {
 
 
 
-## Tests E2E : Concepts
+=== Tests E2E : Concepts
 - Les tests end-2-end proposent une tout autre approche et sont complémentaires avec les tests unitaires
   - Simule l’exécution complète de l'application
   - Plus lent et plus fastidieux à écrire ( → Page Object Pattern)
@@ -233,7 +233,7 @@ describe('directives', function() {
 
 
 
-## Tests E2E : API
+=== Tests E2E : API
 - L'API est inspiré de Jasmine
   - `describe`, `beforeEach`, `afterEach`, `it`...
 
@@ -245,7 +245,7 @@ describe('directives', function() {
 
 
 
-## Tests E2E : API
+=== Tests E2E : API
 - Pilotage de la page
   - `browser.get(http://localhost:8080)`
   - `element(selector).sendKeys(value)`
@@ -257,7 +257,7 @@ describe('directives', function() {
 
 
 
-## Tests E2E : API
+=== Tests E2E : API
 - Sélections
   - locators WebDriver
     - `element(by.id('foo'))`
@@ -294,7 +294,7 @@ describe('Phone list view', function() {
 
 
 
-## Tests E2E : Module ngMockE2E
+=== Tests E2E : Module ngMockE2E
 - Externaliser dans **angular-mocke2e.js**
 - Contient uniquement un `$httpBackend` « spécial E2E »
 - Permet de mocker certaines requêtes (règles lâches) pour maîtriser les données retournées.

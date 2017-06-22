@@ -1,4 +1,4 @@
-## Architectures REST
+=== Architectures REST
 - *REST* : *RE*presentational *S*tate *T*ransfer
   - Type d’architecture pour systèmes hypermédia distribués
   - Inventé par Roy Fielding en 2000
@@ -12,7 +12,7 @@
 
 
 
-## Architectures REST
+=== Architectures REST
 - Avantages
   - Découplage client/serveur
   - Scalabilité du serveur
@@ -23,7 +23,7 @@
 
 
 
-## Architectures REST
+=== Architectures REST
 - AngularJS promeut les architectures REST
   - Applications riches entièrement gérées côté client
   - Manipulation de ressources REST
@@ -34,7 +34,7 @@
 
 
 
-## Le service $http
+=== Le service $http
 - Le service `$http` est construit autour de la notion de *promise*
   - Représente une valeur calculée de manière asynchrone
   - Implémentée par le service AngularJS `$q`
@@ -50,7 +50,7 @@
 
 
 
-## Le service $http
+=== Le service $http
 - Le service `$http`
   - prend en paramètre une map de configuration 
   - renvoie une *promise* exposant deux méthodes callback *sucess* et *failure*
@@ -71,7 +71,7 @@ $http({method:'GET', url:'/foo'}).
 
 
 
-## Le service $http
+=== Le service $http
 - Principaux paramètres de configuration de la requête
   - [string] *method* : 'GET', 'POST'... 
   - [string] *url* : '/foo'
@@ -85,7 +85,7 @@ $http({method:'GET', url:'/foo'}).
 
 
 
-## Le service $http
+=== Le service $http
 - Exemple : récupération de contacts depuis un contrôleur
 
 ```javascript
@@ -109,7 +109,7 @@ $scope.getContacts = function() {
 
 
 
-## Le service $http
+=== Le service $http
 - Le service `$http` propose également une API simplifiée
   - `get(url, [config])`
   - `head(url, [config])`
@@ -126,7 +126,7 @@ $http.get('/contacts').success(function(data) {
 
 
 
-## Le service $resource
+=== Le service $resource
 - Syntaxe du service `$resource`
 
 ```javascript
@@ -140,7 +140,7 @@ $resource(url, [params], [actions]);
 
 
 
-## Le service $resource
+=== Le service $resource
 - Le service `$resource` permet d'abstraire et de simplifier l'interaction avec des ressources exposées en REST
   - "Convention over configuration"
   - Basé sur le service `$http`
@@ -155,7 +155,7 @@ var myModule = angular.module('myModule', ['ngResource']);
 
 
 
-## Le service $resource : Déclaration d'une ressource
+=== Le service $resource : Déclaration d'une ressource
 - Une ressource se déclare via la méthode `factory` d'un module
 
 ```javascript
@@ -180,7 +180,7 @@ ContactApp.controller('ContactListCtrl', ['$scope', 'Contact',
 
 
 
-## Le service $resource : Paramètres - URL
+=== Le service $resource : Paramètres - URL
 - L'URL peut contenir des paramètres de binding
   - Forme ":binding" (ex: "/rest/contacts/:id")
   - Possibilité d'indiquer des valeurs par défaut (constantes ou extraites des propriétés de l'objet)
@@ -199,7 +199,7 @@ return $resource(
 
 
 
-## Le service $resource : Paramètres - Actions
+=== Le service $resource : Paramètres - Actions
 - Une ressource expose différentes *actions*
 - Une action représente une configuration particulière des paramètres d'appel du service `$http`
   - `method`, `url`, `params`
@@ -212,7 +212,7 @@ return $resource(
 
 
 
-## Le service $resource : Paramètres - Actions
+=== Le service $resource : Paramètres - Actions
 - Chaque ressource AngularJS expose 5 actions préconfigurées permettant la création, la mise à jour, la suppression et la recherche de ses instances
   - `get`, `save`, `remove`, `delete`, `query`
 - Paramétrage des actions préconfigurées
@@ -224,7 +224,7 @@ return $resource(
 
 
 
-## Le service $resource : Paramètres - Actions
+=== Le service $resource : Paramètres - Actions
 <br />
 ```javascript
 $scope.contacts = Contact.query(function(contacts) {
@@ -246,7 +246,7 @@ return $resource( '/rest/contacts/:id', {id:'@userId'},
 
 
 
-## Le service $resource : Paramètres - Actions
+=== Le service $resource : Paramètres - Actions
 - A l'appel d'une action (préconfigurée ou personnalisée), il est possible de passer 3 paramètres optionnels :
   - [map] *params* : paramètres d'appel, fusionnés avec les paramètres par défaut de l'action et ceux de la ressource
   - [fonction] *success* : callback de réussite

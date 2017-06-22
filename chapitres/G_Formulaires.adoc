@@ -1,4 +1,4 @@
-## Formulaires : Principe général (1/4)
+=== Formulaires : Principe général (1/4)
 - Principe général de gestion des formulaires
   - Formulaire classique HTML
   - Désactiver le mécanisme de validation natif du navigateur
@@ -7,7 +7,7 @@
 
 
 
-## Formulaires : Principe général (2/4)
+=== Formulaires : Principe général (2/4)
 - Désactivation du mécanisme de validation natif du navigateur
   - La validation sera effectuée par AngularJS
 - Attribut `novalidate` sur le formulaire
@@ -21,7 +21,7 @@
 
 
 
-## Formulaires : Principe général (3/4)
+=== Formulaires : Principe général (3/4)
 - Association des champs de saisie à des propriétés du scope grâce à la directive `ng-model`
 
 ```
@@ -40,7 +40,7 @@
 
 
 
-## Formulaires : Principe général (4/4)
+=== Formulaires : Principe général (4/4)
 - Appel d'une méthode du scope pour traiter le formulaire
   - `ng-submit` sur le formulaire + bouton "submit"
 ```
@@ -57,7 +57,7 @@
 
 
 
-## Formulaires : Types de champs
+=== Formulaires : Types de champs
 - AngularJS gère les types de champs de saisie habituels
   - `input[text]`, `input[radio]`, `input[checkbox]`
   - `select`
@@ -69,7 +69,7 @@
 
 
 
-## Formulaires : Exemple
+=== Formulaires : Exemple
 <br />
 ```
 <form novalidate>
@@ -95,7 +95,7 @@
 
 
 
-## Formulaires : Fonctionnement
+=== Formulaires : Fonctionnement
 - Un champ peut posséder un ou plusieurs validateurs
   - Standards ou personnalisés
 - Chaque champ dispose également d'une propriété `$error`
@@ -117,7 +117,7 @@ Validateur "required" en erreur ?
 
 
 
-## Validation : Validation des champs
+=== Validation : Validation des champs
 - Un champ peut être rendu obligatoire
   - De manière permanente : `required`
 ```
@@ -138,7 +138,7 @@ Validateur "required" en erreur ?
 
 
 
-## Validation : Validation des champs
+=== Validation : Validation des champs
 - Validation de la longueur des chaînes
   - `ng-minlength` et `ng-maxlength`
 
@@ -159,7 +159,7 @@ Validateur "required" en erreur ?
 
 
 
-## Validation : Validation des champs
+=== Validation : Validation des champs
 - Contrôle du format de la saisie
   - Expression régulière : `ng-pattern`
 
@@ -177,7 +177,7 @@ Validateur "required" en erreur ?
 
 
 
-## Validation : État du formulaire et des champs
+=== Validation : État du formulaire et des champs
 - AngularJS expose 4 propriétés au niveau du formulaire et de chacun des champs de saisie
   - `$valid` / `$invalid`
     - Indiquent si l'élément passe le contrôle des validateurs
@@ -189,7 +189,7 @@ Validateur "required" en erreur ?
 
 
 
-## Validation : État du formulaire et des champs
+=== Validation : État du formulaire et des champs
 <br />
 ```
 <form name="contactForm" novalidate>

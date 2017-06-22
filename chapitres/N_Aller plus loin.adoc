@@ -1,4 +1,4 @@
-## Au-delà d'AngularJS
+=== Au-delà d'AngularJS
 - AngularJS est un framework remarquable pour structurer une application riche en Javascript
   - Mais ce n'est qu'un composant de l'application totale
 - D'autres outils, librairies et frameworks peuvent être utilisés en conjonction pour couvrir d'autres aspects du développement
@@ -8,7 +8,7 @@
 
 
 
-## Industrialisation : Grunt
+=== Industrialisation : Grunt
 <br />
 <!-- .element: style="display: block; float: right; width: 20%" -->
 
@@ -30,7 +30,7 @@
 
 
 
-## Industrialisation : Bower
+=== Industrialisation : Bower
 <br />
 <!-- .element: style="display: block; float: right; width: 20%" -->
 
@@ -49,7 +49,7 @@
 
 
 
-## Industrialisation : Yeoman
+=== Industrialisation : Yeoman
 <br />
 <!-- .element: style="display: block; float: right; width: 20%" -->
 
@@ -74,7 +74,7 @@
 
 
 
-## Industrialisation : Yeoman
+=== Industrialisation : Yeoman
 - Exemple d'utilisation de bout en bout
 
 ```
@@ -96,7 +96,7 @@ grunt build
 
 
 
-## Optimisation des ressources
+=== Optimisation des ressources
 - Les ressources d'une application d'entreprise doivent être optimisées
   - Réduction de la consommation de bande passante
   - Accélération du chargement de l'application
@@ -107,7 +107,7 @@ grunt build
 
 
 
-## Optimisation du code JavaScript
+=== Optimisation du code JavaScript
 - Les ressources JavaScript peuvent être optimisées
 - Vérification
   - JSLint : http://jslint.com 
@@ -118,7 +118,7 @@ grunt build
 
 
 
-## Optimisation des styles CSS
+=== Optimisation des styles CSS
 - Les feuilles de style CSS peuvent également bénéficier de certaines optimisations
   - Fusion des feuilles de style
   - Optimisation et déduplication des propriétés CSS
@@ -130,7 +130,7 @@ grunt build
 
 
 
-## Optimisation des images
+=== Optimisation des images
 - Il existe 2 types d'optimisations pour les images
   - Optimiser chaque image 
   - Grouper toutes les images en une seule, pour les récupérer en une seule requête HTTP
@@ -140,7 +140,7 @@ grunt build
 
 
 
-## Angular-UI et autres modules
+=== Angular-UI et autres modules
 - AngularJS est au centre d'un écosystème en plein essor
   - Composants additionnels sur étagère
   - Intégration avec d'autres projets

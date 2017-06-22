@@ -1,4 +1,4 @@
-## Installation
+=== Installation
 - AngularJS offre des fonctionnalités d'internationalisation
   - 155 langues ou variantes
   - Fichiers **i18n/angular-locale_\*.js**
@@ -14,7 +14,7 @@
 
 
 
-## Nombre
+=== Nombre
 - Le filtre `number` permet de localiser les nombres
 
 ```
@@ -39,7 +39,7 @@ Locale FR : 1 234,567800
 
 
 
-## Dates et heures
+=== Dates et heures
 - Le filtre `date` permet de localiser les dates et heures
 
 ```
@@ -64,7 +64,7 @@ Locale FR : 23/04/2013
 
 
 
-## Dates et heures
+=== Dates et heures
 - Formats prédéfinis (dépendants de la locale)
 
 ```
@@ -90,7 +90,7 @@ Locale FR : 23/04/2013
 
 
 
-## Dates et heures
+=== Dates et heures
 - Format personnalisé
   - Composé à partir de symboles représentant les composantes d'une date
   - Gestion manuelle des locales
@@ -110,7 +110,7 @@ Locale FR : 23/04/2013
 
 
 
-## Montants monétaires
+=== Montants monétaires
 - Le filtre `currency` permet de localiser les montants monétaires
 
 ```
@@ -134,7 +134,7 @@ Locale NO : € 1 234,57
 
 
 
-## ngPluralize
+=== ngPluralize
 - La directive `ngPluralize` permet d'adapter l'affichage de quantités en fonction de règles de catégorisation
   - Ex : "Aucun contact", "Un contact", "Plusieurs contacts"
 - Une forme particulière de pluralisation peut être associée à
@@ -148,7 +148,7 @@ Locale NO : € 1 234,57
 
 
 
-## ngPluralize
+=== ngPluralize
 - Syntaxe
 
 ```
@@ -172,7 +172,7 @@ Locale NO : € 1 234,57
 
 
 
-## ngPluralize
+=== ngPluralize
 - Les chaînes pluralisées peuvent contenir 
   - Des bindings AngularJS : `{{binding}}`
   - Un placeholder pour le nombre d'entités : `{}`
@@ -191,7 +191,7 @@ Locale NO : € 1 234,57
 
 
 
-## ngPluralize
+=== ngPluralize
 <br />
 ```
 Avec $scope.contacts = ['Joe','Jack','William','Averell'];
@@ -207,7 +207,7 @@ Si count = 0 : Aucun contact
 
 
 
-## ngPluralize
+=== ngPluralize
 - Algorithme
   - Si count correspond exactement à une *quantité exacte* définie, utiliser la forme plurielle correspondante
   - Sinon, soustraire l'offset, et utiliser la forme plurielle de la *catégorie* adaptée à la nouvelle valeur
@@ -215,7 +215,7 @@ Si count = 0 : Aucun contact
 
 
 
-## ngPluralize
+=== ngPluralize
 - Exemple
 
 ```
@@ -243,7 +243,7 @@ count
 
 
 
-## Internationalisation des templates
+=== Internationalisation des templates
 - En-dehors des mécanismes vus dans ce chapitre, AngularJS n'offre pas de mécanisme global d'internationalisation
 - Pistes
   - Paramétrer le serveur pour envoyer les ressources dans la bonne locale : templates, images, scripts...

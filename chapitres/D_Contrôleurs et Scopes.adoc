@@ -1,4 +1,4 @@
-## Contrôleurs
+=== Contrôleurs
 - AngularJS promeut le pattern MVC, et permet de découpler les données de la façon dont elles sont affichées
   - Permet de tester les algorithmes en isolation
   - Permet de varier les représentations (web, mobile...)
@@ -8,7 +8,7 @@
 
 
 
-## Contrôleurs
+=== Contrôleurs
 - Un contrôleur AngularJS encapsule un modèle de données et les opérations qui agissent sur ce modèle
   - Comparable à un prototype Javascript ou un objet Java / C#
   - Développé en pur Javascript
@@ -26,7 +26,7 @@ function PeopleController($scope) {
 
 
 
-## Contrôleurs
+=== Contrôleurs
 - Pour afficher les données et appeler les fonctions du contrôleur, il faut l'associer à un template, qui peut être
   - Une page entière
   - Une vue, dans une application de type single-page
@@ -43,7 +43,7 @@ function PeopleController($scope) {
 
 
 
-## Scopes : Principes
+=== Scopes : Principes
 - Dans une application AngularJS, plusieurs scopes peuvent cohabiter 
   - Le scope de l'application (scope racine ou `$rootScope`)
   - Les scopes des contrôleurs
@@ -55,14 +55,14 @@ function PeopleController($scope) {
 
 
 
-## Scopes : Visualisation avec Batarang
+=== Scopes : Visualisation avec Batarang
 <figure>
     <img src="ressources/images/batarang2.png"/>
 </figure>
 
 
 
-## Scopes : Debug
+=== Scopes : Debug
 - Pour debugger (voir et modifier) le scope depuis son navigateur
   - Inspecter un élément du DOM, puis taper depuis la console :
   - Google Chrome / Batarang
@@ -79,7 +79,7 @@ function PeopleController($scope) {
 
 
 
-## Scopes : Fonctionnement
+=== Scopes : Fonctionnement
 - Toute la magie d'AngularJS vient de sa gestion des scopes
 
 <figure>
@@ -88,7 +88,7 @@ function PeopleController($scope) {
 
 
 
-## Scopes : Fonctionnement
+=== Scopes : Fonctionnement
 - Un événement natif est déclenché dans le navigateur
 - La fonction callback associée est transférée dans l'univers AngularJS à l'aide de la fonction `$apply` du scope
 - AngularJS "digère" la fonction 
@@ -100,7 +100,7 @@ function PeopleController($scope) {
 
 
 
-## Scopes : $apply
+=== Scopes : $apply
 - Lorsque l'événement est généré par une balise gérée par AngularJS, il passe automatiquement par $apply
   - Par exemple: ng-model sur un champ `<input>`
   - Utiliser `$apply` uniquement depuis du Javascript pur ou des librairies tierces
@@ -115,7 +115,7 @@ scope.$apply(function() { … });
 
 
 
-## Scopes : $apply
+=== Scopes : $apply
 <br/>
 ```
 function PeopleController($scope) {
@@ -142,7 +142,7 @@ function PeopleController($scope) {
 
 
 
-## Scopes : $watch
+=== Scopes : $watch
 - La méthode `$watch` permet de surveiller un champ du `$scope`
 - AngularJS utilise la technique du *"dirty-checking"* pour n'appeler l'observateur qu'en cas de réelle modification
   - 2 modes de comparaison : *by-reference* (égalité stricte des références) ou *by-value* (comparaison des valeurs des champs)

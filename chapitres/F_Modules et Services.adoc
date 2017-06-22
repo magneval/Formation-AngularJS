@@ -1,4 +1,4 @@
-## Modules : Notion de module
+=== Modules : Notion de module
 - AngularJS propose la notion de *module*
 - Un module permet d'encapsuler un ensemble de fonctionnalités
   - Code de configuration
@@ -12,7 +12,7 @@
 
 
 
-## Modules : Notion de module
+=== Modules : Notion de module
 - De manière générale, les modules peuvent être organisés
   - Par type (services, contrôleurs...)
   - Par fonctionnalité ("gestion des contacts", "admin"...)
@@ -26,7 +26,7 @@
 
 
 
-## Modules : Déclarer un module
+=== Modules : Déclarer un module
 - La fonction `angular.module` permet de déclarer un module
 ```javascript
 var Foo = angular.module('Foo', []);
@@ -46,7 +46,7 @@ var MyApplication =
 
 
 
-## Modules : Configuration
+=== Modules : Configuration
 - Un module dispose de deux fonctions d'initialisation
   - `config()` : appelée au chargement du module
   - `run()` : appelée lorsque tous les modules ont été chargés
@@ -66,7 +66,7 @@ App.run(function() {
 
 
 
-## Modules et Composants : Factories
+=== Modules et Composants : Factories
 - Un module instancie et expose des composants (services, contrôleurs, directives et filtres) grâce à des fonctions *factory*
   - `service(name, configFn)`
   - `controller(name, configFn)`
@@ -84,7 +84,7 @@ Controllers.controller('PeopleCtrl', function($scope) {
 
 
 
-## Modules et composants : service() vs factory()
+=== Modules et composants : service() vs factory()
 - Il existe une méthode alternative pour créer un service
   - Méthode `<module>.factory(nom, configFn)`
   - Permet d'exécuter du code avant d'instancier le service
@@ -94,7 +94,7 @@ Controllers.controller('PeopleCtrl', function($scope) {
 
 
 
-## Modules et composants : service() vs factory()
+=== Modules et composants : service() vs factory()
 - Avec `module.service()`
 
 ```javascript
@@ -117,7 +117,7 @@ Controllers.controller('PeopleCtrl', function($scope) {
 
 
 
-## Modules : Valeurs
+=== Modules : Valeurs
 - Pour finir, un module peut exposer des valeurs
   - Réutilisabilité, principe DRY
   - Injectables dans les composants
@@ -135,7 +135,7 @@ Controllers.controller('PeopleCtrl', function($scope) {
 
 
 
-## Injection de dépendances
+=== Injection de dépendances
 - AngularJS propose un mécanisme d'*injection de dépendances*
 - Principe : un composant ne va pas chercher lui-même ses dépendances, mais attend qu'on les lui fournisse
   - Aussi appelé *IOC* (Inversion Of Control)
@@ -145,7 +145,7 @@ Controllers.controller('PeopleCtrl', function($scope) {
 
 
 
-## Injection de dépendances : Injection dans un module
+=== Injection de dépendances : Injection dans un module
 - Dans le cas d'un module
   - Les dépendances envers les autres modules sont déclarées dans le tableau des dépendances
   - Les fonctions d'initialisation `run` et `config` acceptent également des dépendances en paramètre 
@@ -162,7 +162,7 @@ App.config(function($routeProvider) {
 
 
 
-## Injection de dépendances : Injection dans un service, contrôleur...
+=== Injection de dépendances : Injection dans un service, contrôleur...
 - Dans le cas des services, contrôleurs, filtres et directives, les dépendances sont déclarées comme des paramètres de la fonction de configuration
 
 ```javascript
@@ -180,7 +180,7 @@ Controllers.
 
 
 
-## Injection de dépendances : Minification et obfuscation
+=== Injection de dépendances : Minification et obfuscation
 - AngularJS se base sur le nom du paramètre pour déterminer la dépendance à injecter
   - Nom défini lors de son instanciation par le module
 - Problème : en cas de minification et/ou obfuscation du code, les variables, fonctions et paramètres sont renommés !
@@ -200,7 +200,7 @@ var$21.func$33('PeopleCtrl', function(param$13) {
 
 
 
-## Injection de dépendances : Minification et obfuscation
+=== Injection de dépendances : Minification et obfuscation
 - Solution : une notation alternative permet de préciser les dépendances sous forme de String
   - Les Strings ne sont pas minifiées ni obfusquées 
 - Utilisation d'un tableau

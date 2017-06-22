@@ -1,4 +1,4 @@
-## Directives : Concept
+=== Directives : Concept
 - Une directive dans AngularJS permet d'ajouter du comportement au DOM
   - Permet d'enrichir le langage HTML
   - Associe du comportement
@@ -15,7 +15,7 @@
 
 
 
-## Directives : Directives d'AngularJS
+=== Directives : Directives d'AngularJS
 - AngularJS propose par défaut de nombreuses directives
 - Elles sont toutes écrites avec la même API que celle qui nous est proposé (le code source peut être consulté)
 - C'est l'ensemble de ces directives augmenté du bloc `{{}}` qui forment le langage de template d'Angular
@@ -24,7 +24,7 @@
 
 
 
-## Directives : La directive ngBind
+=== Directives : La directive ngBind
 <br />
 ```
 <span data-ng-bing="contact.address"></span>
@@ -45,7 +45,7 @@ var ngBindDirective =
 
 
 
-## Directives : API : Les bases
+=== Directives : API : Les bases
 - Se déclare dans un module via la fonction `directive`
 
 ```javascript
@@ -60,7 +60,7 @@ angular.module('MyModule')
 
 
 
-## Directives : API : Les bases
+=== Directives : API : Les bases
 - `<name>` : le nom de la directive sera repris dans son déclencheur.
   Attention : camelCase dans le JS, camel-case dans l'HTML
 - `<restrict>` : paramètre le type de déclencheur souhaité : balise (E), attribut (A), classe (C), commentaire (M). Défaut : A
@@ -69,14 +69,14 @@ angular.module('MyModule')
 
 
 
-## Directives : API : Cycle de vie
+=== Directives : API : Cycle de vie
 <figure>
     <img src="ressources/images/API-cycle-vie.png" alt="API : Cycle de vie" width="85%"/>
 </figure>
 
 
 
-## Directives : API : Cycle de vie
+=== Directives : API : Cycle de vie
 - Différentes méthodes de déclaration des étapes du cycle de vie :
 
 ```
@@ -102,7 +102,7 @@ angular.module('MyModule').directive('myDirective1',
 
 
 
-## Directives : API : Cycle de vie
+=== Directives : API : Cycle de vie
 - La plupart du code des directives se positionnent dans la fonction link (postLink plus précisément)
   - On y a accès au scope, à l'élément et ses attributs
   - Le template est alors déjà compilé et réagira au scope
@@ -112,14 +112,14 @@ angular.module('MyModule').directive('myDirective1',
 
 
 
-## Directives : API : Cycle de vie
+=== Directives : API : Cycle de vie
 - Le controller est principalement utilisé pour la collaboration entre plusieurs directives
   - C'est le seul élément qui pourra être partagé entre deux directives en dehors du scope
   - On retrouve un controller d'une autre directive en utilisant le paramètre require sur la directive
 
 
 
-## Directives : API : Scopes
+=== Directives : API : Scopes
 - Le lien entre la directive et le scope est fondamental et doit être paramétré avec soins
 - Par défaut, la directive ne crée pas de scope et fonctionne dans le scope courant, c'est rarement le fonctionnement souhaité
 - `scope` : `true`
@@ -129,7 +129,7 @@ angular.module('MyModule').directive('myDirective1',
 
 
 
-## Directives : API : Scopes
+=== Directives : API : Scopes
 - `scope` : `{}`
   - Crée un scope enfant mais isolé
   - Permet à la directive de ne pas avoir d'impact sur le scope
@@ -138,7 +138,7 @@ angular.module('MyModule').directive('myDirective1',
 
 
 
-## Directives : API : Scopes
+=== Directives : API : Scopes
 - Notations raccourcies pour manipuler un scope isolé
   - `'='` instaure un binding bi-directionnel avec le scope parent
   - `'@'` copie dans le scope enfant le résultat d'une expression évaluée dans le scope parent
@@ -146,7 +146,7 @@ angular.module('MyModule').directive('myDirective1',
 
 
 
-## Directives : API : Scopes
+=== Directives : API : Scopes
 <br />
 ```
 //HTML
@@ -169,7 +169,7 @@ scope : {
 
 
 
-## Directives : ngModel
+=== Directives : ngModel
 - `ngModel` est une directive très importante dans AngularJS
   - Unifie le fonctionnement du binding bi-directionnel des champs de saisies avec le model
   - Communique avec les directives associées au champ de saisie pour réaliser le binding
@@ -180,7 +180,7 @@ scope : {
 
 
 
-## Directives : ngModelController
+=== Directives : ngModelController
 - Pour utiliser le `ngModelController`
   - Déclarer une directive avec `« require : '?ngModel' »`
   - Positionner comme quatrième paramètre de la fonction link l'argument `ngModelController`
@@ -192,7 +192,7 @@ scope : {
 
 
 
-## Directives : ngModelController
+=== Directives : ngModelController
 <br />
 ```javascript
 angular.module('customControl', [])
@@ -219,7 +219,7 @@ angular.module('customControl', [])
 
 
 
-## Directives : Transclusion
+=== Directives : Transclusion
 - La *transclusion* est ce qui permet à une directive de capturer le contenu de l'élément dans le quel elle se trouve pour le reproduire ailleurs
 
 ```
@@ -243,7 +243,7 @@ angular.module('transclude', [])
 
 
 
-## Directives : ngTransclude & compile
+=== Directives : ngTransclude & compile
 - Deux solutions pour mettre en œuvre la transclusion
   - Utiliser la directive `ngTransclude` (simple)
   - Utiliser la fonction transclude dans compile (avancé)
@@ -254,7 +254,7 @@ angular.module('transclude', [])
 
 
 
-## Directives : ngTransclude & compile
+=== Directives : ngTransclude & compile
 - Fonction `transclude`
   - En paramètre (3ème) de la fonction `compile`
 
@@ -269,7 +269,7 @@ compile : function($elem, $attrs, $transclude) {
 
 
 
-## Directives : Boite à outils : Scope
+=== Directives : Boite à outils : Scope
 - Pour développer une directive, il faut bien connaître l'API mais aussi savoir bien manipuler certains outils d'AngularJS
 - La plupart des directives agissent sur le scope soit via un scope lié par héritage soit isolé
 - `$watch`
@@ -278,7 +278,7 @@ compile : function($elem, $attrs, $transclude) {
   
 
 
-## Directives : Boite à outils : Scope
+=== Directives : Boite à outils : Scope
 - `$apply`
   - Si la directive écoute des événements hors d'Angular, il faut utiliser des `$apply`
   - Attention, il ne peut pas y avoir deux `$apply` dans la même pile d'execution, cela soulève une erreur
@@ -286,7 +286,7 @@ compile : function($elem, $attrs, $transclude) {
 
 
 
-## Directives : Boite à outils : $parse & $compile
+=== Directives : Boite à outils : $parse & $compile
 - Le paramétrage d'une directive se fait par les attributs de l'élément, des outils existent pour les traiter efficacement
 - Le service `$parse` permet de
   - Évaluer une expression dans un scope
@@ -303,7 +303,7 @@ setter(context, 'newValue') // --> newValue
 
 
 
-## Directives : Boite à outils : $parse & $compile
+=== Directives : Boite à outils : $parse & $compile
 - Il peut arriver également dans une directive d'avoir à compiler une partie d'HTML manuellement
 
 ```javascript
@@ -312,7 +312,7 @@ $compile(element.contents())(scope)
 
 
 
-## Directives : Boite à outils : angular.element
+=== Directives : Boite à outils : angular.element
 - Dans les directives, on dispose de l'élément sur lequel est appliqué la directive
 - Cet élément est un objet enrichi par jqLite qui ressemble à un élément jQuery avec quelques particularités
   - Toutes les fonctionnalités de jQuery ne sont pas disponibles (consulter la liste dans la documentation)
@@ -322,7 +322,7 @@ $compile(element.contents())(scope)
   
 
 
-## Directives : Boite à outils : angular.element
+=== Directives : Boite à outils : angular.element
 - Ces outils peuvent s'avérer utile pour retrouver le contexte Angular dans un composant « non Angular »
 - http://docs.angularjs.org/api/angular.element
 
