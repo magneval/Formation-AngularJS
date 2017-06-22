@@ -1,7 +1,7 @@
 === Au-delà d'AngularJS
-- AngularJS est un framework remarquable pour structurer une application riche en Javascript
+* AngularJS est un framework remarquable pour structurer une application riche en Javascript
   - Mais ce n'est qu'un composant de l'application totale
-- D'autres outils, librairies et frameworks peuvent être utilisés en conjonction pour couvrir d'autres aspects du développement
+* D'autres outils, librairies et frameworks peuvent être utilisés en conjonction pour couvrir d'autres aspects du développement
   - Industrialisation
   - Optimisation des ressources
   - Librairies de composants
@@ -16,13 +16,13 @@
     <img src="ressources/images/grunt.png" alt="Grunt" />
 </figure>
 
-- Grunt, "The JavaScript Task Runner"
-- http://gruntjs.com/
-- Basé sur NodeJS (http://nodejs.org/)
+* Grunt, "The JavaScript Task Runner"
+* http://gruntjs.com/
+* Basé sur NodeJS (http://nodejs.org/)
 
 <!-- .element: style="clear: right;" -->
 
-- Le couteau suisse du développement web
+* Le couteau suisse du développement web
   - compilation (coffeescript, LESS/SASS, templates…)
   - minification des scripts
   - optimisation des images
@@ -38,13 +38,13 @@
     <img src="ressources/images/bower.png" alt="Bower" />
 </figure>
 
-- Bower : "A package manager for the web"
-- http://bower.io/
-- Basé sur NodeJS et Git
+* Bower : "A package manager for the web"
+* http://bower.io/
+* Basé sur NodeJS et Git
 
 <!-- .element: style="clear: right;" -->
 
-- Gestion des dépendances entre composants front-end 
+* Gestion des dépendances entre composants front-end 
   - Le plus souvent des librairies JavaScript
 
 
@@ -57,8 +57,8 @@
     <img src="ressources/images/yeoman.png" alt="Yeoman" />
 </figure>
 
-- http://yeoman.io/
-- Yeoman est une collection d'outils permettant
+* http://yeoman.io/
+* Yeoman est une collection d'outils permettant
     
   de gérer le cycle de vie d'une application JavaScript
   - Grunt, Bower, Yo (génération de squelette
@@ -67,15 +67,15 @@
 
 <!-- .element: style="clear: right;" -->
 
-- Démarrer rapidement une application
-- La préparer pour une mise en production
-- Gérer ses dépendances
-- Prévisualiser l'application localement
+* Démarrer rapidement une application
+* La préparer pour une mise en production
+* Gérer ses dépendances
+* Prévisualiser l'application localement
 
 
 
 === Industrialisation : Yeoman
-- Exemple d'utilisation de bout en bout
+* Exemple d'utilisation de bout en bout
 
 ```
 // Initialisation de la structure de l'application
@@ -97,10 +97,10 @@ grunt build
 
 
 === Optimisation des ressources
-- Les ressources d'une application d'entreprise doivent être optimisées
+* Les ressources d'une application d'entreprise doivent être optimisées
   - Réduction de la consommation de bande passante
   - Accélération du chargement de l'application
-- Chaque type de ressource dispose de techniques d'optimisation propres
+* Chaque type de ressource dispose de techniques d'optimisation propres
   - JavaScript
   - Feuilles de style
   - Images
@@ -108,43 +108,43 @@ grunt build
 
 
 === Optimisation du code JavaScript
-- Les ressources JavaScript peuvent être optimisées
-- Vérification
+* Les ressources JavaScript peuvent être optimisées
+* Vérification
   - JSLint : http://jslint.com 
   - JSHint : http://jshint.com 
-- Optimisation et compression
+* Optimisation et compression
   - UglifyJS : http://github.com/mishoo/UglifyJS 
   - JSMin : http://www.crockford.com/javascript/jsmin.html 
 
 
 
 === Optimisation des styles CSS
-- Les feuilles de style CSS peuvent également bénéficier de certaines optimisations
+* Les feuilles de style CSS peuvent également bénéficier de certaines optimisations
   - Fusion des feuilles de style
   - Optimisation et déduplication des propriétés CSS
-- Optimisation 
+* Optimisation 
   - CSSLint : http://csslint.net 
-- Langages alternatifs générant du CSS (support des constantes, mixins, opérations sur les unités…)
+* Langages alternatifs générant du CSS (support des constantes, mixins, opérations sur les unités…)
   - LESS : http://lesscss.org 
   - SASS : http://sass-lang.com 
 
 
 
 === Optimisation des images
-- Il existe 2 types d'optimisations pour les images
+* Il existe 2 types d'optimisations pour les images
   - Optimiser chaque image 
   - Grouper toutes les images en une seule, pour les récupérer en une seule requête HTTP
-- Yeoman embarque deux optimiseurs
+* Yeoman embarque deux optimiseurs
   - OptiPNG : http://optipng.sourceforge.net
   - JPEGTran : http://jpegclub.org 
 
 
 
 === Angular-UI et autres modules
-- AngularJS est au centre d'un écosystème en plein essor
+* AngularJS est au centre d'un écosystème en plein essor
   - Composants additionnels sur étagère
   - Intégration avec d'autres projets
-- Projet ngModules (registre de composants) : http://ngmodules.org 
+* Projet ngModules (registre de composants) : http://ngmodules.org 
   - Angular-UI : http://angular-ui.github.io
      - UI Bootstrap (intégration avec Twitter Bootstrap)
      - UI Router (remplacement de `$routeService`)

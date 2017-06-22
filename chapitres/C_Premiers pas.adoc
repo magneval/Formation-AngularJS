@@ -1,9 +1,9 @@
 === Intégration
-- Avant de pouvoir utiliser AngularJS, il faut l'importer et l'activer dans la page
-- AngularJS est composé de plusieurs scripts, disponibles en version normale (développement) ou minifiée (production)
+* Avant de pouvoir utiliser AngularJS, il faut l'importer et l'activer dans la page
+* AngularJS est composé de plusieurs scripts, disponibles en version normale (développement) ou minifiée (production)
   - angular.js, angular-resource.js, angular-mocks.js...
   - Permet d'optimiser le chargement de l'application
-- A déclarer de préférence à la fin de la page HTML
+* A déclarer de préférence à la fin de la page HTML
 
 ```
 <html>
@@ -17,7 +17,7 @@
 
 
 === Activation
-- Une fois AngularJS importé, il faut l'activer dans la page
+* Une fois AngularJS importé, il faut l'activer dans la page
   - Directive `ng-app`
   - Généralement placée sur la balise `<html>`
 
@@ -27,7 +27,7 @@
 </html>
 ```
 
-- Il est également possible de charger un module personnalisé (plus d'informations dans le chapitre sur les modules)
+* Il est également possible de charger un module personnalisé (plus d'informations dans le chapitre sur les modules)
 
 ```
 <html ng-app="myModule">
@@ -38,19 +38,19 @@
 
 
 === Templates et Bindings : Template
-- Un *template* est un modèle de document
+* Un *template* est un modèle de document
   - Page complète ou fragment
   - Complété par des bindings et/ou directives AngularJS
   - Peut rester valide au sens HTML
     - Utilisation de data-*, des classes CSS...
-- Au sein d'un template, un binding permet d'indiquer la présence d'un élément dynamique
+* Au sein d'un template, un binding permet d'indiquer la présence d'un élément dynamique
   - Lié à un modèle défini sur un *scope*
   - Plusieurs notations disponibles
 
 
 
 === Templates et Bindings : Bindings
-- Plusieurs notations possibles pour un binding
+* Plusieurs notations possibles pour un binding
   - Placeholder à accolades
   ```
   Hello {{name}}
@@ -68,8 +68,8 @@
 
 
 === Templates et Bindings : Cloaking
-- Les bindings de type {{foo}} peuvent être aperçus par l'utilisateur pendant une fraction de seconde avant qu'AngularJS ne les remplace par leur valeur
-- Solutions
+* Les bindings de type {{foo}} peuvent être aperçus par l'utilisateur pendant une fraction de seconde avant qu'AngularJS ne les remplace par leur valeur
+* Solutions
   - Utiliser les autres formes de binding
   - Utiliser `ng-cloak` sur une balise parente pour la masquer temporairement
   
@@ -86,7 +86,7 @@
 
 
 === Templates et Bindings : Autres types de bindings
-- Autres types de bindings
+* Autres types de bindings
   - `ng-bind-html`
     - Interprètent le binding comme du code HTML et supprime les éléments dangereux (voir $sanitize)
     ```
@@ -101,7 +101,7 @@
 
 
 === Templates et Bindings : Les modèles
-- Pour définir un modèle sur le scope courant (pour l'instant, celui de l'application, c'est-à-dire le scope racine `$rootScope`)
+* Pour définir un modèle sur le scope courant (pour l'instant, celui de l'application, c'est-à-dire le scope racine `$rootScope`)
   - `ng-init`
   
   Généralement placé sur la balise body
@@ -119,13 +119,13 @@
 
 
 === Gestion des listes
-- La directive `ng-repeat` permet d'afficher des listes (appliquer sur l'élément à répéter)
+* La directive `ng-repeat` permet d'afficher des listes (appliquer sur l'élément à répéter)
 ```
 <ul>
 	<li ng-repeat="name in names"> {{name}} </li>
 </ul>
 ```
-- Fonctionne également avec des maps
+* Fonctionne également avec des maps
 ```
 <ul>
 	<li ng-repeat="(name,age) in people">
@@ -137,12 +137,12 @@
 
 
 === Gestion des listes
-- La boucle expose différentes variables
+* La boucle expose différentes variables
   - `$index` (nombre) : index de l'élément courant (0..N-1)
   - `$first` (booléen) : si c'est le premier élément
   - `$middle` (booléen) : si c'est un élément intermédiaire
   - `$last` (booléen) : si c'est le dernier élément
-- Exemple : combinaison avec `ng-show` / `ng-hide`
+* Exemple : combinaison avec `ng-show` / `ng-hide`
 ```
 <span ng-repeat="name in ['you','me','them']">
     {{name}} 
@@ -154,13 +154,13 @@
 
 
 === Filtres
-- Un filtre permet d'altérer la valeur d'un binding
-- AngularJS en fournit un certain nombre, et il est possible de développer ses propres filtres
+* Un filtre permet d'altérer la valeur d'un binding
+* AngularJS en fournit un certain nombre, et il est possible de développer ses propres filtres
   - lowercase, uppercase, 
   - number, date, currency
   - filter, limitTo, orderBy
   - json
-- Syntaxe
+* Syntaxe
 ```
 {{ expression | filtre1 | filtre2:param1:param2 }}
 ```
@@ -199,29 +199,29 @@
 
 
 === Quelques directives utiles (1/3)
-- `ng-switch`
+* `ng-switch`
   - Ajout d'une structure DOM parmi plusieurs possibles en fonction d'une expression.
   - La directive s'appuie sur le pattern on/when/default
-- `ng-if`
+* `ng-if`
   - Ajout ou suppression d'une partie du DOM en fonction d'une expression
   - A la différence des directives `ng-show` / `ng-hide`, les éléments HTML sont recréés plutôt simplement masqués
-- `ng-include`
+* `ng-include`
   - Compilation et ajout d'un fragment HTML externe
 
 
 
 === Quelques directives utiles (2/3)
-- `ng-show` / `ng-hide`
+* `ng-show` / `ng-hide`
   - Affiche ou masque l'élément en fonction d'une expression
-- `ng-href` / `ng-src`
+* `ng-href` / `ng-src`
   - Garantissent que les attributs href et src incorporant des placeholders {{foo}} seront bien calculés avant d'être utilisables
-- `ng-style`
+* `ng-style`
   - Applique un style CSS à l'élément, sous la forme d'une map de propriétés : ng-style="myStyle" myStyle = {color:'red', margin:0}
 
 
 
 === Quelques directives utiles (3/3)
-- `ng-class`
+* `ng-class`
   - `ng-class-even` / `ng-class-odd` (dans un `ng-repeat`)
   - Modifient la classe CSS de l'élément
 

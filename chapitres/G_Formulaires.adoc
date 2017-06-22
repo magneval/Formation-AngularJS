@@ -1,5 +1,5 @@
 === Formulaires : Principe général (1/4)
-- Principe général de gestion des formulaires
+* Principe général de gestion des formulaires
   - Formulaire classique HTML
   - Désactiver le mécanisme de validation natif du navigateur
   - Associer des champs de saisie à des propriétés du scope grâce à la directive `ng-model`
@@ -8,9 +8,9 @@
 
 
 === Formulaires : Principe général (2/4)
-- Désactivation du mécanisme de validation natif du navigateur
+* Désactivation du mécanisme de validation natif du navigateur
   - La validation sera effectuée par AngularJS
-- Attribut `novalidate` sur le formulaire
+* Attribut `novalidate` sur le formulaire
   - Attribut standard HTML5
 
 ```
@@ -22,13 +22,13 @@
 
 
 === Formulaires : Principe général (3/4)
-- Association des champs de saisie à des propriétés du scope grâce à la directive `ng-model`
+* Association des champs de saisie à des propriétés du scope grâce à la directive `ng-model`
 
 ```
 <input type='text' ng-model='contact.name' />
 ```
 
-- Association du formulaire lui-même à une propriété du scope
+* Association du formulaire lui-même à une propriété du scope
   - Attribut `name`
   - Utile pour la validation
 
@@ -41,7 +41,7 @@
 
 
 === Formulaires : Principe général (4/4)
-- Appel d'une méthode du scope pour traiter le formulaire
+* Appel d'une méthode du scope pour traiter le formulaire
   - `ng-submit` sur le formulaire + bouton "submit"
 ```
 <form ng-submit="saveForm()" novalidate>
@@ -58,13 +58,13 @@
 
 
 === Formulaires : Types de champs
-- AngularJS gère les types de champs de saisie habituels
+* AngularJS gère les types de champs de saisie habituels
   - `input[text]`, `input[radio]`, `input[checkbox]`
   - `select`
   - `textarea`
-- Ainsi que certains des nouveaux types introduits par HTML5
+* Ainsi que certains des nouveaux types introduits par HTML5
   - `input[email]`, `input[number]`, `input[url]`
-- Il est possible de créer ses propres types de champs
+* Il est possible de créer ses propres types de champs
   - Directive personnalisée
 
 
@@ -96,9 +96,9 @@
 
 
 === Formulaires : Fonctionnement
-- Un champ peut posséder un ou plusieurs validateurs
+* Un champ peut posséder un ou plusieurs validateurs
   - Standards ou personnalisés
-- Chaque champ dispose également d'une propriété `$error`
+* Chaque champ dispose également d'une propriété `$error`
   - Map contenant l'état de chaque validateur du champ
 
 ```
@@ -118,7 +118,7 @@ Validateur "required" en erreur ?
 
 
 === Validation : Validation des champs
-- Un champ peut être rendu obligatoire
+* Un champ peut être rendu obligatoire
   - De manière permanente : `required`
 ```
 <input type="text" ng-model="name" required />
@@ -128,7 +128,7 @@ Validateur "required" en erreur ?
 <input type="checkbox" ng-model="nameRequired"/> 
 <input ng-required="nameRequired" ng-model="name">
 ```
-- Etat du validateur : `<champ>.$error.required`
+* Etat du validateur : `<champ>.$error.required`
 ```
 <input name="address" ng-model="address" required>
 <span ng-show="form.address.$error.required">
@@ -139,14 +139,14 @@ Validateur "required" en erreur ?
 
 
 === Validation : Validation des champs
-- Validation de la longueur des chaînes
+* Validation de la longueur des chaînes
   - `ng-minlength` et `ng-maxlength`
 
 ```
 <input type="text" name="address" ng-model="address"
 	 ng-minlength="3" ng-maxlength="10" />
 ```
-- Etat du validateur : 
+* Etat du validateur : 
   - `<champ>.$error.minlength`
   - `<champ>.$error.maxlength`
 
@@ -160,7 +160,7 @@ Validateur "required" en erreur ?
 
 
 === Validation : Validation des champs
-- Contrôle du format de la saisie
+* Contrôle du format de la saisie
   - Expression régulière : `ng-pattern`
 
 ```
@@ -168,7 +168,7 @@ Validateur "required" en erreur ?
 	ng-pattern="/^555-(\d){4}$/" />
 ```
 
-- Etat du validateur : `<champ>.$error.pattern`
+* Etat du validateur : `<champ>.$error.pattern`
 
 ```
 <input name="phone" ng-pattern="/^555-(\d){4}$/">
@@ -178,13 +178,13 @@ Validateur "required" en erreur ?
 
 
 === Validation : État du formulaire et des champs
-- AngularJS expose 4 propriétés au niveau du formulaire et de chacun des champs de saisie
+* AngularJS expose 4 propriétés au niveau du formulaire et de chacun des champs de saisie
   - `$valid` / `$invalid`
     - Indiquent si l'élément passe le contrôle des validateurs
   - `$pristine` / `$dirty`
     - Indiquent si l'utilisateur a altéré l'élément 
     - Un élément est considéré dirty dès qu'il subit une modification, même si la valeur initiale est restaurée ensuite
-- Les classes CSS correspondantes sont appliquées aux éléments
+* Les classes CSS correspondantes sont appliquées aux éléments
   - `ng-valid`, `ng-invalid`, `ng-pristine`, `ng-dirty`
 
 

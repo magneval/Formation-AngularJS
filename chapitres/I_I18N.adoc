@@ -1,8 +1,8 @@
 === Installation
-- AngularJS offre des fonctionnalités d'internationalisation
+* AngularJS offre des fonctionnalités d'internationalisation
   - 155 langues ou variantes
   - Fichiers **i18n/angular-locale_\*.js**
-- C'est au développeur de sélectionner et d'importer les locales qu'il souhaite supporter
+* C'est au développeur de sélectionner et d'importer les locales qu'il souhaite supporter
   - Déterminé côté serveur
   - Alternativement, les scripts peuvent être concaténés (manuellement) afin de limiter le nombre de requêtes
 ```
@@ -10,18 +10,18 @@
 <script src="js/angular/i18n/angular-locale_fr.js" />
 ```
 
-- Les filtres `number`, `date` et `currency` utilisent alors le bon format
+* Les filtres `number`, `date` et `currency` utilisent alors le bon format
 
 
 
 === Nombre
-- Le filtre `number` permet de localiser les nombres
+* Le filtre `number` permet de localiser les nombres
 
 ```
 {{ <binding/expression> | number[:fractionSize] }}
 ```
 
-- Paramètres
+* Paramètres
   - [number] *fractionSize* : nombre de décimales
     
 	Par défaut 3 ; des zéros sont ajoutés au besoin
@@ -40,13 +40,13 @@ Locale FR : 1 234,567800
 
 
 === Dates et heures
-- Le filtre `date` permet de localiser les dates et heures
+* Le filtre `date` permet de localiser les dates et heures
 
 ```
 {{ <binding/expression> | date[:format] }}
 ```
 
-- Paramètres
+* Paramètres
   - [string] *format* : format de date/heure
     
 	Format prédéfini ("short", "long"...) ou personnalisé
@@ -65,7 +65,7 @@ Locale FR : 23/04/2013
 
 
 === Dates et heures
-- Formats prédéfinis (dépendants de la locale)
+* Formats prédéfinis (dépendants de la locale)
 
 ```
 // Locale EN
@@ -91,7 +91,7 @@ Locale FR : 23/04/2013
 
 
 === Dates et heures
-- Format personnalisé
+* Format personnalisé
   - Composé à partir de symboles représentant les composantes d'une date
   - Gestion manuelle des locales
 
@@ -111,13 +111,13 @@ Locale FR : 23/04/2013
 
 
 === Montants monétaires
-- Le filtre `currency` permet de localiser les montants monétaires
+* Le filtre `currency` permet de localiser les montants monétaires
 
 ```
 {{ <binding/expression> | currency[:symbol] }}
 ```
 
-- Paramètres
+* Paramètres
   - [string] *symbol* : symbole monétaire (€, $, USD…)
     Le formatage reste celui de la locale, seul le symbole change
 
@@ -135,13 +135,13 @@ Locale NO : € 1 234,57
 
 
 === ngPluralize
-- La directive `ngPluralize` permet d'adapter l'affichage de quantités en fonction de règles de catégorisation
+* La directive `ngPluralize` permet d'adapter l'affichage de quantités en fonction de règles de catégorisation
   - Ex : "Aucun contact", "Un contact", "Plusieurs contacts"
-- Une forme particulière de pluralisation peut être associée à
+* Une forme particulière de pluralisation peut être associée à
   - Une *quantité précise* d'éléments : 0, 1, 2, 27, 42…
   - Une *catégorie* (variable selon les locales)
 
-- Catégories
+* Catégories
   - En général, seulement "one" (1) et "other" (2+)
   - Japonais : "other" seulement
   - Irlandais : "one" (1), "two" (2), "few" (3..6), "many" (7..10), "other" (11+)
@@ -149,14 +149,14 @@ Locale NO : € 1 234,57
 
 
 === ngPluralize
-- Syntaxe
+* Syntaxe
 
 ```
 <ng-pluralize count="<binding/expression>" when="<règles>">
 </ng-pluralize>
 ```
 
-- Règles
+* Règles
   - Exprimées sous la forme d'une map
   - Correspondance sur des quantités exactes ou des catégories
 
@@ -173,7 +173,7 @@ Locale NO : € 1 234,57
 
 
 === ngPluralize
-- Les chaînes pluralisées peuvent contenir 
+* Les chaînes pluralisées peuvent contenir 
   - Des bindings AngularJS : `{{binding}}`
   - Un placeholder pour le nombre d'entités : `{}`
 
@@ -201,22 +201,22 @@ Si count = 0 : Aucun contact
            3 : 3 contacts, dont Joe et Jack
 ```
 
-- La directive `ngPluralize` offre également un paramètre *offset*
+* La directive `ngPluralize` offre également un paramètre *offset*
   - Valeur numérique
   - Autorise une pluralisation plus fine
 
 
 
 === ngPluralize
-- Algorithme
+* Algorithme
   - Si count correspond exactement à une *quantité exacte* définie, utiliser la forme plurielle correspondante
   - Sinon, soustraire l'offset, et utiliser la forme plurielle de la *catégorie* adaptée à la nouvelle valeur
-- L'ordre de déclaration des cas dans la map n'est pas significatif
+* L'ordre de déclaration des cas dans la map n'est pas significatif
 
 
 
 === ngPluralize
-- Exemple
+* Exemple
 
 ```
 <ng-pluralize 
@@ -244,8 +244,8 @@ count
 
 
 === Internationalisation des templates
-- En-dehors des mécanismes vus dans ce chapitre, AngularJS n'offre pas de mécanisme global d'internationalisation
-- Pistes
+* En-dehors des mécanismes vus dans ce chapitre, AngularJS n'offre pas de mécanisme global d'internationalisation
+* Pistes
   - Paramétrer le serveur pour envoyer les ressources dans la bonne locale : templates, images, scripts...
   - Embarquer des dictionnaires dans l'application, interrogés à l'aide de directives AngularJS
-- L'internationalisation reste l'un des points complexes des applications déportées côté client
+* L'internationalisation reste l'un des points complexes des applications déportées côté client
