@@ -1,4 +1,6 @@
 === {chapter}
 * Dans ce chapitre nous allons voir les points suivants
+ifndef::dev[]
 [%step]
+endif::[]
 include::../plans/Plan{chapter}.adoc[]

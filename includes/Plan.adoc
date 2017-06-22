@@ -1,5 +1,5 @@
 === Plan
-ifndef::chapter[]
+ifndef::chapter+dev[]
 [%step]
 endif::[]
 * Rappels
@@ -12,7 +12,7 @@ endif::[]
 * Architectures REST
 
 === Plan
-ifndef::chapter[]
+ifndef::chapter+dev[]
 [%step]
 endif::[]
 * I18N
