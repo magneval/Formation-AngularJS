@@ -129,7 +129,8 @@ Validateur "required" en erreur ?
 <input type="text" ng-model="name" required />
 ```
 
-** De manière conditionnelle : `ng-required="<model>"`
+** De manière conditionnelle : +
+`ng-required="<model>"`
 
 ```
 <input type="checkbox" ng-model="nameRequired"/> 

@@ -83,7 +83,6 @@ function scope() {
     console.log("foo = "+foo);
     var answer2 = foo();
     console.log("answer2 = "+answer2);
-    console.log("banana = "+banana);
     if (true) {
         console.log("banana = "+banana);
         var banana = "banana";
@@ -308,7 +307,7 @@ Editeur web interactif:: http://jsfiddle.net[jsfiddle^], http://plnkr.co[Plunker
 
 SonarJS:: plugin Sonar pour l'analyse de code JS
 
-Outils de build:: http://npm.com[npmjs^], http://bower.io[bower^], http://grunt.com[gruntjs^], http://gulp.com[gulpjs^], http://webpack.js.org[WebPack^], ...
+//Outils de build:: http://npm.com[npmjs^], http://bower.io[bower^], http://grunt.com[gruntjs^], http://gulp.com[gulpjs^], http://webpack.js.org[WebPack^], ...
 
 === Les services REST
 REST (**RE**presentational **S**tate **T**ransfer):: Architecture pour les systèmes *hypermédia* distribués
