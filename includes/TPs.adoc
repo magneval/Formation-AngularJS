@@ -1,6 +1,6 @@
 === {chapter} +
 ==== TP {counter:tp}
-image::TP{tp}.jpg[TP, id="TP", name="TP"]
+image::TP{tp}.jpg[TP, id="TP", name="TP", max-height=50%]
 
 :lien: link:TPs/TP{tp}[TP N° {TP}^]
 

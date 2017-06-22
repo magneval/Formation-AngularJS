@@ -1,13 +1,16 @@
 === Routeur
-* AngularJS permet de développer des applications multi-vues 
+* AngularJS permet de faire des applications multi-vues 
+
+image::routeur.png[routeur, id="routeur", name="routeur", width=85%]
+
+[NOTE.speaker]
+--
 ** Architecture MVC côté client en pur Javascript
-
-image::routeur.png[routeur, id="routeur", name="routeur",  width=85%]
-
-
+--
 
 === Routeur
 * Dans la page hôte, la directive `ng-view` indique l'emplacement où les vues seront insérées
+** Architecture MVC côté client en pur Javascript
 
 ```
 <body>
@@ -19,50 +22,58 @@ image::routeur.png[routeur, id="routeur", name="routeur",  width=85%]
 </body>
 ```
 
-
-
 === Configuration du routage
 * Le service `$routeProvider` permet de paramétrer la table de routage, qui associe des vues à des URLs particulières
 ** when(route, config) : configure une route
 ** otherwise(config) : si aucune route ne correspond
+
+=== Configuration du routage
 * Propriétés usuelles de configuration d'une route 
- - controller : nom du contrôleur gérant la vue
- - templateUrl : chemin vers la vue (template)
- - redirectTo : URL vers laquelle rediriger l'utilisateur
+** controller : nom du contrôleur gérant la vue
+** templateUrl : chemin vers la vue (template)
+** redirectTo : URL vers laquelle rediriger l'utilisateur
 
-
+[NOTE.speaker]
+--
+Chaque zone peut avoir sont propre controlleur et/ou sa propre vue
+--
 
 === Configuration du routage
 * Il existe d'autres possibilités de configuration
-** En particulier, on peut associer des propriétés personnalisées aux routes (ex : pour donner un titre de page à chaque vue)
+** En particulier, on peut associer des propriétés personnalisées aux routes +
+(ex : pour donner un titre de page à chaque vue)
 
 ```javascript
 var app = angular.module('app',['ngRoute']);
 app.config(function($routeProvider) {
-	$routeProvider.when('/foo', {
-		templateUrl: 'view/foo.html',
-		controller: 'FooController'});
-		
-	$routeProvider.when('/bar', { 
-		templateUrl: 'view/bar.html',
-		controller: 'BarController',
-		title: 'Welcome to the bar !' }); 
-	( … )
+    $routeProvider.when('/login', {
+        templateUrl: 'view/login.html',
+        controller: 'LoginController'});
+    $routeProvider.when('/commandes', { 
+        templateUrl: 'view/commande.html',
+        controller: 'CommandeController',
+        title: 'Consultations des commandes' }); 
+    ( … )
     $routeProvider.otherwise({
-		redirectTo: '/foo'});
+        redirectTo: '/commandes'});
 });
 ```
 
-
+[NOTE.speaker]
+--
+La definition des URLs permet de définir une sémantique de navigation
+comme sur un site Web statique
+des vues peuvent être réutilisé entre plusieurs zones (comme des listes
+--
 
 === Configuration du routage
 * Il est également possible de spécifier des patterns d'URL
 
 ```javascript
 $routeProvider.when(
-		'/contactBook/:bookId/contact/:id', {
-		templateUrl: 'view/foo.html',
-		controller: 'FooController'});
+    '/contactBook/:bookId/contact/:id', {
+    templateUrl: 'view/foo.html',
+    controller: 'FooController'});
 ```
 
 * Le service `$routeParams` permet alors d'accéder aux valeurs des placeholders
@@ -72,7 +83,13 @@ $routeParams.bookId
 $routeParams.id
 ```
 
+* les routes peuvent avoir plusieurs niveaux de paramétrages
 
+[NOTE.speaker]
+--
+On peut peut reprendre les concepts sémantique définis paour les services Rest, mais en restant qur le point de la navigation.
+WARNING: Les routes peuvent indiquer des chemins d'ataques
+--
 
 === Configuration du routage
 * La configuration de routage est exposée par le service `$route`
@@ -83,10 +100,13 @@ $routeParams.id
 $route.current.title
 ```
 
+=== Configuration du routage
+
 * Le service `$route` expose également différents événements 
-** `$routeChangeStart`, `$routeChangeSuccess`, `$routeChangeError`, `$routeUpdate`
-
-
+** `$routeChangeStart`,
+** `$routeChangeSuccess`,
+** `$routeChangeError`,
+** `$routeUpdate`
 
 === Configuration du routage
 ```javascript
@@ -102,7 +122,8 @@ function FooController($scope,$route) {
 === Format des URLs
 * Mode par default
 
-  `http://server:port/gestion_commandes/index.html#/list?a=b&c`
+  http://server:port/gestion_commandes/index.html#/list?a=b&c
+
 * AngularJS fait usage du caractère # ("Hash" en anglais) qui permet de modifier l'URL sans déclencher un rechargement de la page par le navigateur
 * Il existe également un mode HTML5 qui se base sur l'API History HTML5 mais qui demande alors une gestion coté serveur des URL (URL rewriting)
 
