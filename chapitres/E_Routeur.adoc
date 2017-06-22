@@ -1,6 +1,6 @@
 === Routeur
 * AngularJS permet de développer des applications multi-vues 
-  - Architecture MVC côté client en pur Javascript
+** Architecture MVC côté client en pur Javascript
 
 <figure>
     <img src="ressources/images/routeur.png" alt="Routeur"  width="85%"/>
@@ -25,8 +25,8 @@
 
 === Configuration du routage
 * Le service `$routeProvider` permet de paramétrer la table de routage, qui associe des vues à des URLs particulières
-  - when(route, config) : configure une route
-  - otherwise(config) : si aucune route ne correspond
+** when(route, config) : configure une route
+** otherwise(config) : si aucune route ne correspond
 * Propriétés usuelles de configuration d'une route 
  - controller : nom du contrôleur gérant la vue
  - templateUrl : chemin vers la vue (template)
@@ -36,7 +36,7 @@
 
 === Configuration du routage
 * Il existe d'autres possibilités de configuration
-  - En particulier, on peut associer des propriétés personnalisées aux routes (ex : pour donner un titre de page à chaque vue)
+** En particulier, on peut associer des propriétés personnalisées aux routes (ex : pour donner un titre de page à chaque vue)
 
 ```javascript
 var app = angular.module('app',['ngRoute']);
@@ -78,15 +78,15 @@ $routeParams.id
 
 === Configuration du routage
 * La configuration de routage est exposée par le service `$route`
-  - routes configurées : `$route.routes`
-  - propriétés de la route courante : `$route.current` (y compris les propriétés personnalisées)
+** routes configurées : `$route.routes`
+** propriétés de la route courante : `$route.current` (y compris les propriétés personnalisées)
 
 ```javascript
 $route.current.title
 ```
 
 * Le service `$route` expose également différents événements 
-  - `$routeChangeStart`, `$routeChangeSuccess`, `$routeChangeError`, `$routeUpdate`
+** `$routeChangeStart`, `$routeChangeSuccess`, `$routeChangeError`, `$routeUpdate`
 
 
 
@@ -113,12 +113,12 @@ function FooController($scope,$route) {
 
 === Gestion de la barre d'adresse
 * Le service `$location` permet de lire et de modifier l'URL dans la barre d'adresse du navigateur
-  - Abstraction de `window.location`
-  - Synchronisation bidirectionnelle
+** Abstraction de `window.location`
+** Synchronisation bidirectionnelle
 * Accesseurs 
-  - [ro] `protocol()`, `host()`, `port()`
-  - [rw] `path()`, `search()`, `hash()`
-  - [rw] `url()` = path + search + hash
-  - [ro] `absUrl()` = URL complète
+** [ro] `protocol()`, `host()`, `port()`
+** [rw] `path()`, `search()`, `hash()`
+** [rw] `url()` = path + search + hash
+** [ro] `absUrl()` = URL complète
 
 tp3

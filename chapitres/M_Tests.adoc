@@ -51,9 +51,9 @@ describe("A suite", function() {
 * Définit des fonctions globales :  `dump`, `inject`, `module`, `TzDate`
 * Définit des services supplémentaires : `$exceptionHandler`, `$httpBackend`, `$log`, `$timeout`
 * `module('moduleName')`
-  - Charge le module et toutes ses dépendances et les rends disponibles à la fonction `inject`
+** Charge le module et toutes ses dépendances et les rends disponibles à la fonction `inject`
 * `inject(function(...) {…})`
-  - Exécute la fonction en mettant en œuvre l'injection de dépendance d'AngularJS avec le contexte du module chargé
+** Exécute la fonction en mettant en œuvre l'injection de dépendance d'AngularJS avec le contexte du module chargé
 
 
 
@@ -85,9 +85,9 @@ describe('MyApp', function() {
 * `$httpBackend` est le service fourni par `ngMock` qui permet de mocker des requêtes HTTP
 * Il fonctionne dans le système d'injection de dépendance d'Angular et intercepte les requêtes lancées par `$http`
 * `$httpBackend.expect`
-  - Définit une requête « attendue » (stricte)
+** Définit une requête « attendue » (stricte)
 * `$httpBackend.when`
-  - Définit une requête qui « peut » arriver (lâche)
+** Définit une requête qui « peut » arriver (lâche)
 
 
 
@@ -124,10 +124,10 @@ describe('MyController', function() {
 
 === Configuration de Karma
 * Karma nécessite un fichier de configuration en JS, il contient :
-  - Le framework de test (compatibilité avec plusieurs fmk)
-  - La liste des scripts à charger
-  - Les navigateurs à piloter
-  - Diverses configurations techniques
+** Le framework de test (compatibilité avec plusieurs fmk)
+** La liste des scripts à charger
+** Les navigateurs à piloter
+** Diverses configurations techniques
 
 
 
@@ -222,11 +222,11 @@ describe('directives', function() {
 
 === Tests E2E : Concepts
 * Les tests end-2-end proposent une tout autre approche et sont complémentaires avec les tests unitaires
-  - Simule l’exécution complète de l'application
-  - Plus lent et plus fastidieux à écrire ( → Page Object Pattern)
+** Simule l’exécution complète de l'application
+** Plus lent et plus fastidieux à écrire ( → Page Object Pattern)
 * Utilise Protractor, également développé par Angular
-  - S'appuie sur Selenium
-  - Encapsulation de WebdriverJS
+** S'appuie sur Selenium
+** Encapsulation de WebdriverJS
 * Permet le pilotage du browser
 * Permet d'accéder au DOM facilement
 * https://github.com/angular/protractor/
@@ -235,34 +235,34 @@ describe('directives', function() {
 
 === Tests E2E : API
 * L'API est inspiré de Jasmine
-  - `describe`, `beforeEach`, `afterEach`, `it`...
+** `describe`, `beforeEach`, `afterEach`, `it`...
 
 * Programmation des interactions séquentielles (le « control flow »)
-  - Une mécanique assez complexe gère l’enchaînement des actions quand la précédente est terminée
-  - Basé sur les promesses
-  - En rupture avec l'asynchronisme du naturel du JS
-  - Nécessite de bien rester dans l'API
+** Une mécanique assez complexe gère l’enchaînement des actions quand la précédente est terminée
+** Basé sur les promesses
+** En rupture avec l'asynchronisme du naturel du JS
+** Nécessite de bien rester dans l'API
 
 
 
 === Tests E2E : API
 * Pilotage de la page
-  - `browser.get(http://localhost:8080)`
-  - `element(selector).sendKeys(value)`
-  - `element(selector).click()`
+** `browser.get(http://localhost:8080)`
+** `element(selector).sendKeys(value)`
+** `element(selector).click()`
 * Assertions
-  - `expect(future).<matcher>(expected)`
-  - `future` = `element`, `repeater`...
-  - `matcher` = `toBe`, `toContain`, `toBeLessThan`...
+** `expect(future).<matcher>(expected)`
+** `future` = `element`, `repeater`...
+** `matcher` = `toBe`, `toContain`, `toBeLessThan`...
 
 
 
 === Tests E2E : API
 * Sélections
-  - locators WebDriver
+** locators WebDriver
     - `element(by.id('foo'))`
     - `element(by.className('foo'))`
-  - locators Protractor (spécifiques Angular)
+** locators Protractor (spécifiques Angular)
     - `element(by.model('contact.name'))`
     - `element(by.binding('contact.name'))`
 

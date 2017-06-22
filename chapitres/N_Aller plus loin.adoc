@@ -1,10 +1,10 @@
 === Au-delà d'AngularJS
 * AngularJS est un framework remarquable pour structurer une application riche en Javascript
-  - Mais ce n'est qu'un composant de l'application totale
+** Mais ce n'est qu'un composant de l'application totale
 * D'autres outils, librairies et frameworks peuvent être utilisés en conjonction pour couvrir d'autres aspects du développement
-  - Industrialisation
-  - Optimisation des ressources
-  - Librairies de composants
+** Industrialisation
+** Optimisation des ressources
+** Librairies de composants
 
 
 
@@ -23,10 +23,10 @@
 <!-- .element: style="clear: right;" -->
 
 * Le couteau suisse du développement web
-  - compilation (coffeescript, LESS/SASS, templates…)
-  - minification des scripts
-  - optimisation des images
-  - lancement des tests automatisés
+** compilation (coffeescript, LESS/SASS, templates…)
+** minification des scripts
+** optimisation des images
+** lancement des tests automatisés
 
 
 
@@ -45,7 +45,7 @@
 <!-- .element: style="clear: right;" -->
 
 * Gestion des dépendances entre composants front-end 
-  - Le plus souvent des librairies JavaScript
+** Le plus souvent des librairies JavaScript
 
 
 
@@ -61,7 +61,7 @@
 * Yeoman est une collection d'outils permettant
     
   de gérer le cycle de vie d'une application JavaScript
-  - Grunt, Bower, Yo (génération de squelette
+** Grunt, Bower, Yo (génération de squelette
     
 	d'application (*"scaffolding"*))
 
@@ -98,56 +98,56 @@ grunt build
 
 === Optimisation des ressources
 * Les ressources d'une application d'entreprise doivent être optimisées
-  - Réduction de la consommation de bande passante
-  - Accélération du chargement de l'application
+** Réduction de la consommation de bande passante
+** Accélération du chargement de l'application
 * Chaque type de ressource dispose de techniques d'optimisation propres
-  - JavaScript
-  - Feuilles de style
-  - Images
+** JavaScript
+** Feuilles de style
+** Images
 
 
 
 === Optimisation du code JavaScript
 * Les ressources JavaScript peuvent être optimisées
 * Vérification
-  - JSLint : http://jslint.com 
-  - JSHint : http://jshint.com 
+** JSLint : http://jslint.com 
+** JSHint : http://jshint.com 
 * Optimisation et compression
-  - UglifyJS : http://github.com/mishoo/UglifyJS 
-  - JSMin : http://www.crockford.com/javascript/jsmin.html 
+** UglifyJS : http://github.com/mishoo/UglifyJS 
+** JSMin : http://www.crockford.com/javascript/jsmin.html 
 
 
 
 === Optimisation des styles CSS
 * Les feuilles de style CSS peuvent également bénéficier de certaines optimisations
-  - Fusion des feuilles de style
-  - Optimisation et déduplication des propriétés CSS
+** Fusion des feuilles de style
+** Optimisation et déduplication des propriétés CSS
 * Optimisation 
-  - CSSLint : http://csslint.net 
+** CSSLint : http://csslint.net 
 * Langages alternatifs générant du CSS (support des constantes, mixins, opérations sur les unités…)
-  - LESS : http://lesscss.org 
-  - SASS : http://sass-lang.com 
+** LESS : http://lesscss.org 
+** SASS : http://sass-lang.com 
 
 
 
 === Optimisation des images
 * Il existe 2 types d'optimisations pour les images
-  - Optimiser chaque image 
-  - Grouper toutes les images en une seule, pour les récupérer en une seule requête HTTP
+** Optimiser chaque image 
+** Grouper toutes les images en une seule, pour les récupérer en une seule requête HTTP
 * Yeoman embarque deux optimiseurs
-  - OptiPNG : http://optipng.sourceforge.net
-  - JPEGTran : http://jpegclub.org 
+** OptiPNG : http://optipng.sourceforge.net
+** JPEGTran : http://jpegclub.org 
 
 
 
 === Angular-UI et autres modules
 * AngularJS est au centre d'un écosystème en plein essor
-  - Composants additionnels sur étagère
-  - Intégration avec d'autres projets
+** Composants additionnels sur étagère
+** Intégration avec d'autres projets
 * Projet ngModules (registre de composants) : http://ngmodules.org 
-  - Angular-UI : http://angular-ui.github.io
+** Angular-UI : http://angular-ui.github.io
      - UI Bootstrap (intégration avec Twitter Bootstrap)
      - UI Router (remplacement de `$routeService`)
-  - Intégration Google Charts, Google Maps
-  - Infiniscroll
-  - Intégration MongoDB, Firebase
+** Intégration Google Charts, Google Maps
+** Infiniscroll
+** Intégration MongoDB, Firebase

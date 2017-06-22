@@ -1,13 +1,13 @@
 === Authentification sur une SPA
 * Approches au niveau du formulaire d'identification
-  - SSO : formulaire déporté sur un service différent
-  - Page de login : navigation après validation du formulaire
-  - Login intégré : formulaire intégré à l'application
+** SSO : formulaire déporté sur un service différent
+** Page de login : navigation après validation du formulaire
+** Login intégré : formulaire intégré à l'application
 * Approches au niveau de la transmission de la session
-  - Cookie de session : nécessite du statefull côté serveur
-  - Cookie avec credentials : nécessite un bon cryptage
-  - Headers dans chaque requêtes
-  - Passage d'un token en paramètre des requêtes
+** Cookie de session : nécessite du statefull côté serveur
+** Cookie avec credentials : nécessite un bon cryptage
+** Headers dans chaque requêtes
+** Passage d'un token en paramètre des requêtes
   
 
 
@@ -20,7 +20,7 @@
 === En-têtes HTTP
 * Le service $http ajoute déjà automatiquement des en-têtes HTTP
 * On peut y accéder au moment de la configuration de l'application via `$httpProvider.defaults.headers`
-  - On pourra par exemple ajouter un entête sur les requêtes de type GET
+** On pourra par exemple ajouter un entête sur les requêtes de type GET
 
 ```javascript
 $httpProvider.defaults.headers.get = { 'My-Header' : 'value' }
@@ -59,8 +59,8 @@ $httpProvider.interceptors.push(
 
 === Intercepteurs HTTP
 * Un exemple d'intercepteur qui stocke localement :
-  - Les headers de la dernière réponse OK reçue
-  - Le statut HTTP de la dernière réponse KO reçue
+** Les headers de la dernière réponse OK reçue
+** Le statut HTTP de la dernière réponse KO reçue
 
 ```javascript
 $httpProvider.interceptors.push(function($q) {

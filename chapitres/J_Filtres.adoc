@@ -1,7 +1,7 @@
 === Filtres : Concept
 * Un filtre dans AngularJS permet de mettre en forme une donnée
-  - Conserve un model de données propre
-  - Pilote la mise en forme des données depuis la vue
+** Conserve un model de données propre
+** Pilote la mise en forme des données depuis la vue
 
 ```
 data | filtre1 | filtre2:param1 | filtre3:param1:param2
@@ -9,7 +9,7 @@ data | filtre1 | filtre2:param1 | filtre3:param1:param2
 
 * Les filtres peuvent s'enchainer et avoir des paramètres
 * AngularJS propose un ensemble de filtre par défaut :
-  - `currency`, `date`, `filter`, `json`, `limitTo`, `lowercase`, `number`, `orderBy`, `uppercase`
+** `currency`, `date`, `filter`, `json`, `limitTo`, `lowercase`, `number`, `orderBy`, `uppercase`
 
 
 
@@ -61,8 +61,8 @@ $scope.value = $filter('myFilter')(data,'value1','value2');
 * Permet d'utiliser les services d'AngularJS (à injecter)
 * Attention à ne pas confondre à la fonction du filtre `filter`
 * Permet d'aller plus loin qu'avec le filtre `filter`
-  - Transformation de données simples (pas seulement filtre de listes)
-  - Possibilité d'utiliser des paramètres
+** Transformation de données simples (pas seulement filtre de listes)
+** Possibilité d'utiliser des paramètres
 * Le filtre est accessible dans les templates dès que le module est en dépendance
 
 tp7

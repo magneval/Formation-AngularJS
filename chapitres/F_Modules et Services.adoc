@@ -1,24 +1,24 @@
 === Modules : Notion de module
 * AngularJS propose la notion de *module*
 * Un module permet d'encapsuler un ensemble de fonctionnalités
-  - Code de configuration
-  - Services, contrôleurs, directives et filtres
+** Code de configuration
+** Services, contrôleurs, directives et filtres
 * Avantages
-  - Architecture modulaire
-  - Réutilisabilité
-  - Testabilité (module de test, module de production)
+** Architecture modulaire
+** Réutilisabilité
+** Testabilité (module de test, module de production)
 * Le module *ng* fournit toutes les fonctionnalités vues jusqu'ici
-  - Automatiquement importé
+** Automatiquement importé
 
 
 
 === Modules : Notion de module
 * De manière générale, les modules peuvent être organisés
-  - Par type (services, contrôleurs...)
-  - Par fonctionnalité ("gestion des contacts", "admin"...)
+** Par type (services, contrôleurs...)
+** Par fonctionnalité ("gestion des contacts", "admin"...)
 * On peut par exemple utiliser le découpage suivant
-  - Un module par type de composant (services, contrôleurs...)
-  - Un module applicatif qui importe les précédents, ainsi que les modules tierce-partie
+** Un module par type de composant (services, contrôleurs...)
+** Un module applicatif qui importe les précédents, ainsi que les modules tierce-partie
 
 <figure>
     <img src="ressources/images/modules.png" alt="Modules"  width="60%"/>
@@ -48,8 +48,8 @@ var MyApplication =
 
 === Modules : Configuration
 * Un module dispose de deux fonctions d'initialisation
-  - `config()` : appelée au chargement du module
-  - `run()` : appelée lorsque tous les modules ont été chargés
+** `config()` : appelée au chargement du module
+** `run()` : appelée lorsque tous les modules ont été chargés
 
 ```javascript
 var App = angular.module('App', []);
@@ -68,10 +68,10 @@ App.run(function() {
 
 === Modules et Composants : Factories
 * Un module instancie et expose des composants (services, contrôleurs, directives et filtres) grâce à des fonctions *factory*
-  - `service(name, configFn)`
-  - `controller(name, configFn)`
-  - `directive(name, configFn)`
-  - `filter(name, configFn)`
+** `service(name, configFn)`
+** `controller(name, configFn)`
+** `directive(name, configFn)`
+** `filter(name, configFn)`
 * Exemple : déclaration d'un contrôleur
 
 ```javascript
@@ -86,11 +86,11 @@ Controllers.controller('PeopleCtrl', function($scope) {
 
 === Modules et composants : service() vs factory()
 * Il existe une méthode alternative pour créer un service
-  - Méthode `<module>.factory(nom, configFn)`
-  - Permet d'exécuter du code avant d'instancier le service
+** Méthode `<module>.factory(nom, configFn)`
+** Permet d'exécuter du code avant d'instancier le service
 * Différences
-  - Avec `service()`, this fait référence à l'instance du service en cours de création.
-  - Avec `factory()`, il faut instancier manuellement le service et retourner la nouvelle instance. this fait référence au module.
+** Avec `service()`, this fait référence à l'instance du service en cours de création.
+** Avec `factory()`, il faut instancier manuellement le service et retourner la nouvelle instance. this fait référence au module.
 
 
 
@@ -119,8 +119,8 @@ Controllers.controller('PeopleCtrl', function($scope) {
 
 === Modules : Valeurs
 * Pour finir, un module peut exposer des valeurs
-  - Réutilisabilité, principe DRY
-  - Injectables dans les composants
+** Réutilisabilité, principe DRY
+** Injectables dans les composants
 * Utilisation de la fonction factory `module.value`
 
 ```javascript
@@ -138,17 +138,17 @@ Controllers.controller('PeopleCtrl', function($scope) {
 === Injection de dépendances
 * AngularJS propose un mécanisme d'*injection de dépendances*
 * Principe : un composant ne va pas chercher lui-même ses dépendances, mais attend qu'on les lui fournisse
-  - Aussi appelé *IOC* (Inversion Of Control)
+** Aussi appelé *IOC* (Inversion Of Control)
 * Avantages
-  - Simplifie le code
-  - Permet de varier les implémentations d'une dépendance (production vs mock)
+** Simplifie le code
+** Permet de varier les implémentations d'une dépendance (production vs mock)
 
 
 
 === Injection de dépendances : Injection dans un module
 * Dans le cas d'un module
-  - Les dépendances envers les autres modules sont déclarées dans le tableau des dépendances
-  - Les fonctions d'initialisation `run` et `config` acceptent également des dépendances en paramètre 
+** Les dépendances envers les autres modules sont déclarées dans le tableau des dépendances
+** Les fonctions d'initialisation `run` et `config` acceptent également des dépendances en paramètre 
 
 ```javascript
 // dépendance envers les modules annexes Services et Controllers
@@ -182,16 +182,16 @@ Controllers.
 
 === Injection de dépendances : Minification et obfuscation
 * AngularJS se base sur le nom du paramètre pour déterminer la dépendance à injecter
-  - Nom défini lors de son instanciation par le module
+** Nom défini lors de son instanciation par le module
 * Problème : en cas de minification et/ou obfuscation du code, les variables, fonctions et paramètres sont renommés !
-  - Avant
+** Avant
 ```javascript
 ControllersCtrls.controller('PeopleCtrl', function($scope) {
      (...)
 });
 ```
 
-  - Après
+** Après
 ```javascript
 var$21.func$33('PeopleCtrl', function(param$13) {
      (...)
@@ -202,11 +202,11 @@ var$21.func$33('PeopleCtrl', function(param$13) {
 
 === Injection de dépendances : Minification et obfuscation
 * Solution : une notation alternative permet de préciser les dépendances sous forme de String
-  - Les Strings ne sont pas minifiées ni obfusquées 
+** Les Strings ne sont pas minifiées ni obfusquées 
 * Utilisation d'un tableau
-  - Les N premiers éléments sont les noms des dépendances
-  - Le dernier élément est la fonction de configuration
-  - L'ordre des noms doit correspondre à celui des paramètres
+** Les N premiers éléments sont les noms des dépendances
+** Le dernier élément est la fonction de configuration
+** L'ordre des noms doit correspondre à celui des paramètres
 ```javascript
 <module>.controller('MyCtrl',['foo','bar',function(foo,bar){
      foo.(…);
