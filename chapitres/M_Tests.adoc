@@ -12,17 +12,10 @@
 
 
 === Jasmine
-<br />
-<!-- .element: style="display: block; float: right; width: 20%" -->
-
-<figure style="display: block; float: left; width: 20%; margin: 0 10px;">
-    <img src="ressources/images/Jasmine.png" alt="Jasmine" />
-</figure>
+image::Jasmine.png[Jasmine, id="Jasmine", name="Jasmine" ]
 
 * DOM-less simple JavaScript testing framework
 * http://jasmine.github.io/
-
-<!-- .element: style="clear: right;" -->
 
 * Propose une API JS plutôt naturelle pour décrire des tests
 
@@ -39,9 +32,7 @@ describe("A suite", function() {
 === Jasmine
 * Fournit la page SpecRunner.html
 
-<figure>
-    <img src="ressources/images/SpecRunner.png" alt="SpecRunner.html" width="100%" />
-</figure>
+image::SpecRunner.png[SpecRunner, id="SpecRunner", name="SpecRunner", alt="SpecRunner.html", width="100%" ]
 
 
 
@@ -92,7 +83,6 @@ describe('MyApp', function() {
 
 
 === ngMock $httpBackend
-<br />
 ```javascript
 describe('MyController', function() {
    var httpBackend, rootScope, createController;
@@ -116,9 +106,7 @@ describe('MyController', function() {
 === Karma
 * Karma est un outil qui permet d'automatiser l’exécution des tests
 
-<figure>
-    <img src="ressources/images/SchemaKarma.png" alt="Schema Karma" width="75%" />
-</figure>
+image::SchemaKarma.png[SchemaKarma, id="SchemaKarma", name="SchemaKarma", alt="Schema Karma", width="75%" ]
 
 
 
@@ -132,7 +120,6 @@ describe('MyController', function() {
 
 
 === Configuration de Karma
-<br />
 ```javascript
 module.exports = function(config){
    config.set({
@@ -195,7 +182,6 @@ describe('MyController Test', function() {
 
 
 === Test d'une directive
-<br />
 ```javascript
 describe('directives', function() {
   beforeEach(module('myApp.directives'));
@@ -269,7 +255,6 @@ describe('directives', function() {
 
 
 ##Tests E2E : Exemple
-<br />
 ```javascript
 describe('Phone list view', function() {
   beforeEach(function() {

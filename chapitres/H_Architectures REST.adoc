@@ -225,7 +225,6 @@ return $resource(
 
 
 === Le service $resource : Paramètres - Actions
-<br />
 ```javascript
 $scope.contacts = Contact.query(function(contacts) {
 	var firstContact = contacts[0];

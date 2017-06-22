@@ -25,11 +25,9 @@
 
 
 === Directives : La directive ngBind
-<br />
 ```
 <span data-ng-bing="contact.address"></span>
 ```
-<br />
 ```javascript
 // github.com/angular/angular.js
 //	/blob/master/src/ng/directive/ngBind.js
@@ -70,9 +68,7 @@ angular.module('MyModule')
 
 
 === Directives : API : Cycle de vie
-<figure>
-    <img src="ressources/images/API-cycle-vie.png" alt="API : Cycle de vie" width="85%"/>
-</figure>
+image::API-cycle-vie.png[API, id="API", name="API", alt="API : Cycle de vie", width="85%"]
 
 
 
@@ -147,7 +143,6 @@ angular.module('MyModule').directive('myDirective1',
 
 
 === Directives : API : Scopes
-<br />
 ```
 //HTML
 <my-directive	my-attr-1="foo"
@@ -193,7 +188,6 @@ scope : {
 
 
 === Directives : ngModelController
-<br />
 ```javascript
 angular.module('customControl', [])
 	.directive('contenteditable', function() {

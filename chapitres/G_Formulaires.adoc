@@ -70,7 +70,6 @@
 
 
 === Formulaires : Exemple
-<br />
 ```
 <form novalidate>
 	Title : 
@@ -190,7 +189,6 @@ Validateur "required" en erreur ?
 
 
 === Validation : État du formulaire et des champs
-<br />
 ```
 <form name="contactForm" novalidate>
     <input type="text" name="contactName" 
@@ -203,17 +201,10 @@ Validateur "required" en erreur ?
     </div>
 </form>
 ```
-<br />
-<figure>
-    <img src="ressources/images/form1.png" width="20%" style="display: block; float: left; margin: 0 20px; width: 25%;"/>
-</figure>
+image::form1.png[form1, id="form1", name="form1", width="20%" ]
 
-<figure>
-    <img src="ressources/images/form2.png" width="20%" style="display: block; float: left; margin: 0 20px; width: 25%;"/>
-</figure>
+image::form2.png[form2, id="form2", name="form2", width="20%" ]
 
-<figure>
-    <img src="ressources/images/form3.png" width="20%" style="display: block; float: left; margin: 0 20px; width: 25%;"/>
-</figure>
+image::form3.png[form3, id="form3", name="form3", width="20%" ]
 
 include::../includes/TPs.adoc[]

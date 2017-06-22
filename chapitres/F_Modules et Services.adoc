@@ -20,9 +20,7 @@
 ** Un module par type de composant (services, contrôleurs...)
 ** Un module applicatif qui importe les précédents, ainsi que les modules tierce-partie
 
-<figure>
-    <img src="ressources/images/modules.png" alt="Modules"  width="60%"/>
-</figure>
+image::modules.png[modules, id="modules", name="modules",  width="60%"]
 
 
 

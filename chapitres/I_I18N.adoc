@@ -192,7 +192,6 @@ Locale NO : € 1 234,57
 
 
 === ngPluralize
-<br />
 ```
 Avec $scope.contacts = ['Joe','Jack','William','Averell'];
 Si count = 0 : Aucun contact

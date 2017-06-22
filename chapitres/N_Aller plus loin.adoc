@@ -9,18 +9,11 @@
 
 
 === Industrialisation : Grunt
-<br />
-<!-- .element: style="display: block; float: right; width: 20%" -->
-
-<figure style="display: block; float: left; width: 20%; margin: 0 10px;">
-    <img src="ressources/images/grunt.png" alt="Grunt" />
-</figure>
+image::grunt.png[grunt, id="grunt", name="grunt" alt="Grunt" ]
 
 * Grunt, "The JavaScript Task Runner"
 * http://gruntjs.com/
 * Basé sur NodeJS (http://nodejs.org/)
-
-<!-- .element: style="clear: right;" -->
 
 * Le couteau suisse du développement web
 ** compilation (coffeescript, LESS/SASS, templates…)
@@ -31,18 +24,11 @@
 
 
 === Industrialisation : Bower
-<br />
-<!-- .element: style="display: block; float: right; width: 20%" -->
-
-<figure style="display: block; float: left; width: 20%; margin: 0 10px;">
-    <img src="ressources/images/bower.png" alt="Bower" />
-</figure>
+image::bower.png[bower, id="bower", name="bower" alt="Bower" ]
 
 * Bower : "A package manager for the web"
 * http://bower.io/
 * Basé sur NodeJS et Git
-
-<!-- .element: style="clear: right;" -->
 
 * Gestion des dépendances entre composants front-end 
 ** Le plus souvent des librairies JavaScript
@@ -50,12 +36,7 @@
 
 
 === Industrialisation : Yeoman
-<br />
-<!-- .element: style="display: block; float: right; width: 20%" -->
-
-<figure style="display: block; float: left; width: 20%; margin: 0 10px;">
-    <img src="ressources/images/yeoman.png" alt="Yeoman" />
-</figure>
+image::yeoman.png[yeoman, id="yeoman", name="yeoman" alt="Yeoman" ]
 
 * http://yeoman.io/
 * Yeoman est une collection d'outils permettant
@@ -64,8 +45,6 @@
 ** Grunt, Bower, Yo (génération de squelette
     
 	d'application (*"scaffolding"*))
-
-<!-- .element: style="clear: right;" -->
 
 * Démarrer rapidement une application
 * La préparer pour une mise en production

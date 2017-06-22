@@ -2,9 +2,7 @@
 * AngularJS permet de développer des applications multi-vues 
 ** Architecture MVC côté client en pur Javascript
 
-<figure>
-    <img src="ressources/images/routeur.png" alt="Routeur"  width="85%"/>
-</figure>
+image::routeur.png[routeur, id="routeur", name="routeur",  width=85%]
 
 
 
@@ -91,7 +89,6 @@ $route.current.title
 
 
 === Configuration du routage
-<br />
 ```javascript
 function FooController($scope,$route) {
 	$scope.$on('$routeChangeSuccess', function() {
