@@ -14,7 +14,7 @@
 ```
 <body>
 	<div>
-		<h1>ZenContacts</h1>
+		<h1>Gestion des Commandes</h1>
 		<h2>Taking care of your people, one at a time.</h2>
 	</div>
 	<div ng-view></div>
@@ -105,7 +105,7 @@ function FooController($scope,$route) {
 === Format des URLs
 * Mode par default
 
-  `http://server:port/zencontact/index.html#/list?a=b&c`
+  `http://server:port/gestion_commandes/index.html#/list?a=b&c`
 * AngularJS fait usage du caractère # ("Hash" en anglais) qui permet de modifier l'URL sans déclencher un rechargement de la page par le navigateur
 * Il existe également un mode HTML5 qui se base sur l'API History HTML5 mais qui demande alors une gestion coté serveur des URL (URL rewriting)
 
