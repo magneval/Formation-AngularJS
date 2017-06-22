@@ -3,14 +3,14 @@
 * Un module permet d'encapsuler un ensemble de fonctionnalités
 ** Code de configuration
 ** Services, contrôleurs, directives et filtres
+
+=== Modules : Notion de module
 * Avantages
 ** Architecture modulaire
 ** Réutilisabilité
 ** Testabilité (module de test, module de production)
 * Le module *ng* fournit toutes les fonctionnalités vues jusqu'ici
 ** Automatiquement importé
-
-
 
 === Modules : Notion de module
 * De manière générale, les modules peuvent être organisés
@@ -20,34 +20,45 @@
 ** Un module par type de composant (services, contrôleurs...)
 ** Un module applicatif qui importe les précédents, ainsi que les modules tierce-partie
 
+=== Modules : Notion de module
+
 image::modules.png[modules, id="modules", name="modules",  width="60%"]
 
 
 
 === Modules : Déclarer un module
 * La fonction `angular.module` permet de déclarer un module
+
 ```javascript
 var Foo = angular.module('Foo', []);
 ```
+
 * Exemple
+
 ```javascript
 var Services    = angular.module('Services',    []);
 var Controllers = angular.module('Controllers', []);
 var MyApplication = 
     angular.module('Application',
-        ['Services','Controllers']);
+        ['Services','Controllers']
+    );
 ```
+
+=== Modules : Configuration
 * La directive `ng-app` permet de spécifier le module applicatif
+
 ```
 <html ng-app='Application'>
 ```
 
-
-
 === Modules : Configuration
+
 * Un module dispose de deux fonctions d'initialisation
 ** `config()` : appelée au chargement du module
 ** `run()` : appelée lorsque tous les modules ont été chargés
+* Utile pour configurer l'application au démarrage (ex : le routage des URLs vers les vues)
+
+=== Modules : Configuration
 
 ```javascript
 var App = angular.module('App', []);
@@ -60,9 +71,6 @@ App.run(function() {
     console.log('Initialisation...');
 });
 ```
-* Utile pour configurer l'application au démarrage (ex : le routage des URLs vers les vues)
-
-
 
 === Modules et Composants : Factories
 * Un module instancie et expose des composants (services, contrôleurs, directives et filtres) grâce à des fonctions *factory*
@@ -70,6 +78,8 @@ App.run(function() {
 ** `controller(name, configFn)`
 ** `directive(name, configFn)`
 ** `filter(name, configFn)`
+
+=== Modules et Composants : Factories
 * Exemple : déclaration d'un contrôleur
 
 ```javascript
@@ -79,8 +89,6 @@ Controllers.controller('PeopleCtrl', function($scope) {
     $scope.add = function () { … };
 });
 ```
-
-
 
 === Modules et composants : service() vs factory()
 * Il existe une méthode alternative pour créer un service
@@ -131,8 +139,6 @@ Controllers.controller('PeopleCtrl', function($scope) {
 });
 ```
 
-
-
 === Injection de dépendances
 * AngularJS propose un mécanisme d'*injection de dépendances*
 * Principe : un composant ne va pas chercher lui-même ses dépendances, mais attend qu'on les lui fournisse
@@ -140,8 +146,6 @@ Controllers.controller('PeopleCtrl', function($scope) {
 * Avantages
 ** Simplifie le code
 ** Permet de varier les implémentations d'une dépendance (production vs mock)
-
-
 
 === Injection de dépendances : Injection dans un module
 * Dans le cas d'un module
@@ -158,8 +162,6 @@ App.config(function($routeProvider) {
 });
 ```
 
-
-
 === Injection de dépendances : Injection dans un service, contrôleur...
 * Dans le cas des services, contrôleurs, filtres et directives, les dépendances sont déclarées comme des paramètres de la fonction de configuration
 
@@ -172,31 +174,32 @@ Services.service('PeopleSrvc', function() {
 // injectée !
 Controllers.
     controller('PeopleCtrl', function($scope, PeopleSrvc) {
-		…
-	});
+        …
+    });
 ```
-
-
 
 === Injection de dépendances : Minification et obfuscation
 * AngularJS se base sur le nom du paramètre pour déterminer la dépendance à injecter
 ** Nom défini lors de son instanciation par le module
-* Problème : en cas de minification et/ou obfuscation du code, les variables, fonctions et paramètres sont renommés !
-** Avant
+
+=== Injection de dépendances : Minification et obfuscation
+WARNING: en cas de minification et/ou obfuscation du code, les variables, fonctions et paramètres sont renommés !
+
+* Avant
+
 ```javascript
 ControllersCtrls.controller('PeopleCtrl', function($scope) {
      (...)
 });
 ```
 
-** Après
+* Après
+
 ```javascript
 var$21.func$33('PeopleCtrl', function(param$13) {
      (...)
 });
 ```
-
-
 
 === Injection de dépendances : Minification et obfuscation
 * Solution : une notation alternative permet de préciser les dépendances sous forme de String
@@ -205,6 +208,8 @@ var$21.func$33('PeopleCtrl', function(param$13) {
 ** Les N premiers éléments sont les noms des dépendances
 ** Le dernier élément est la fonction de configuration
 ** L'ordre des noms doit correspondre à celui des paramètres
+
+=== Injection de dépendances : Minification et obfuscation
 ```javascript
 <module>.controller('MyCtrl',['foo','bar',function(foo,bar){
      foo.(…);

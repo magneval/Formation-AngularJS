@@ -7,6 +7,7 @@
 :revealjsdir: ./reveal.js
 :revealjs_history: true
 :revealjs_hideAddressBar: true
+:icons: font
 :imagesdir: ./images/
 :source-highlighter: highlightjs
 :theme: jekyll-theme-hacker
