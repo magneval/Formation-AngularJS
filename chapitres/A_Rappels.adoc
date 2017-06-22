@@ -1,9 +1,4 @@
-:chapter: Rappels
-
-include::./IntroChapitres.adoc[]
-
-=== Rappels +
-==== Les fonctions
+=== Les fonctions
 * Une fonction est définie par
 ** le mot-clé *function*
 ** un nom optionnel
@@ -12,8 +7,7 @@ include::./IntroChapitres.adoc[]
 * Une fonction sans nom est dite anonyme
 * La propriété *name* d'une fonction donne son nom
 
-=== Rappels +
-==== Les fonctions
+=== Les fonctions
 * Une fonction peut être assignée à une variable
 
 ```javascript
@@ -40,8 +34,7 @@ qu'elle soit nommée ou anonyme
 http://plnkr.co/edit/TXzzaiLeYkFaJLDNyKU0[functions^]
 --
 
-=== Rappels +
-==== Les fonctions
+=== Les fonctions
 * Il est possible de passer une fonction en paramètre d'une autre fonction
 
 ```javascript
@@ -65,8 +58,7 @@ appelServeur(function(donnees) {
 Très utilisé pour les *callbacks*
 --
 
-=== Rappels +
-==== La porté des variables
+=== La porté des variables
 * La limite d'existance 'une variable est appelée    *scope*
 * Visibilité des symboles au sein d'une portée
 ** Fonctions nommées : utilisable partout dans le scope (*forward-reference* possible)
@@ -79,8 +71,7 @@ Très utilisé pour les *callbacks*
 ** Pas par les accolades des blocs `if / for / while` !
 --
 
-=== Rappels +
-==== La porté des variables
+=== La porté des variables
 
 ```javascript
 function scope() {
@@ -108,8 +99,7 @@ http://plnkr.co/edit/D0DGcPQr8g4lRKz32uLM[variables^]
 http://jsbin.com/wuyaquq/edit?html,css,js,console,output[variables^]
 --
 
-=== Rappels +
-==== La porté des variables
+=== La porté des variables
 
 ```javascript
 > a
@@ -126,8 +116,7 @@ undefined
 42
 ```
 
-=== Rappels +
-==== Piéger des Variables
+=== Piéger des Variables
 
 * Le moteur Javascript permet lors de l'analyse du code de "pièger" la référence une variable.
 * Une fonction référence le scope dans laquelle elle est déclarée pour son une utilisation future.
@@ -138,11 +127,11 @@ undefined
 Ce concept est très utilisé avec AngularJS
 Attention, il s'agit bien des pointeurs qui sont capturés
 
-https://openclassrooms.com/courses/les-closures-en-javascript[doc]
+https://openclassrooms.com/courses/les-closures-en-javascript[doc^]
 --
     
-=== Rappels +
-==== Piéger des Variables
+
+=== Piéger des Variables
 ```javascript
 function additionFactory(x) {
   return function(y) {
@@ -159,11 +148,10 @@ console.log(ajouter10(2)); // 12
 
 [NOTE.speaker]
 --
-http://plnkr.co/edit/YGfJgJziHuy89JD5Th6u[exemple]
+http://plnkr.co/edit/YGfJgJziHuy89JD5Th6u[exemple^]
 --
 
-=== Rappels +
-==== Le mot clef this
+=== Le mot clef this
 * En JavaScript this se rapporte toujours au « propriétaire » de la fonction que nous exécutons, ou plutôt, à l'objet dont la fonction est une méthode.
 ** En tant que méthode d'un objet : `this =` l'objet
 ** En tant que constructeur ("new") : `this =` l'objet créé
@@ -171,11 +159,10 @@ http://plnkr.co/edit/YGfJgJziHuy89JD5Th6u[exemple]
 
 [NOTE.speaker]
 --
-http://www.misfu.com/static/Javascript/this.html[doc]
+http://www.misfu.com/static/Javascript/this.html[doc^]
 --
 
-=== Rappels +
-==== Le mot clef this
+=== Le mot clef this
 ```javascript
 function test() { alert(this); }
 
@@ -192,11 +179,10 @@ element.onclick = test;         // this = element
 
 [NOTE.speaker]
 --
-http://plnkr.co/edit/kCtZ7PviCaL1qNsOdTph[demo]
+http://plnkr.co/edit/kCtZ7PviCaL1qNsOdTph[demo^]
 --  
 
-=== Rappels +
-==== le format JSon
+=== le format JSon
 **J**ava**S**cript **O**bject **N**otation (JSON):: 
 format de données textuelles dérivé de la notation des objets du langage JavaScript
 
@@ -206,8 +192,7 @@ extension::
 media type::
 `application/json`
 
-=== Rappels +
-==== le format JSon
+=== le format JSon
 
 * les données sont soit sous forme de tableaux, soit sous forme d'objets
 
@@ -221,8 +206,7 @@ Objet::
 les éléments de tableau peuvent être des objets
 --  
 
-=== Rappels +
-==== le format JSon
+=== le format JSon
 
 * les sous éléments peuvent être soit
 ** des tableaux,
@@ -233,8 +217,7 @@ les éléments de tableau peuvent être des objets
 *** Chaîne
 *** null
 
-=== Rappels +
-==== le format JSon
+=== le format JSon
 [[app-listing]]
 [source,json]
 .menu.json
@@ -249,19 +232,16 @@ les éléments de tableau peuvent être des objets
 }
 ----
 
-=== Rappels +
-==== le format JSon
+=== le format JSon
 parsing original::
     var donnees = eval('('+donnees_json+')');
 
 version conseillé::
     var donnees = JSON.parse(donnees_json);
 
-
 * attention à la sécurité
 
-=== Rappels +
-==== le format JSonP
+=== le format JSonP
 **J**ava**S**cript **O**bject **N**otation with **P**adding (JSONP)::
 format de données JSON "Paddé" par une methode callback
 
@@ -282,11 +262,10 @@ showMenu(
 
 [NOTE.speaker]
 --
-http://plnkr.co/edit/j3gyytvfwo5he2new4n5[demo]
+http://plnkr.co/edit/j3gyytvfwo5he2new4n5[demo^]
 --  
 
-=== Rappels +
-==== Les outils du développeur
+=== Les outils du développeur
 * Il existe plusieurs moyen de débugger le JavaScript :
 avec la fonction alert::
 
@@ -300,8 +279,7 @@ en ecrivant dans la console::
 console.log("Hello world");
 ```
 
-=== Rappels +
-==== Les outils du développeur
+=== Les outils du développeur
 
 * Tous les navigateurs récents proposent également des outils d'analyse et de débuggage, accessibles via `F12`
 ** Webkit (Chrome, Safari, Opera) : Web Developer Tools
@@ -310,13 +288,11 @@ console.log("Hello world");
 
 * Il existe aussi des pluggins qui permettent de débugger depuis l'IDE
 
-
 === !
 
 image::DebuggueurF12.png[background, size=cover]
 
-=== Rappels +
-==== Les outils du développeur
+=== Les outils du développeur
 * *Batarang* est un inspecteur Web pour AngularJS
 ** c'est une extention pour les outils basé sur Webkit
 ** Il présente les scopes, les modèles et les services, et de mesurer les performances 
@@ -325,10 +301,17 @@ image::DebuggueurF12.png[background, size=cover]
 
 image::batarang_closeup.png[canvas,size=contain]
 
-=== Rappels +
-==== Les services REST
-REST (**RE**presentational **S**tate **T**ransfer):: Architecture pour les systèmes *hypermédia* distribués
+=== Les outils du développeur
+http://caniuse.com/[canIUse^]:: Site web analysant le support des fonctionnalité par les navigateurs
 
+Editeur web interactif:: http://jsfiddle.net[jsfiddle^], http://plnkr.co[Plunker^], http://jsbin.com[JSBin^], ...
+
+SonarJS:: plugin Sonar pour l'analyse de code JS
+
+Outils de build:: http://npm.com[npmjs^], http://bower.io[bower^], http://grunt.com[gruntjs^], http://gulp.com[gulpjs^], http://webpack.js.org[WebPack^], ...
+
+=== Les services REST
+REST (**RE**presentational **S**tate **T**ransfer):: Architecture pour les systèmes *hypermédia* distribués
 
 * doit respecter les contraintes suivantes :
 ** Client-serveur Sans état auto-descriptif (cachable)
@@ -338,11 +321,10 @@ REST (**RE**presentational **S**tate **T**ransfer):: Architecture pour les syst�
 
 [NOTE.speaker]
 --
-https://fr.wikipedia.org/wiki/Representational_state_transfer
+https://fr.wikipedia.org/wiki/Representational_state_transfer[REST^]
 --
 
-=== Rappels +
-==== Les services REST
+=== Les services REST
 * L'architecture REST s'appuie sur le protocole HTTP :
 ** L'URL definie l'organisation des ressources
 ** les méthodes HTTP definisse les action à mener :
@@ -356,16 +338,13 @@ https://fr.wikipedia.org/wiki/Representational_state_transfer
 une ressource ou une collection en fonction de l'URL
 --
 
-=== Rappels +
-==== Les services REST
+=== Les services REST
 HATEOAS (**H**ypermedia **A**s **T**he **E**ngine **O**f **A**pplication **S**tate):: Hypermédia en tant que moteur de l'état d'application
-
 
 * Le type de contenu est négocié entre le client et le serveur (XML, JSON, YAML, Texte, CSV, Objets, ...)
 * les liens vers les autres ressources peuvent faire partie de la réponse
 ** basé sur les standards ( XHTML Friends Network, Atom, RDF, ...)
 ** apporte de la sémantique aux ressources
-
 
 [NOTE.speaker]
 --
@@ -374,8 +353,8 @@ description dans la réponse plutôt que par la définition d'interface
 permet l'extensibilité
 ex: commande V1/V2
 --
-=== Rappels +
-==== Les services REST
+
+=== Les services REST
 ```HTTP
 GET /accounts/12345 HTTP/1.1
 Host: my.bank.com
@@ -388,8 +367,7 @@ Content-Type: application/xml
 Content-Length: ...
 ```
 
-=== Rappels +
-==== Les services REST
+=== Les services REST
 
 ```XML
 <?xml version="1.0"?>
@@ -405,10 +383,3 @@ Content-Length: ...
         href="https://my.bank.com/accounts/12345/transfer" />
 ...
 ```
-
-include::./ConclusionChapitres.adoc[]
-
-[NOTE.speaker]
---
-http://plnkr.co/edit/HHEk8Tg0C0UVKoxg01E6
---

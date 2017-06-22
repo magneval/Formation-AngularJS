@@ -1,0 +1,68 @@
+## Filtres : Concept
+- Un filtre dans AngularJS permet de mettre en forme une donnée
+  - Conserve un model de données propre
+  - Pilote la mise en forme des données depuis la vue
+
+```
+data | filtre1 | filtre2:param1 | filtre3:param1:param2
+```
+
+- Les filtres peuvent s'enchainer et avoir des paramètres
+- AngularJS propose un ensemble de filtre par défaut :
+  - `currency`, `date`, `filter`, `json`, `limitTo`, `lowercase`, `number`, `orderBy`, `uppercase`
+
+
+
+## Filtres : Filter
+- Le filtre `filter` est très important et est très modulable
+- Il permet de filtrer un tableau de données
+```
+data | filter:'string'
+data | filter:{prop1:'value', prop2:'value'}
+```
+
+- *String* : Retourne les éléments qui contiennent la chaine
+- *Object* : Propriété par propriété, retourne les éléments qui contiennent chaque valeur
+- *Function* : La fonction est appelée pour chaque élément de la liste. Si la fonction retourne `true`, l'élément est conservé.
+```
+data | filter:foo
+$scope.foo = function(element) {
+	return element.indexOf('bar')!= -1 }
+```
+
+
+
+## Filtres : Filtre personnalisé 1/2
+- Se déclare dans un module via la fonction `filter`
+
+```javascript
+angular.module('MyModule')
+	.filter('myFilter', function factory( … /*$inject*/) {
+		return function(input, param1, param2) { … }
+	})
+```
+- S'utilise dans un template
+
+```
+<span>{{ data | myFilter:'value1':'value2' }}</span>
+```
+
+- S'utilise dans du JS à l'aide de l'injection du service `$filter`
+
+```javascript
+function ($scope, contactService, Contact, $filter) {
+$scope.value = $filter('myFilter')(data,'value1','value2');
+... }
+```
+
+
+
+## Filtres : Filtre personnalisé 2/2
+- Permet d'utiliser les services d'AngularJS (à injecter)
+- Attention à ne pas confondre à la fonction du filtre `filter`
+- Permet d'aller plus loin qu'avec le filtre `filter`
+  - Transformation de données simples (pas seulement filtre de listes)
+  - Possibilité d'utiliser des paramètres
+- Le filtre est accessible dans les templates dès que le module est en dépendance
+
+tp7

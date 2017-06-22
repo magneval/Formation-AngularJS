@@ -1,0 +1,81 @@
+## Authentification sur une SPA
+- Approches au niveau du formulaire d'identification
+  - SSO : formulaire déporté sur un service différent
+  - Page de login : navigation après validation du formulaire
+  - Login intégré : formulaire intégré à l'application
+- Approches au niveau de la transmission de la session
+  - Cookie de session : nécessite du statefull côté serveur
+  - Cookie avec credentials : nécessite un bon cryptage
+  - Headers dans chaque requêtes
+  - Passage d'un token en paramètre des requêtes
+  
+
+
+## Authentification sur une SPA
+- Toutes les méthodes ont des avantages et des inconvénients mais certaines nécessités reviennent
+- Quelque soit la sécurité mise en oeuvre côté client (JS), il faudra *toujours* implémenter une couche de sécurité côté serveur
+
+
+
+## En-têtes HTTP
+- Le service $http ajoute déjà automatiquement des en-têtes HTTP
+- On peut y accéder au moment de la configuration de l'application via `$httpProvider.defaults.headers`
+  - On pourra par exemple ajouter un entête sur les requêtes de type GET
+
+```javascript
+$httpProvider.defaults.headers.get = { 'My-Header' : 'value' }
+```
+
+- On peut aussi y accéder au moment de l'exécution via `$http.defaults.headers`
+
+```javascript
+$http.defaults.headers.common =
+	{ 'Content-Type' : 'application/xml' }
+```
+
+
+
+## Intercepteurs HTTP
+- Les intercepteurs de filtrent les requêtes et les réponses de manière synchrone ou asynchrone à l'aide du service `$q`
+- Il faut enregistrer les factory d'intercepteurs avec leurs dépendances dans l'array `$httpProvider.interceptors`
+
+```javascript
+$httpProvider.interceptors.push(
+  function($q, dependency1, dependency2) {
+    return {
+	   request:
+	      function(config) { return config || $q.when(config); },
+       requestError:
+	      function(rejection) { return $q.reject(rejection); },
+       response:
+	      function(response)
+			{ return response || $q.when(response); },
+       responseError:
+	      function(rejection) { return $q.reject(rejection); } };
+});
+```
+
+
+
+## Intercepteurs HTTP
+- Un exemple d'intercepteur qui stocke localement :
+  - Les headers de la dernière réponse OK reçue
+  - Le statut HTTP de la dernière réponse KO reçue
+
+```javascript
+$httpProvider.interceptors.push(function($q) {
+  return {
+    response: function(response) {
+        localStorage.setItem('latestHeaders', response.headers);
+        return response || $q.when(response);
+    },
+    responseError: function(rejection) {
+        localStorage.setItem('latestRejectionStatus',
+			rejection.status);
+        return $q.reject(rejection);
+    }
+  };
+});
+```
+
+tp9

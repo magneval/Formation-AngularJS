@@ -1,0 +1,234 @@
+## Intégration
+- Avant de pouvoir utiliser AngularJS, il faut l'importer et l'activer dans la page
+- AngularJS est composé de plusieurs scripts, disponibles en version normale (développement) ou minifiée (production)
+  - angular.js, angular-resource.js, angular-mocks.js...
+  - Permet d'optimiser le chargement de l'application
+- A déclarer de préférence à la fin de la page HTML
+
+```
+<html>
+	<head>
+		<script src="angular.js"></ script>
+	</head>
+	<body>...</body>
+</html>
+```
+
+
+
+## Activation
+- Une fois AngularJS importé, il faut l'activer dans la page
+  - Directive `ng-app`
+  - Généralement placée sur la balise `<html>`
+
+```
+<html ng-app>
+  ...
+</html>
+```
+
+- Il est également possible de charger un module personnalisé (plus d'informations dans le chapitre sur les modules)
+
+```
+<html ng-app="myModule">
+  ...
+</html>
+```
+
+
+
+## Templates et Bindings : Template
+- Un *template* est un modèle de document
+  - Page complète ou fragment
+  - Complété par des bindings et/ou directives AngularJS
+  - Peut rester valide au sens HTML
+    - Utilisation de data-*, des classes CSS...
+- Au sein d'un template, un binding permet d'indiquer la présence d'un élément dynamique
+  - Lié à un modèle défini sur un *scope*
+  - Plusieurs notations disponibles
+
+
+
+## Templates et Bindings : Bindings
+- Plusieurs notations possibles pour un binding
+  - Placeholder à accolades
+  ```
+  Hello {{name}}
+  ```
+  - Attribut de balise (notation data-* valide HTML5)
+  ```
+  Hello <span ng-bind="name"></span>
+  Hello <span data-ng-bind="name"></span>
+  ```
+  - Classe CSS
+  ```
+  Hello <span class="ng-bind:name"></span>
+  ```
+
+
+
+## Templates et Bindings : Cloaking
+- Les bindings de type {{foo}} peuvent être aperçus par l'utilisateur pendant une fraction de seconde avant qu'AngularJS ne les remplace par leur valeur
+- Solutions
+  - Utiliser les autres formes de binding
+  - Utiliser `ng-cloak` sur une balise parente pour la masquer temporairement
+  
+```
+<div ng-cloak>
+	Hello {{name}}
+</div>
+
+<div class="ng-cloak">
+	Hello {{name}}
+</div>
+```
+
+
+
+## Templates et Bindings : Autres types de bindings
+- Autres types de bindings
+  - `ng-bind-html`
+    - Interprètent le binding comme du code HTML et supprime les éléments dangereux (voir $sanitize)
+    ```
+    <span ng-bind-html="comment"></span>
+    ```
+  - `ng-bind-template`
+    - Permet de fournir un template, dans les cas où il est impossible de placer des `<span>` (ex : dans `<title>`)
+    ```
+    <title ng-bind-template="{{site}} - {{page}}"></title>
+    ```
+
+
+
+## Templates et Bindings : Les modèles
+- Pour définir un modèle sur le scope courant (pour l'instant, celui de l'application, c'est-à-dire le scope racine `$rootScope`)
+  - `ng-init`
+  
+  Généralement placé sur la balise body
+  ```
+  <body ng-init='fruit="banana"'>
+  ```
+  - `ng-model`
+  
+  Utilisable sur les balises input, select, textarea
+  ```
+  <input type="text" ng-model="name"/>
+  Hello {{name}} !
+  ```
+
+
+
+## Gestion des listes
+- La directive `ng-repeat` permet d'afficher des listes (appliquer sur l'élément à répéter)
+```
+<ul>
+	<li ng-repeat="name in names"> {{name}} </li>
+</ul>
+```
+- Fonctionne également avec des maps
+```
+<ul>
+	<li ng-repeat="(name,age) in people">
+		{{name}} is {{age}}
+	</li>
+</ul>
+```
+
+
+
+## Gestion des listes
+- La boucle expose différentes variables
+  - `$index` (nombre) : index de l'élément courant (0..N-1)
+  - `$first` (booléen) : si c'est le premier élément
+  - `$middle` (booléen) : si c'est un élément intermédiaire
+  - `$last` (booléen) : si c'est le dernier élément
+- Exemple : combinaison avec `ng-show` / `ng-hide`
+```
+<span ng-repeat="name in ['you','me','them']">
+    {{name}} 
+	<span ng-hide="$last">,</span>
+</span>
+// you, me, them
+```
+
+
+
+## Filtres
+- Un filtre permet d'altérer la valeur d'un binding
+- AngularJS en fournit un certain nombre, et il est possible de développer ses propres filtres
+  - lowercase, uppercase, 
+  - number, date, currency
+  - filter, limitTo, orderBy
+  - json
+- Syntaxe
+```
+{{ expression | filtre1 | filtre2:param1:param2 }}
+```
+
+
+
+## Filtres
+<br/>
+```
+<ul ng-init="people=[{name:'you'},{name:'me'},{name:'them'}]">
+	<li ng-repeat="p in people | orderBy:'name'">
+		{{p.name | uppercase}}
+	</li>
+</ul>
+```
+<figure>
+    <img src="ressources/images/uppercase.png" width="10%" style="position: absolute; top: 180px; right: 0; border: 1px solid black;"/>
+</figure>
+
+```
+<input type="text" ng-model="nameFilter"/>
+<ul ng-init="names=['you','me','them']">
+	<li ng-repeat="name in names | filter:nameFilter">
+		{{name}}
+	</li>
+</ul>
+```
+<figure>
+    <img src="ressources/images/sansFiltre.png" width="20%" style="display: block; float: left; margin: 0 100px; width: 25%; border: 1px solid black;"/>
+</figure>
+
+<figure>
+    <img src="ressources/images/avecFiltre.png" width="20%" style="display: block; float: left; margin: 0 100px; width: 25%; border: 1px solid black;"/>
+</figure>
+
+
+
+## Quelques directives utiles (1/3)
+- `ng-switch`
+  - Ajout d'une structure DOM parmi plusieurs possibles en fonction d'une expression.
+  - La directive s'appuie sur le pattern on/when/default
+- `ng-if`
+  - Ajout ou suppression d'une partie du DOM en fonction d'une expression
+  - A la différence des directives `ng-show` / `ng-hide`, les éléments HTML sont recréés plutôt simplement masqués
+- `ng-include`
+  - Compilation et ajout d'un fragment HTML externe
+
+
+
+## Quelques directives utiles (2/3)
+- `ng-show` / `ng-hide`
+  - Affiche ou masque l'élément en fonction d'une expression
+- `ng-href` / `ng-src`
+  - Garantissent que les attributs href et src incorporant des placeholders {{foo}} seront bien calculés avant d'être utilisables
+- `ng-style`
+  - Applique un style CSS à l'élément, sous la forme d'une map de propriétés : ng-style="myStyle" myStyle = {color:'red', margin:0}
+
+
+
+## Quelques directives utiles (3/3)
+- `ng-class`
+  - `ng-class-even` / `ng-class-odd` (dans un `ng-repeat`)
+  - Modifient la classe CSS de l'élément
+
+tp1
+
+
+[NOTE.speaker]
+--
+http://plnkr.co/edit/HHEk8Tg0C0UVKoxg01E6
+--

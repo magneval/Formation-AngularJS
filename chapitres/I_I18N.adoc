@@ -1,0 +1,251 @@
+## Installation
+- AngularJS offre des fonctionnalités d'internationalisation
+  - 155 langues ou variantes
+  - Fichiers **i18n/angular-locale_\*.js**
+- C'est au développeur de sélectionner et d'importer les locales qu'il souhaite supporter
+  - Déterminé côté serveur
+  - Alternativement, les scripts peuvent être concaténés (manuellement) afin de limiter le nombre de requêtes
+```
+<script src="js/angular/angular.js" />
+<script src="js/angular/i18n/angular-locale_fr.js" />
+```
+
+- Les filtres `number`, `date` et `currency` utilisent alors le bon format
+
+
+
+## Nombre
+- Le filtre `number` permet de localiser les nombres
+
+```
+{{ <binding/expression> | number[:fractionSize] }}
+```
+
+- Paramètres
+  - [number] *fractionSize* : nombre de décimales
+    
+	Par défaut 3 ; des zéros sont ajoutés au besoin
+
+```
+{{ 1234.5678 | number }}
+Locale EN : 1,234.568
+Locale FR : 1 234,568
+Locale DE : 1.234,568
+{{ 1234.5678 | number:1 }}
+Locale FR : 1 234,6
+{{ 1234.5678 | number:6 }}
+Locale FR : 1 234,567800
+```
+
+
+
+## Dates et heures
+- Le filtre `date` permet de localiser les dates et heures
+
+```
+{{ <binding/expression> | date[:format] }}
+```
+
+- Paramètres
+  - [string] *format* : format de date/heure
+    
+	Format prédéfini ("short", "long"...) ou personnalisé
+
+```
+{{ 1366668000000 | date:'short' }}
+Locale EN : 4/23/13 12:00 AM
+Locale FR : 23/04/13 00:00
+Locale DE : 23.04.13 00:00
+{{ 1366668000000 | date:'fullDate' }}
+Locale FR : 23 avril 2013
+{{ 1366668000000 | date:'dd/MM/yyyy' }}
+Locale FR : 23/04/2013
+```
+
+
+
+## Dates et heures
+- Formats prédéfinis (dépendants de la locale)
+
+```
+// Locale EN
+'medium'     : Apr 23, 2013 12:00:00 PM
+'short'      : 4/23/13 12:00 PM 
+'fullDate'   : Tuesday, April 23, 2013 
+'longDate'   : April 23, 2013 
+'mediumDate' : Apr 23, 2013
+'shortDate'  : 4/23/13 
+'mediumTime' : 12:00:00 PM  
+'shortTime'  : 12:00 PM 
+// Locale FR
+'medium'     : 23 avr. 2013 12:00:00
+'short'      : 23/04/13 12:00
+'fullDate'   : mardi 23 avril 2013 
+'longDate'   : 23 avril 2013 
+'mediumDate' : 23 avr. 2013 
+'shortDate'  : 23/04/13
+'mediumTime' : 12:00:00 
+'shortTime'  : 12:00
+```
+
+
+
+## Dates et heures
+- Format personnalisé
+  - Composé à partir de symboles représentant les composantes d'une date
+  - Gestion manuelle des locales
+
+```
+'yyyy', 'yy', 'y' : Année
+'MMMM', 'MM', 'M' : Mois
+'dd', 'd'         : Jour (numéro)
+'EEEE', 'EEE'     : Jour (nom)
+'HH', 'H'         : Heure (sur 24h)
+'hh', 'h'         : Heure (sur 12h)
+'mm', 'm'         : Minute
+'ss', 's'         : Seconde
+'a'               : AM/PM
+'Z'               : Décalage du fuseau horaire
+```
+
+
+
+## Montants monétaires
+- Le filtre `currency` permet de localiser les montants monétaires
+
+```
+{{ <binding/expression> | currency[:symbol] }}
+```
+
+- Paramètres
+  - [string] *symbol* : symbole monétaire (€, $, USD…)
+    Le formatage reste celui de la locale, seul le symbole change
+
+```
+{{ 1234.5678 | currency }}
+Locale EN :   $1,234.57 
+Locale FR :    1 234,57 €
+Locale NO : kr 1 234,57  
+{{ 1234.5678 | currency:'€' }}
+Locale EN :  €1,234.57 
+Locale FR :   1 234,57 €
+Locale NO : € 1 234,57
+```
+
+
+
+## ngPluralize
+- La directive `ngPluralize` permet d'adapter l'affichage de quantités en fonction de règles de catégorisation
+  - Ex : "Aucun contact", "Un contact", "Plusieurs contacts"
+- Une forme particulière de pluralisation peut être associée à
+  - Une *quantité précise* d'éléments : 0, 1, 2, 27, 42…
+  - Une *catégorie* (variable selon les locales)
+
+- Catégories
+  - En général, seulement "one" (1) et "other" (2+)
+  - Japonais : "other" seulement
+  - Irlandais : "one" (1), "two" (2), "few" (3..6), "many" (7..10), "other" (11+)
+
+
+
+## ngPluralize
+- Syntaxe
+
+```
+<ng-pluralize count="<binding/expression>" when="<règles>">
+</ng-pluralize>
+```
+
+- Règles
+  - Exprimées sous la forme d'une map
+  - Correspondance sur des quantités exactes ou des catégories
+
+    (les quantités exactes sont toujours prioritaires)
+```
+{ 
+     '0'    : 'Aucun contact',
+     '42'   : 'Juste le bon nombre de contacts',
+     'one'  : 'Un contact',
+     'other': 'Plusieurs contacts'
+}
+```	
+
+
+
+## ngPluralize
+- Les chaînes pluralisées peuvent contenir 
+  - Des bindings AngularJS : `{{binding}}`
+  - Un placeholder pour le nombre d'entités : `{}`
+
+```
+<ng-pluralize 
+  count="contacts.length" 
+  when=" {
+    '0'     : 'Aucun contact',
+    '1'     : 'Un contact : {{contacts[0]}}',
+    'other' : '{} contacts, dont 
+               {{contacts[0]}} et {{contacts[1]}}'
+  }"
+></ng-pluralize>
+```
+
+
+
+## ngPluralize
+<br />
+```
+Avec $scope.contacts = ['Joe','Jack','William','Averell'];
+Si count = 0 : Aucun contact
+           1 : Un contact : Joe
+           2 : 2 contacts, dont Joe et Jack
+           3 : 3 contacts, dont Joe et Jack
+```
+
+- La directive `ngPluralize` offre également un paramètre *offset*
+  - Valeur numérique
+  - Autorise une pluralisation plus fine
+
+
+
+## ngPluralize
+- Algorithme
+  - Si count correspond exactement à une *quantité exacte* définie, utiliser la forme plurielle correspondante
+  - Sinon, soustraire l'offset, et utiliser la forme plurielle de la *catégorie* adaptée à la nouvelle valeur
+- L'ordre de déclaration des cas dans la map n'est pas significatif
+
+
+
+## ngPluralize
+- Exemple
+
+```
+<ng-pluralize 
+  count="contacts.length" 
+  when=" {
+    '0'     : 'Aucun contact',
+    '1'     : 'Un contact : {{contacts[0]}}',
+    'one'   : '{{contacts[0]}} et un autre contact'
+    'other' : '{{contacts[0]}} et {} autres contacts'
+  }"
+  offset="1"
+></ng-pluralize>
+```
+
+```
+Avec $scope.contacts = ['Joe','Jack','William','Averell'];
+
+count
+  0 : Aucun contact                // quantité exacte
+  1 : Un contact : Joe             // quantité exacte 
+  2 : Joe et un autre contact      // 2-1=1 → catégorie 'one'
+  3 : Joe et 2 autres contacts     // 3-1=2 → catégorie 'other'
+```
+
+
+
+## Internationalisation des templates
+- En-dehors des mécanismes vus dans ce chapitre, AngularJS n'offre pas de mécanisme global d'internationalisation
+- Pistes
+  - Paramétrer le serveur pour envoyer les ressources dans la bonne locale : templates, images, scripts...
+  - Embarquer des dictionnaires dans l'application, interrogés à l'aide de directives AngularJS
+- L'internationalisation reste l'un des points complexes des applications déportées côté client

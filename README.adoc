@@ -22,7 +22,6 @@
     
 :link-qr-code: image::https://api.qrserver.com/v1/create-qr-code/?data=magneval.github.io/Formation-AngularJS/client.html&amp;size=100x100&.png[]
 
-//include::includes/include.adoc[]
 image::AngularJS-large.png[logo, id="logo", name="logo"]
 
 
@@ -32,7 +31,7 @@ Charles de MAGNEVAL +
 Charles.de_magneval@open-groupe.com
 
 image::logoOpen.png[logoOpen, id="logoOpen", name="logoOpen"]
-v1.0, 2017-06-14 +
+v1.0, {docdate} +
  +
 https://github.com/magneval/
 
@@ -40,26 +39,46 @@ image::https://api.qrserver.com/v1/create-qr-code/?data=magneval.github.io/Forma
 
 == Plan
 
-=== Plan
-[%step]
-* Rappels
-* AngularJS
-* Premiers pas
-* Contrôleurs et Scopes
-* Routeur
-* Modules et Services
-* Formulaires
-* Architectures REST
+include::./includes/Plan.adoc[]
 
-=== Plan
-[%step]
-* I18N
-* Filtres
-* Directives
-* Authentification
-* Tests
-* Au-delà d'AngularJS
+:chapter: Rappels
+include::./includes/Chapitre.adoc[]
 
-include::includes/Rappels.adoc[]
+:chapter: AngularJS
+include::./includes/Chapitre.adoc[]
 
-include::includes/PresentationAngularJS.adoc[]
+:chapter: Premiers pas
+include::./includes/Chapitre.adoc[]
+
+:chapter: Contrôleurs et Scopes
+//include::./includes/Chapitre.adoc[]
+
+:chapter: Routeur
+//include::./includes/Chapitre.adoc[]
+
+:chapter: Modules et Services
+//include::./includes/Chapitre.adoc[]
+
+:chapter: Formulaires
+//include::./includes/Chapitre.adoc[]
+
+:chapter: Architectures REST
+//include::./includes/Chapitre.adoc[]
+
+:chapter: I18N
+//include::./includes/Chapitre.adoc[]
+
+:chapter: Filtres
+//include::./includes/Chapitre.adoc[]
+
+:chapter: Directives
+//include::./includes/Chapitre.adoc[]
+
+:chapter: Authentification
+//include::./includes/Chapitre.adoc[]
+
+:chapter: Tests
+//include::./includes/Chapitre.adoc[]
+
+:chapter: Aller plus loin
+//include::./includes/Chapitre.adoc[]

@@ -1,0 +1,313 @@
+## Concepts
+- AngularJS a été conçu avec l'objectif d'être facilement testable
+- C'est principalement l'injection de dépendance qui facilite les tests
+- Il est possible de démarrer un composant dans un contexte «mocké» pour pouvoir le tester en isolation
+- AngularJS propose **angular-mocks.js** qui fournit ces outils
+- Dans la documentation Jasmine est utilisé comme framework de test
+- AngularJS peut être également testé avec d'autres frameworks
+- Karma propose d’exécuter facilement les tests
+- Il a été développé par l'équipe d'Angular, il est donc mis en avant
+- Il n'est pour autant ni indispensable ni lié à Angular
+
+
+
+## Jasmine
+<br />
+<!-- .element: style="display: block; float: right; width: 20%" -->
+
+<figure style="display: block; float: left; width: 20%; margin: 0 10px;">
+    <img src="ressources/images/Jasmine.png" alt="Jasmine" />
+</figure>
+
+- DOM-less simple JavaScript testing framework
+- http://jasmine.github.io/
+
+<!-- .element: style="clear: right;" -->
+
+- Propose une API JS plutôt naturelle pour décrire des tests
+
+```javascript
+describe("A suite", function() {
+  it("contains spec with an expectation", function() {
+    expect(true).toBe(true);
+  });
+});
+```
+
+
+
+## Jasmine
+- Fournit la page SpecRunner.html
+
+<figure>
+    <img src="ressources/images/SpecRunner.png" alt="SpecRunner.html" width="100%" />
+</figure>
+
+
+
+## ngMock
+- Boite à outils fournit par AngularJS pour les tests unitaires
+- Charger le fichier **angular-mocks.js** dans les tests
+- Définit des fonctions globales :  `dump`, `inject`, `module`, `TzDate`
+- Définit des services supplémentaires : `$exceptionHandler`, `$httpBackend`, `$log`, `$timeout`
+- `module('moduleName')`
+  - Charge le module et toutes ses dépendances et les rends disponibles à la fonction `inject`
+- `inject(function(...) {…})`
+  - Exécute la fonction en mettant en œuvre l'injection de dépendance d'AngularJS avec le contexte du module chargé
+
+
+
+## Jasmine & ngMock
+- Avec les outils proposés par `ngMock`, il est possible de faire un test Jasmine d'un composant d'AngularJS
+
+```javascript
+angular.module('myApplicationModule', [])
+    .value('mode', 'app')
+    .value('version', 'v1.0.1');
+
+describe('MyApp', function() {
+
+  beforeEach(module('myApplicationModule'));
+ 
+  it('should provide a version',
+    inject(function(mode, version) {
+      expect(version).toEqual('v1.0.1');
+      expect(mode).toEqual('app');
+    })
+  );
+  
+});
+```
+
+
+
+## ngMock $httpBackend
+- `$httpBackend` est le service fourni par `ngMock` qui permet de mocker des requêtes HTTP
+- Il fonctionne dans le système d'injection de dépendance d'Angular et intercepte les requêtes lancées par `$http`
+- `$httpBackend.expect`
+  - Définit une requête « attendue » (stricte)
+- `$httpBackend.when`
+  - Définit une requête qui « peut » arriver (lâche)
+
+
+
+## ngMock $httpBackend
+<br />
+```javascript
+describe('MyController', function() {
+   var httpBackend, rootScope, createController;
+ 
+   beforeEach(inject(
+	function($httpBackend, $rootScope, $controller) {
+     $httpBackend.when('GET', '/auth.py')
+		.respond({userId: 'userX'}, {'A-Token': 'xxx'});
+	rootScope = $rootScope;
+	httpBackend = $httpBackend;
+ 
+     createController = function() {
+       return $controller('MyController',
+		{'$scope' : $rootScope });
+     };
+   }));
+```
+
+
+
+## Karma
+- Karma est un outil qui permet d'automatiser l’exécution des tests
+
+<figure>
+    <img src="ressources/images/SchemaKarma.png" alt="Schema Karma" width="75%" />
+</figure>
+
+
+
+## Configuration de Karma
+- Karma nécessite un fichier de configuration en JS, il contient :
+  - Le framework de test (compatibilité avec plusieurs fmk)
+  - La liste des scripts à charger
+  - Les navigateurs à piloter
+  - Diverses configurations techniques
+
+
+
+## Configuration de Karma
+<br />
+```javascript
+module.exports = function(config){
+   config.set({
+      basePath : '../',
+      files : [
+         'app/lib/angular/angular.js',
+         'app/lib/angular/angular-*.js',
+         'test/lib/angular/angular-mocks.js',
+         'app/js/**/*.js',
+         'test/unit/**/*.js'
+      ],
+      autoWatch : true,
+      frameworks: ['jasmine'],
+      browsers : ['Chrome']
+   })
+}
+```
+
+
+
+## Test d'un contrôleur
+- Le contrôleur à tester
+
+```javascript
+angular.module('myModule')
+	.controller('myController', function($scope, $http) {
+		$scope.foo = 'bar'
+		$http.get('http://localhost/api/foo')
+			.success(function(data) {
+				$scope.foo = data
+			})
+	})
+```
+
+
+
+## Test d'un contrôleur
+- Le test
+
+```javascript
+describe('MyController Test', function() {
+	var httpBackend, scope;
+	beforeEach(module('myModule'));
+	beforeEach(inject(
+	  function($rootScope, $httpBackend, $controller) {
+		scope = $rootScope.$new();
+		httpBackend = $httpBackend; 
+		$httpBackend.expect('GET', 'http://localhost/api/foo')
+			.respond('new bar');
+		$controller('myController', {'$scope' : scope} );
+	}));
+	it('should switch foo from bar to new bar', function() {
+		expect(scope.foo).toBe('bar');
+		httpBackend.flush();
+		expect(scope.foo).toBe('new bar');
+	});
+});
+```
+
+
+
+## Test d'une directive
+<br />
+```javascript
+describe('directives', function() {
+  beforeEach(module('myApp.directives'));
+
+  describe('app-version', function() {
+    it('should print current version', function() {
+
+      module(function($provide) {
+        $provide.value('version', 'TEST_VER');
+      });
+
+      inject(function($compile, $rootScope) {
+        var element =
+          $compile('<span app-version></span>')($rootScope);
+        expect(element.text()).toEqual('TEST_VER');
+      });
+
+    });
+  });
+});
+```
+
+
+
+## Tests E2E : Concepts
+- Les tests end-2-end proposent une tout autre approche et sont complémentaires avec les tests unitaires
+  - Simule l’exécution complète de l'application
+  - Plus lent et plus fastidieux à écrire ( → Page Object Pattern)
+- Utilise Protractor, également développé par Angular
+  - S'appuie sur Selenium
+  - Encapsulation de WebdriverJS
+- Permet le pilotage du browser
+- Permet d'accéder au DOM facilement
+- https://github.com/angular/protractor/
+
+
+
+## Tests E2E : API
+- L'API est inspiré de Jasmine
+  - `describe`, `beforeEach`, `afterEach`, `it`...
+
+- Programmation des interactions séquentielles (le « control flow »)
+  - Une mécanique assez complexe gère l’enchaînement des actions quand la précédente est terminée
+  - Basé sur les promesses
+  - En rupture avec l'asynchronisme du naturel du JS
+  - Nécessite de bien rester dans l'API
+
+
+
+## Tests E2E : API
+- Pilotage de la page
+  - `browser.get(http://localhost:8080)`
+  - `element(selector).sendKeys(value)`
+  - `element(selector).click()`
+- Assertions
+  - `expect(future).<matcher>(expected)`
+  - `future` = `element`, `repeater`...
+  - `matcher` = `toBe`, `toContain`, `toBeLessThan`...
+
+
+
+## Tests E2E : API
+- Sélections
+  - locators WebDriver
+    - `element(by.id('foo'))`
+    - `element(by.className('foo'))`
+  - locators Protractor (spécifiques Angular)
+    - `element(by.model('contact.name'))`
+    - `element(by.binding('contact.name'))`
+
+
+
+##Tests E2E : Exemple
+<br />
+```javascript
+describe('Phone list view', function() {
+  beforeEach(function() {
+    browser.get('http://localhost:8080/phones');
+  }); 
+  
+  it('represents data correctly', function() {
+    expect(element(by.tagName('h2')).getText())
+		.toBe('Phone list');
+
+    expect(element.all(by.css('img.thumb')).count()).toBe(6);
+
+    element(by.id('filterInput')).sendKeys('nexus');
+
+    var phoneRows = element.all(by.repeater('phone in phones'));
+    phoneRows.each(function(element) {
+      expect(element.getText()).toMatch(/nexus/)
+    });
+  });
+});
+```
+
+
+
+## Tests E2E : Module ngMockE2E
+- Externaliser dans **angular-mocke2e.js**
+- Contient uniquement un `$httpBackend` « spécial E2E »
+- Permet de mocker certaines requêtes (règles lâches) pour maîtriser les données retournées.
+- Permet de transmettre au service `$http` « réel » d'autres requêtes (récupération de template par exemple)
+- Pas de règles strictes (`expect(...)` nécessitant un `.flush()`) 
+
+```javascript 
+var phones = [{name: 'phone1'}, {name: 'phone2'}] ;  
+// Return test datas
+$httpBackend.whenGET('/phones').respond();
+// Delegate to the $http (perform a real request)
+$httpBackend.whenGET(/^\/templates\//).passThrough();
+```
+
+tp10
+

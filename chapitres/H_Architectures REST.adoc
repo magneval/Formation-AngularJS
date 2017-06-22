@@ -1,0 +1,265 @@
+## Architectures REST
+- *REST* : *RE*presentational *S*tate *T*ransfer
+  - Type d’architecture pour systèmes hypermédia distribués
+  - Inventé par Roy Fielding en 2000
+
+- Architecture 
+  - Client / Serveur
+  - Stateless : chaque requête au serveur contient toutes les informations nécessaires à son traitement
+  - Basée sur la manipulation (création, modification, suppression) de ressources identifiées par leur URI
+
+- Un système basé sur cette architecture est qualifié de RESTful
+
+
+
+## Architectures REST
+- Avantages
+  - Découplage client/serveur
+  - Scalabilité du serveur
+  - Mise en cache des ressources
+- Inconvénients
+  - Traffic réseau supplémentaire
+  - Gestion de la sécurité plus difficile (code côté client)
+
+
+
+## Architectures REST
+- AngularJS promeut les architectures REST
+  - Applications riches entièrement gérées côté client
+  - Manipulation de ressources REST
+  - Utilisation possible du stockage local
+- 2 mécanismes d'interaction avec le serveur
+  - `$http` : requêtes AJAX simples
+  - `$resource` : abstraction de ressources REST pour faciliter leur manipulation
+
+
+
+## Le service $http
+- Le service `$http` est construit autour de la notion de *promise*
+  - Représente une valeur calculée de manière asynchrone
+  - Implémentée par le service AngularJS `$q`
+  
+    (inspiré de l'API "Q" de Kris Kowal)
+  - Comparable à la classe `Future<T>` en Java
+- Avantages
+  - Interface plus réactive
+  - Possibilité de composer plusieurs opérations asynchrones 
+  
+    (difficile avec les callbacks traditionnels)
+  - Utilisation transparente dans les modèles et les templates
+
+
+
+## Le service $http
+- Le service `$http`
+  - prend en paramètre une map de configuration 
+  - renvoie une *promise* exposant deux méthodes callback *sucess* et *failure*
+
+```javascript
+$http({method:'GET', url:'/foo'}).
+
+    success(function(data, status, headers, config) {
+        // Appelée lorsque la réponse est disponible
+        // et valide (code HTTP 2xx)
+    }).
+
+    error(function(data, status, headers, config) {
+		// Appelée en cas d'erreur technique, 
+		// ou de réponse négative du serveur
+    });
+```
+
+
+
+## Le service $http
+- Principaux paramètres de configuration de la requête
+  - [string] *method* : 'GET', 'POST'... 
+  - [string] *url* : '/foo'
+  - [map] *params* : {foo:'bar'}
+  - [map] *headers* : {accept:'text/html'}
+- Paramètres des fonctions callback *success* / *error*
+  - [string/object] *data* : le corps du message
+  - [number] *status* : code de retour HTTP
+  - [fonction] *headers* : fonction d'accès aux headers
+  - [map] *config* : la configuration utilisée pour la requête
+
+
+
+## Le service $http
+- Exemple : récupération de contacts depuis un contrôleur
+
+```javascript
+$scope.contacts = [];
+$scope.errorMsg = '';
+
+$scope.getContacts = function() {
+
+    $http({method:'GET', url:'/contacts'}).
+
+        success(function(data) {
+            $scope.contacts = data;		
+        }).
+
+        error(function(data, status) {
+            $scope.contacts = [];
+            $scope.errorMsg = 'Error ' + status;
+        });
+}
+```
+
+
+
+## Le service $http
+- Le service `$http` propose également une API simplifiée
+  - `get(url, [config])`
+  - `head(url, [config])`
+  - `delete(url, [config])`
+  - `jsonp(url, [config])`
+  - `post(url, data, [config])`
+  - `put(url, data, [config])`
+
+```javascript
+$http.get('/contacts').success(function(data) {
+    $scope.contacts = data;		
+});
+```
+
+
+
+## Le service $resource
+- Syntaxe du service `$resource`
+
+```javascript
+$resource(url, [params], [actions]);
+```
+
+- Paramètres (détaillés plus loin)
+  - [string] *url* : l'URL de la ressource REST (obligatoire)
+  - [map] *params* : valeurs par défaut pour les bindings d'URL
+  - [map] *actions* : actions personnalisées additionnelles
+
+
+
+## Le service $resource
+- Le service `$resource` permet d'abstraire et de simplifier l'interaction avec des ressources exposées en REST
+  - "Convention over configuration"
+  - Basé sur le service `$http`
+  - Objet de type "ActiveRecord"
+- Installation
+  - Inclure le script *angular-resource.js*
+  - Déclarer une dépendance vers le module `ngResource`
+
+````javascript
+var myModule = angular.module('myModule', ['ngResource']);
+```
+
+
+
+## Le service $resource : Déclaration d'une ressource
+- Une ressource se déclare via la méthode `factory` d'un module
+
+```javascript
+var ContactSvc = angular.module('ContactSvc', ['ngResource']);
+ContactSvc.factory('Contact', ['$resource',
+   function($resource) {
+      return $resource('/rest/contacts');
+   }
+]);
+```
+
+- Elle peut alors être injectée dans d'autres entités AngularJS 
+  - Contrôleurs, services, modules, directives...
+
+```javascript
+ContactApp.controller('ContactListCtrl', ['$scope', 'Contact', 
+  function ($scope, Contact) {
+    $scope.contacts = Contact.query();
+  }
+]);
+```
+
+
+
+## Le service $resource : Paramètres - URL
+- L'URL peut contenir des paramètres de binding
+  - Forme ":binding" (ex: "/rest/contacts/:id")
+  - Possibilité d'indiquer des valeurs par défaut (constantes ou extraites des propriétés de l'objet)
+  - Les paramètres non associés à un binding sont passés sous forme de paramètres d'URL (?foo=bar)
+
+```javascript
+return $resource( 
+    '/rest/contacts/:group/:id',        
+    { 
+      group:'friends', // constante
+      id:'@userId', // propriété "userId" de l'objet
+      foo:'bar' // paramètre additionnel sans binding
+    } 
+);
+```
+
+
+
+## Le service $resource : Paramètres - Actions
+- Une ressource expose différentes *actions*
+- Une action représente une configuration particulière des paramètres d'appel du service `$http`
+  - `method`, `url`, `params`
+- Une action peut être invoquée
+  - A partir de la ressource, en lui passant une instance
+  - Directement sur une instance particulière
+  
+    (l'action est alors préfixée par `$`)
+- Les actions retournent un résultat synchrone qui sera complété de manière asynchrone afin d'utiliser une notation pratique
+
+
+
+## Le service $resource : Paramètres - Actions
+- Chaque ressource AngularJS expose 5 actions préconfigurées permettant la création, la mise à jour, la suppression et la recherche de ses instances
+  - `get`, `save`, `remove`, `delete`, `query`
+- Paramétrage des actions préconfigurées
+  - `url` : l'URL de la ressource
+  - `method` : 
+    - `get`, `query` → GET
+    - `remove`, `delete` → DELETE
+    - `save` → POST
+
+
+
+## Le service $resource : Paramètres - Actions
+<br />
+```javascript
+$scope.contacts = Contact.query(function(contacts) {
+	var firstContact = contacts[0];
+	firstContact.$delete();
+});
+```
+
+- De nouvelles actions peuvent être définies
+  - Dernier paramètre de la factory `$resource`
+  - Possibilité de définir le type de requête HTTP et les paramètres par défaut
+
+```javascript
+return $resource( '/rest/contacts/:id', {id:'@userId'}, 
+    { export: { method: 'GET', params: {format:'pdf'} },
+        call: {method: 'GET', params: {where:'home'} } }
+);
+```
+
+
+
+## Le service $resource : Paramètres - Actions
+- A l'appel d'une action (préconfigurée ou personnalisée), il est possible de passer 3 paramètres optionnels :
+  - [map] *params* : paramètres d'appel, fusionnés avec les paramètres par défaut de l'action et ceux de la ressource
+  - [fonction] *success* : callback de réussite
+  - [fonction] *error* : callback d'erreur
+
+```javascript
+var marvin = Contact.get( {id:42} ); // params
+
+marvin.$delete(
+    // fonction callback en cas de succès
+    function() {
+        console.log("Contact deleted.");
+    });
+```
+
+tp6

@@ -1,0 +1,9 @@
+== {chapter}
+
+//include::../includes/Plan.adoc[]
+
+include::../includes/IntroChapitres.adoc[]
+
+include::../chapitres/{counter:chap:A}_{chapter}.adoc[]
+
+include::../includes/ConclusionChapitres.adoc[]
