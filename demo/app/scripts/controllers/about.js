@@ -2,12 +2,12 @@
 
 /**
  * @ngdoc function
- * @name commandeAppApp.controller:AboutCtrl
+ * @name commandeApp.controller:AboutCtrl
  * @description
  * # AboutCtrl
- * Controller of the commandeAppApp
+ * Controller of the commandeApp
  */
-angular.module('commandeAppApp')
+angular.module('commandeApp')
   .controller('AboutCtrl', function () {
     this.awesomeThings = [
       'HTML5 Boilerplate',

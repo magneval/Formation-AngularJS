@@ -2,14 +2,14 @@
 
 /**
  * @ngdoc overview
- * @name commandeAppApp
+ * @name commandeApp
  * @description
- * # commandeAppApp
+ * # commandeApp
  *
  * Main module of the application.
  */
 angular
-  .module('commandeAppApp', [
+  .module('commandeApp', [
     'ngAnimate',
     'ngCookies',
     'ngResource',
