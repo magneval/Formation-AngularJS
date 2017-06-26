@@ -26,7 +26,7 @@
 
 === Directives : La directive ngBind
 ```
-<span data-ng-bing="contact.address"></span>
+<span data-ng-bing="commande.address"></span>
 ```
 ```javascript
 // github.com/angular/angular.js

@@ -71,9 +71,9 @@ des vues peuvent être réutilisé entre plusieurs zones (comme des listes
 
 ```javascript
 $routeProvider.when(
-    '/contactBook/:bookId/contact/:id', {
-    templateUrl: 'view/foo.html',
-    controller: 'FooController'});
+    '/carnetCommande/:carnetId/commande/:id', {
+    templateUrl: 'view/commande.html',
+    controller: 'CommandeController'});
 ```
 
 * Le service `$routeParams` permet alors d'accéder aux valeurs des placeholders
@@ -110,7 +110,7 @@ $route.current.title
 
 === Configuration du routage
 ```javascript
-function FooController($scope,$route) {
+function CommandeController($scope,$route) {
 	$scope.$on('$routeChangeSuccess', function() {
 		console.log("route changed");
 	});

@@ -15,7 +15,7 @@
 === Modules : Notion de module
 * De manière générale, les modules peuvent être organisés
 ** Par type (services, contrôleurs...)
-** Par fonctionnalité ("gestion des contacts", "admin"...)
+** Par fonctionnalité ("gestion des commandes", "admin"...)
 * On peut par exemple utiliser le découpage suivant
 ** Un module par type de composant (services, contrôleurs...)
 ** Un module applicatif qui importe les précédents, ainsi que les modules tierce-partie

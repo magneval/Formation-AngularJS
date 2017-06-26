@@ -245,7 +245,7 @@ myStyle = {
 
 === Quelques directives utiles (2/3)
 * `ng-href` / `ng-src`
-** Garantissent que les attributs href et src ayant des placeholders ```{{foo}}``` seront bien évalué
+** Garantissent que les attributs href et src ayant des placeholders ```{{commande}}``` seront bien évalué
 * `ng-show` / `ng-hide`
 ** Affiche ou masque l'élément en fonction d'une expression
 * `ng-include`

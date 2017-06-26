@@ -10,6 +10,14 @@ Documentation::
 ** API : https://docs.angularjs.org/api
 ** Blog : http://blog.angularjs.org
 
+[NOTE.speaker]
+--
+legacy 1.2.x branch is the only version branch that supports IE8
+https://docs.angularjs.org/guide/migration[migration^]
+https://github.com/angular/angular.js/blob/v1.2.32/CHANGELOG.md[changelog 1.2^]
+https://github.com/angular/angular.js/blob/v1.6.4/CHANGELOG.md[changelog 1.6^]
+--
+
 === AngularJS
 * AngularJS est un framework "full stack" : +
  il intègre l'ensemble des composants nécessaires à la réalisation d'applications riches
