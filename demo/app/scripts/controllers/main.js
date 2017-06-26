@@ -2,16 +2,17 @@
 
 /**
  * @ngdoc function
- * @name commandeApp.controller:MainCtrl
+ * @name commandeApp.controller:CommandeListCtrl
  * @description
- * # MainCtrl
+ * # CommandeListCtrlCommandeApp.controller('CommandeListCtrl', 
  * Controller of the commandeApp
  */
 angular.module('commandeApp')
-  .controller('MainCtrl', function () {
-    this.awesomeThings = [
+  .controller('CommandeListCtrl', ['$scope', 'Commandes',function ($scope, Commandes) {
+    $scope.awesomeThings = [
       'HTML5 Boilerplate',
       'AngularJS',
       'Karma'
     ];
-  });
+    $scope.commandes = Commandes.query();
+  }]);
