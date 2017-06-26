@@ -1,0 +1,7 @@
+** L'architecture Rest
+** Le service $http
+** Les méthodes du service $http
+** Le service $resource
+** Les URLs avec des paramètres 
+** Les actions
+** Les callbacks
