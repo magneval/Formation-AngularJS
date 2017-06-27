@@ -64,7 +64,7 @@ include::./includes/Chapitre.adoc[]
 include::./includes/Chapitre.adoc[]
 
 :chapter: Architectures REST
-//include::./includes/Chapitre.adoc[]
+include::./includes/Chapitre.adoc[]
 
 :chapter: I18N
 include::./includes/Chapitre.adoc[]
