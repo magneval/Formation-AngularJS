@@ -1,0 +1,6 @@
+** Installation
+** Les nombres
+** Les dates et l'heure
+** Les montants monétaires
+** La gestion du pluriel
+** L’internationalisation des templates
