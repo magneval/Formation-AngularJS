@@ -2,6 +2,7 @@
 * AngularJS offre des fonctionnalités d'internationalisation
 ** 155 langues ou variantes
 ** Fichiers **i18n/angular-locale_\*.js**
+=== Installation
 * C'est au développeur de sélectionner et d'importer les locales qu'il souhaite supporter
 ** Déterminé côté serveur
 ** Alternativement, les scripts peuvent être concaténés (manuellement) afin de limiter le nombre de requêtes
