@@ -17,6 +17,7 @@ var yeoman = {
 var paths = {
   scripts: [yeoman.app + '/scripts/**/*.js'],
   styles: [yeoman.app + '/styles/**/*.css'],
+  slides: ['Formation-AngularJS/**/*.*'],
   test: ['test/spec/**/*.js'],
   testRequire: [
     yeoman.app + '/bower_components/angular/angular.js',
@@ -71,7 +72,7 @@ gulp.task('start:client', ['start:server', 'styles'], function () {
 
 gulp.task('start:server', function() {
   $.connect.server({
-    root: [yeoman.app, '.tmp'],
+    root: [yeoman.app, '.tmp', '.'],
     livereload: true,
     // Change this to '0.0.0.0' to access the server from outside.
     port: 9000
@@ -99,6 +100,11 @@ gulp.task('watch', function () {
   $.watch(paths.scripts)
     .pipe($.plumber())
     .pipe(lintScripts())
+    .pipe($.connect.reload());
+
+  $.watch(paths.slides)
+    .pipe($.plumber())
+//    .pipe(lintScripts())
     .pipe($.connect.reload());
 
   $.watch(paths.test)

@@ -25,6 +25,10 @@
 
 image::AngularJS-large.png[logo, id="logo", name="logo"]
 
+[NOTE.speaker]
+--
+docker run -ti -v $(pwd)/demo:/src:rw -v $(pwd)/output:/src/Formation-AngularJS:rw  -p9000:9000 -p35729:35729 -e "PUID=<user id>" -e "PGID=<group id>" mkenney/npm node_modules/.bin/gulp serve
+--
 
 == Formation AngularJS
 
