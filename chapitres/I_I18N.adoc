@@ -11,7 +11,10 @@
 <script src="js/angular/i18n/angular-locale_fr.js" />
 ```
 
+[NOTE.speaker]
+--
 * Les filtres `number`, `date` et `currency` utilisent alors le bon format
+--
 
 
 
@@ -23,9 +26,8 @@
 ```
 
 * Paramètres
-** [number] *fractionSize* : nombre de décimales
-    
-	Par défaut 3 ; des zéros sont ajoutés au besoin
+** [number] *fractionSize* : nombre de décimales +
+Par défaut 3
 
 ```
 {{ 1234.5678 | number }}
@@ -38,6 +40,10 @@ Locale FR : 1 234,6
 Locale FR : 1 234,567800
 ```
 
+[NOTE.speaker]
+--
+Par défaut 3 ; des zéros sont ajoutés au besoin
+--
 
 
 === Dates et heures
@@ -48,9 +54,8 @@ Locale FR : 1 234,567800
 ```
 
 * Paramètres
-** [string] *format* : format de date/heure
-    
-	Format prédéfini ("short", "long"...) ou personnalisé
+** [string] *format* : format de date/heure +
+Format prédéfini ("short", "long"...) ou personnalisé
 
 ```
 {{ 1366668000000 | date:'short' }}
@@ -58,10 +63,16 @@ Locale EN : 4/23/13 12:00 AM
 Locale FR : 23/04/13 00:00
 Locale DE : 23.04.13 00:00
 {{ 1366668000000 | date:'fullDate' }}
-Locale FR : 23 avril 2013
+Locale FR : mardi 23 avril 2013
 {{ 1366668000000 | date:'dd/MM/yyyy' }}
 Locale FR : 23/04/2013
 ```
+
+[NOTE.speaker]
+--
+Ne pas confondre short, shortDate et shortTime
+Idem avec medium
+--
 
 
 
@@ -78,6 +89,8 @@ Locale FR : 23/04/2013
 'shortDate'  : 4/23/13 
 'mediumTime' : 12:00:00 PM  
 'shortTime'  : 12:00 PM 
+```
+```
 // Locale FR
 'medium'     : 23 avr. 2013 12:00:00
 'short'      : 23/04/13 12:00
@@ -113,27 +126,29 @@ Locale FR : 23/04/2013
 
 === Montants monétaires
 * Le filtre `currency` permet de localiser les montants monétaires
-
-```
-{{ <binding/expression> | currency[:symbol] }}
-```
-
 * Paramètres
-** [string] *symbol* : symbole monétaire (€, $, USD…)
-    Le formatage reste celui de la locale, seul le symbole change
+** [string] *symbol* : symbole monétaire (€, $, USD…) +
+Le formatage reste celui de la locale, seul le symbole change
 
 ```
 {{ 1234.5678 | currency }}
 Locale EN :   $1,234.57 
 Locale FR :    1 234,57 €
 Locale NO : kr 1 234,57  
+```
+```
 {{ 1234.5678 | currency:'€' }}
 Locale EN :  €1,234.57 
 Locale FR :   1 234,57 €
 Locale NO : € 1 234,57
 ```
 
-
+[NOTE.speaker]
+--
+```
+{{ <binding/expression> | currency[:symbol] }}
+```
+--
 
 === ngPluralize
 * La directive `ngPluralize` permet d'adapter l'affichage de quantités en fonction de règles de catégorisation
@@ -142,6 +157,7 @@ Locale NO : € 1 234,57
 ** Une *quantité précise* d'éléments : 0, 1, 2, 27, 42…
 ** Une *catégorie* (variable selon les locales)
 
+=== ngPluralize
 * Catégories
 ** En général, seulement "one" (1) et "other" (2+)
 ** Japonais : "other" seulement
@@ -159,9 +175,8 @@ Locale NO : € 1 234,57
 
 * Règles
 ** Exprimées sous la forme d'une map
-** Correspondance sur des quantités exactes ou des catégories
+** Correspondance sur des quantités exactes ou des catégories +
 
-    (les quantités exactes sont toujours prioritaires)
 ```
 { 
      '0'    : 'Aucun contact',
@@ -170,6 +185,11 @@ Locale NO : € 1 234,57
      'other': 'Plusieurs contacts'
 }
 ```	
+
+[NOTE.speaker]
+--
+les quantités exactes sont toujours prioritaires
+--
 
 
 
@@ -206,6 +226,13 @@ Si count = 0 : Aucun contact
 ** Autorise une pluralisation plus fine
 
 
+[NOTE.speaker]
+--
+1 et one n'auront pas la même spécification
+1 sera sans l'offset,
+one avec l'offset
+--
+
 
 === ngPluralize
 * Algorithme
@@ -241,11 +268,12 @@ count
   3 : Joe et 2 autres contacts     // 3-1=2 → catégorie 'other'
 ```
 
-
-
 === Internationalisation des templates
 * En-dehors des mécanismes vus dans ce chapitre, AngularJS n'offre pas de mécanisme global d'internationalisation
 * Pistes
 ** Paramétrer le serveur pour envoyer les ressources dans la bonne locale : templates, images, scripts...
 ** Embarquer des dictionnaires dans l'application, interrogés à l'aide de directives AngularJS
+
+=== Internationalisation des templates
 * L'internationalisation reste l'un des points complexes des applications déportées côté client
+* Une solution peut-être d'utilisé http://angular-translate.github.io/[angular-translate^]
