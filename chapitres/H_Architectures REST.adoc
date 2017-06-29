@@ -105,7 +105,6 @@ $scope.getCommandes = function() {
             $scope.commandes = data;		
             $scope.errorMsg = '';
         }).
-
         error(function(data, status) {
             $scope.commandes = [];
             $scope.errorMsg = 'Error ' + status;
@@ -116,13 +115,7 @@ $scope.getCommandes = function() {
 
 
 === Le service $http
-* Le service `$http` propose également une API simplifiée
-** `get(url, [config])`
-** `jsonp(url, [config])`
-** `post(url, data, [config])`
-** `put(url, data, [config])`
-** `head(url, [config])`
-** `delete(url, [config])`
+==== une API simplifiée
 
 ```javascript
 $http.jsonp("http://monServeur/Commandes?callback=JSON_CALLBACK").
@@ -130,6 +123,13 @@ $http.jsonp("http://monServeur/Commandes?callback=JSON_CALLBACK").
         $scope.commandes = data;		
 });
 ```
+
+** `get(url, [config])`
+** `jsonp(url, [config])`
+** `post(url, data, [config])`
+** `put(url, data, [config])`
+** `head(url, [config])`
+** `delete(url, [config])`
 
 [NOTE.speaker]
 --
@@ -147,6 +147,7 @@ http://plnkr.co/edit/qTFQ3HshfpYqVxlpALUo[demo^]
 ** Objet de type "ActiveRecord"
 
 === Le service $resource
+
 * Syntaxe du service `$resource`
 
 ```javascript
@@ -167,7 +168,8 @@ $resource(url, [params], [actions]);
 var myModule = angular.module('myModule', ['ngResource']);
 ```
 
-=== Le service $resource : Déclaration d'une ressource
+=== Le service $resource
+==== Déclaration d'une ressource
 * Une ressource se déclare via la méthode `factory` d'un module
 
 ```javascript
@@ -179,7 +181,8 @@ CommandeApp.factory('Commandes', ['$resource',
 ]);
 ```
 
-=== Le service $resource : Déclaration d'une ressource
+=== Le service $resource
+==== Déclaration d'une ressource
 * Elle peut alors être injectée dans d'autres entités AngularJS 
 ** Contrôleurs, services, modules, directives...
 
@@ -193,15 +196,15 @@ CommandeApp.controller('CommandeListCtrl', ['$scope', 'Commandes',
 
 
 
-=== Le service $resource : Paramètres - URL
+=== Le service $resource
+==== Paramètres - URL
 * L'URL peut contenir des paramètres de binding
 ** Forme ":binding" (ex: "/rest/commandes/:id")
-** Possibilité d'indiquer des valeurs par défaut (constantes ou extraites des propriétés de l'objet)
+** Possibilité d'indiquer des valeurs par défaut
 ** Les paramètres non associés à un binding sont passés sous forme de paramètres d'URL (?foo=bar)
 
 ```javascript
-return $resource( 
-    '/rest/commandes/:group/:id',        
+return $resource( '/rest/commandes/:group/:id',        
     { 
       group:'friends', // constante
       id:'@userId', // propriété "userId" de l'objet
@@ -210,25 +213,37 @@ return $resource(
 );
 ```
 
+[NOTE.speaker]
+--
+valeurs par défaut (constantes ou extraites des propriétés de l'objet)
+les "/" serve de séparateurs et ne sont automatiquement supprimé 
+--
 
-
-=== Le service $resource : Paramètres - Actions
+=== Le service $resource
+==== Paramètres - Actions
 * Une ressource expose différentes *actions*
 * Une action représente une configuration particulière des paramètres d'appel du service `$http`
 ** `method`, `url`, `params`
+
+=== Le service $resource
+==== Paramètres - Actions
 * Une action peut être invoquée
 ** A partir de la ressource, en lui passant une instance
 ** Directement sur une instance particulière
-  
-    (l'action est alors préfixée par `$`)
+*** l'action est alors préfixée par `$`
+* Les actions retournent un résultat *synchrone* qui sera complété de manière *asynchrone* afin d'utiliser une notation pratique
 
-* Les actions retournent un résultat synchrone qui sera complété de manière asynchrone afin d'utiliser une notation pratique
-
-
-
-=== Le service $resource : Paramètres - Actions
+=== Le service $resource
+==== Paramètres - Actions
 * Chaque ressource AngularJS expose 5 actions préconfigurées permettant la création, la mise à jour, la suppression et la recherche de ses instances
-** `get`, `save`, `remove`, `delete`, `query`
+** `get`,
+** `save`,
+** `remove`,
+** `delete`,
+** `query`
+
+=== Le service $resource
+==== Paramètres - Actions
 * Paramétrage des actions préconfigurées
 ** `url` : l'URL de la ressource
 ** `method` : 
@@ -236,9 +251,8 @@ return $resource(
 *** `remove`, `delete` → DELETE
 *** `save` → POST
 
-
-
-=== Le service $resource : Paramètres - Actions
+=== Le service $resource
+==== Paramètres - Actions
 ```javascript
 $scope.commandes = Commande.query(function(commandes) {
 	var firstCommande = commandes[0];
@@ -246,24 +260,31 @@ $scope.commandes = Commande.query(function(commandes) {
 });
 ```
 
+=== Le service $resource
+==== Paramètres - Actions
+
 * De nouvelles actions peuvent être définies
 ** Dernier paramètre de la factory `$resource`
 ** Possibilité de définir le type de requête HTTP et les paramètres par défaut
 
 ```javascript
 return $resource( '/rest/commandes/:id', {id:'@userId'}, 
-    { export: { method: 'GET', params: {format:'pdf'} },
+    {
+        export: { method: 'GET', params: {format:'pdf'} },
         call: {method: 'GET', params: {where:'home'} } }
 );
 ```
 
-
-
-=== Le service $resource : Paramètres - Actions
-* A l'appel d'une action (préconfigurée ou personnalisée), il est possible de passer 3 paramètres optionnels :
+=== Le service $resource
+==== Paramètres - Actions
+* A l'appel d'une action (préconfigurée ou personnalisée),+
+il est possible de passer 3 paramètres optionnels :
 ** [map] *params* : paramètres d'appel, fusionnés avec les paramètres par défaut de l'action et ceux de la ressource
 ** [fonction] *success* : callback de réussite
 ** [fonction] *error* : callback d'erreur
+
+=== Le service $resource
+==== Paramètres - Actions
 
 ```javascript
 var marvin = Commande.get( {id:42} ); // params
