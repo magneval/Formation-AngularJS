@@ -3,49 +3,60 @@
 ** Conserve un model de données propre
 ** Pilote la mise en forme des données depuis la vue
 
-```
+```handlebars
 data | filtre1 | filtre2:param1 | filtre3:param1:param2
 ```
 
 * Les filtres peuvent s'enchainer et avoir des paramètres
-* AngularJS propose un ensemble de filtre par défaut :
-** `currency`, `date`, `filter`, `json`, `limitTo`, `lowercase`, `number`, `orderBy`, `uppercase`
 
+=== Filtres : Concept
+* AngularJS propose un ensemble de filtre par défaut :
+** `currency`
+** `date`
+** `filter`
+** `limitTo`
+** `lowercase`
+** `number`
+** `orderBy`
+** `uppercase`
+** `json`
 
 
 === Filtres : Filter
 * Le filtre `filter` est très important et est très modulable
 * Il permet de filtrer un tableau de données
-```
+```handlebars
 data | filter:'string'
 data | filter:{prop1:'value', prop2:'value'}
 ```
 
 * *String* : Retourne les éléments qui contiennent la chaine
 * *Object* : Propriété par propriété, retourne les éléments qui contiennent chaque valeur
+
+=== Filtres : Filter
 * *Function* : La fonction est appelée pour chaque élément de la liste. Si la fonction retourne `true`, l'élément est conservé.
-```
+```javascript
 data | filter:commande
 $scope.commande = function(element) {
-	return element.indexOf('bar')!= -1 }
+    return element.indexOf('bar')!= -1 }
 ```
-
-
 
 === Filtres : Filtre personnalisé 1/2
 * Se déclare dans un module via la fonction `filter`
 
 ```javascript
 angular.module('MyModule')
-	.filter('myFilter', function factory( … /*$inject*/) {
-		return function(input, param1, param2) { … }
-	})
+    .filter('myFilter', function factory( … /*$inject*/) {
+        return function(input, param1, param2) { … }
+    })
 ```
 * S'utilise dans un template
 
-```
+```html
 <span>{{ data | myFilter:'value1':'value2' }}</span>
 ```
+
+=== Filtres : Filtre personnalisé 1/2
 
 * S'utilise dans du JS à l'aide de l'injection du service `$filter`
 
