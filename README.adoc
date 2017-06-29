@@ -77,7 +77,7 @@ include::./includes/Chapitre.adoc[]
 include::./includes/Chapitre.adoc[]
 
 :chapter: Directives
-//include::./includes/Chapitre.adoc[]
+include::./includes/Chapitre.adoc[]
 
 :chapter: Authentification
 //include::./includes/Chapitre.adoc[]

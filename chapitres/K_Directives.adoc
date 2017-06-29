@@ -4,43 +4,60 @@
 ** Associe du comportement
 ** Evite d'avoir à utiliser des sélections comme dans jQuery
 ** Peut aller du marqueur informatif au widget très riche
+
+=== Directives : Concept
 * Il y a 4 moyens de déclencher une directive :
 ```html
-<span my-directive="exp"></span>
+<span data-my-directive="exp"></span>
+```
+```html
 <my-directive></my-directive>
+```
+```html
 <span class="my-directive: exp;"></span>
+```
+```html
 <!-- directive: my-directive exp -->
 ```
 * Une URL à retenir : http://docs.angularjs.org/guide/directive
-
-
 
 === Directives : Directives d'AngularJS
 * AngularJS propose par défaut de nombreuses directives
 * Elles sont toutes écrites avec la même API que celle qui nous est proposé (le code source peut être consulté)
 * C'est l'ensemble de ces directives augmenté du bloc `{{}}` qui forment le langage de template d'Angular
+
+=== Directives : Directives d'AngularJS
 * Directives de base les plus connues :
-** `ngBind`, `ngShow`, `ngRepeat`, `ngClick`, `ngModel`...
-
-
+** `ngBind`,
+** `ngShow`,
+** `ngRepeat`,
+** `ngClick`,
+** `ngModel`,
+** ...
 
 === Directives : La directive ngBind
-```html
+[source,html]
+----
 <span data-ng-bing="commande.address"></span>
-```
-```javascript
+----
+
+[source,javascript]
+----
 // github.com/angular/angular.js
 //      /blob/master/src/ng/directive/ngBind.js
 
-var ngBindDirective = 
-    ngDirective(function(scope, element, attr) {
-        element.addClass('ng-binding').data('$binding', attr.ngBind);
-        scope.$watch(attr.ngBind, function ngBindWatchAction(value) {
-            element.text(value == undefined ? '' : value);
-        });
-    });
-```
-
+var ngBindDirective = ngDirective(
+    function(scope, element, attr) {
+        element.addClass('ng-binding')
+            .data('$binding', attr.ngBind);
+        scope.$watch(attr.ngBind,
+            function ngBindWatchAction(value) { 
+                element.text(value == undefined ? '' : value);
+            }
+        );
+    }
+);
+----
 
 
 === Directives : API : Les bases
@@ -56,45 +73,44 @@ angular.module('MyModule')
     })
 ```
 
-
-
 === Directives : API : Les bases
 * `<name>` : le nom de la directive sera repris dans son déclencheur.
-  Attention : camelCase dans le JS, camel-case dans l'HTML
-* `<restrict>` : paramètre le type de déclencheur souhaité : balise (E), attribut (A), classe (C), commentaire (M). Défaut : A
+
+WARNING: camelCase dans le JS, kebab-case dans l'HTML +
+=> `myDirective1` devient `my-directive1`
+
+* `<restrict>` : Types de déclencheurs souhaités : 
+** balise (`E`)lement,
+** attribut (`A`)ttribut par défaut, 
+** classe (`C`)lasse, 
+// ** commentaire (`M`)arkup. 
+
+[NOTE.speaker]
+--
+process de normalization :
+
+Supprimé x- et data- au début du nom de  l'element/l'attribut.
+Convertir les nom delimited par `:`, `-`, or `_` name to camelCase.
+
+Les types ne sont pas exclusif, on peut en associer plusieurs
+--
+
+=== Directives : API : Les bases
 * `<template>`, `<templateUrl>` : L'activation de la directive ajoutera le contenu du template dans l'élément du DOM
-* `<replace>` : remplace l'élément au profit du template (au lieu de remplacer le contenu
+* `<replace>` : remplace l'élément au profit du template, au lieu de remplacer le contenu de l'element
 
 
-
+[source,javascript]
+----
+  .directive('myCustomer', function() {
+    return {
+      restrict: 'E',
+      templateUrl: 'my-customer.html'
+    };
+  });
+----
 === Directives : API : Cycle de vie
 image::API-cycle-vie.png[API, id="API", name="API", alt="API : Cycle de vie", width="85%"]
-
-
-
-=== Directives : API : Cycle de vie
-* Différentes méthodes de déclaration des étapes du cycle de vie :
-
-```javascript
-angular.module('MyModule').directive('myDirective1',
-    function dirInjection() { return {
-        controller : function($scope, $elem, $attrs, $transclude,
-            otherInjectables) { … }
-        compile : function(elem, attrs, transclude) {
-            return {
-                pre :
-                    function(scope, elem, attrs, controller){ … }
-                post :
-                    function(scope, elem, attrs, controller){ … }
-                } }
-        } })
-    .directive('myDirective2', function dirInjection() {
-        return { link : function(scope, elem, attrs) { … } }
-    })
-    .directive('myDirective3', function() {
-        return function(scope, elem, attrs) { … }
-    })
-```
 
 
 
@@ -112,6 +128,29 @@ angular.module('MyModule').directive('myDirective1',
 * Le controller est principalement utilisé pour la collaboration entre plusieurs directives
 ** C'est le seul élément qui pourra être partagé entre deux directives en dehors du scope
 ** On retrouve un controller d'une autre directive en utilisant le paramètre require sur la directive
+
+=== Directives : API : Cycle de vie
+* Différentes méthodes de déclaration des étapes du cycle de vie :
+
+```javascript
+.directive('myDirective1', function dirInjection() {
+    return { link : function(scope, elem, attrs) { … } }
+})
+.directive('myDirective2', function dirInjection() { return {
+        controller : function($scope, $elem, $attrs, $transclude,
+            otherInjectables) { … }
+        compile : function(elem, attrs, transclude) {
+            return {
+                pre :
+                    function(scope, elem, attrs, controller){ … }
+                post :
+                    function(scope, elem, attrs, controller){ … }
+                } }
+} } )
+.directive('myDirective3', function() {
+    return function(scope, elem, attrs) { … }
+})
+```
 
 
 
