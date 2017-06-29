@@ -30,7 +30,7 @@ $httpProvider.defaults.headers.get = { 'My-Header' : 'value' }
 
 ```javascript
 $http.defaults.headers.common =
-	{ 'Content-Type' : 'application/xml' }
+    { 'Content-Type' : 'application/xml' }
 ```
 
 
@@ -41,17 +41,17 @@ $http.defaults.headers.common =
 
 ```javascript
 $httpProvider.interceptors.push(
-  function($q, dependency1, dependency2) {
-    return {
-	   request:
-	      function(config) { return config || $q.when(config); },
-       requestError:
-	      function(rejection) { return $q.reject(rejection); },
-       response:
-	      function(response)
-			{ return response || $q.when(response); },
-       responseError:
-	      function(rejection) { return $q.reject(rejection); } };
+    function($q, dependency1, dependency2) {
+        return {
+        request:
+            function(config) { return config || $q.when(config); },
+        requestError:
+            function(rejection) { return $q.reject(rejection); },
+        response:
+            function(response)
+            { return response || $q.when(response); },
+        responseError:
+            function(rejection) { return $q.reject(rejection); } };
 });
 ```
 
@@ -64,17 +64,17 @@ $httpProvider.interceptors.push(
 
 ```javascript
 $httpProvider.interceptors.push(function($q) {
-  return {
-    response: function(response) {
-        localStorage.setItem('latestHeaders', response.headers);
-        return response || $q.when(response);
-    },
-    responseError: function(rejection) {
-        localStorage.setItem('latestRejectionStatus',
-			rejection.status);
-        return $q.reject(rejection);
-    }
-  };
+    return {
+        response: function(response) {
+            localStorage.setItem('latestHeaders', response.headers);
+            return response || $q.when(response);
+        },
+        responseError: function(rejection) {
+            localStorage.setItem('latestRejectionStatus',
+                rejection.status);
+            return $q.reject(rejection);
+        }
+    };
 });
 ```
 

@@ -17,7 +17,7 @@ var yeoman = {
 var paths = {
   scripts: [yeoman.app + '/scripts/**/*.js'],
   styles: [yeoman.app + '/styles/**/*.css'],
-//  slides: ['Formation-AngularJS/**/*.*'],
+  slides: ['Formation-AngularJS/**/*.*'],
   test: ['test/spec/**/*.js'],
   testRequire: [
     yeoman.app + '/bower_components/angular/angular.js',
@@ -102,10 +102,10 @@ gulp.task('watch', function () {
     .pipe(lintScripts())
     .pipe($.connect.reload());
 
-//  $.watch(paths.slides)
-//    .pipe($.plumber())
-////    .pipe(lintScripts())
-//    .pipe($.connect.reload());
+  $.watch(paths.slides)
+    .pipe($.plumber())
+//    .pipe(lintScripts())
+    .pipe($.connect.reload());
 
   $.watch(paths.test)
     .pipe($.plumber())

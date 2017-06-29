@@ -6,7 +6,7 @@
 * C'est au développeur de sélectionner et d'importer les locales qu'il souhaite supporter
 ** Déterminé côté serveur
 ** Alternativement, les scripts peuvent être concaténés (manuellement) afin de limiter le nombre de requêtes
-```
+```html
 <script src="js/angular/angular.js" />
 <script src="js/angular/i18n/angular-locale_fr.js" />
 ```
@@ -21,7 +21,7 @@
 === Nombre
 * Le filtre `number` permet de localiser les nombres
 
-```
+```handlebars
 {{ <binding/expression> | number[:fractionSize] }}
 ```
 
@@ -29,7 +29,7 @@
 ** [number] *fractionSize* : nombre de décimales +
 Par défaut 3
 
-```
+```handlebars
 {{ 1234.5678 | number }}
 Locale EN : 1,234.568
 Locale FR : 1 234,568
@@ -49,7 +49,7 @@ Par défaut 3 ; des zéros sont ajoutés au besoin
 === Dates et heures
 * Le filtre `date` permet de localiser les dates et heures
 
-```
+```handlebars
 {{ <binding/expression> | date[:format] }}
 ```
 
@@ -57,7 +57,7 @@ Par défaut 3 ; des zéros sont ajoutés au besoin
 ** [string] *format* : format de date/heure +
 Format prédéfini ("short", "long"...) ou personnalisé
 
-```
+```handlebars
 {{ 1366668000000 | date:'short' }}
 Locale EN : 4/23/13 12:00 AM
 Locale FR : 23/04/13 00:00
@@ -79,7 +79,7 @@ Idem avec medium
 === Dates et heures
 * Formats prédéfinis (dépendants de la locale)
 
-```
+```javascript
 // Locale EN
 'medium'     : Apr 23, 2013 12:00:00 PM
 'short'      : 4/23/13 12:00 PM 
@@ -90,7 +90,7 @@ Idem avec medium
 'mediumTime' : 12:00:00 PM  
 'shortTime'  : 12:00 PM 
 ```
-```
+```javascript
 // Locale FR
 'medium'     : 23 avr. 2013 12:00:00
 'short'      : 23/04/13 12:00
@@ -109,7 +109,7 @@ Idem avec medium
 ** Composé à partir de symboles représentant les composantes d'une date
 ** Gestion manuelle des locales
 
-```
+```javascript
 'yyyy', 'yy', 'y' : Année
 'MMMM', 'MM', 'M' : Mois
 'dd', 'd'         : Jour (numéro)
@@ -130,13 +130,13 @@ Idem avec medium
 ** [string] *symbol* : symbole monétaire (€, $, USD…) +
 Le formatage reste celui de la locale, seul le symbole change
 
-```
+```handlebars
 {{ 1234.5678 | currency }}
 Locale EN :   $1,234.57 
 Locale FR :    1 234,57 €
 Locale NO : kr 1 234,57  
 ```
-```
+```handlebars
 {{ 1234.5678 | currency:'€' }}
 Locale EN :  €1,234.57 
 Locale FR :   1 234,57 €
@@ -145,7 +145,7 @@ Locale NO : € 1 234,57
 
 [NOTE.speaker]
 --
-```
+```handlebars
 {{ <binding/expression> | currency[:symbol] }}
 ```
 --
@@ -168,7 +168,7 @@ Locale NO : € 1 234,57
 === ngPluralize
 * Syntaxe
 
-```
+```html
 <ng-pluralize count="<binding/expression>" when="<règles>">
 </ng-pluralize>
 ```
@@ -177,12 +177,12 @@ Locale NO : € 1 234,57
 ** Exprimées sous la forme d'une map
 ** Correspondance sur des quantités exactes ou des catégories +
 
-```
+```javascript
 { 
-     '0'    : 'Aucun contact',
-     '42'   : 'Juste le bon nombre de contacts',
-     'one'  : 'Un contact',
-     'other': 'Plusieurs contacts'
+    '0'    : 'Aucun contact',
+    '42'   : 'Juste le bon nombre de contacts',
+    'one'  : 'Un contact',
+    'other': 'Plusieurs contacts'
 }
 ```	
 
@@ -198,15 +198,15 @@ les quantités exactes sont toujours prioritaires
 ** Des bindings AngularJS : `{{binding}}`
 ** Un placeholder pour le nombre d'entités : `{}`
 
-```
+```html
 <ng-pluralize 
-  count="contacts.length" 
-  when=" {
-    '0'     : 'Aucun contact',
-    '1'     : 'Un contact : {{contacts[0]}}',
-    'other' : '{} contacts, dont 
-               {{contacts[0]}} et {{contacts[1]}}'
-  }"
+    count="contacts.length" 
+    when=" {
+        '0'     : 'Aucun contact',
+        '1'     : 'Un contact : {{contacts[0]}}',
+        'other' : '{} contacts, dont 
+            {{contacts[0]}} et {{contacts[1]}}'
+    }"
 ></ng-pluralize>
 ```
 
@@ -245,16 +245,16 @@ one avec l'offset
 === ngPluralize
 * Exemple
 
-```
+```html
 <ng-pluralize 
-  count="contacts.length" 
-  when=" {
-    '0'     : 'Aucun contact',
-    '1'     : 'Un contact : {{contacts[0]}}',
-    'one'   : '{{contacts[0]}} et un autre contact'
-    'other' : '{{contacts[0]}} et {} autres contacts'
-  }"
-  offset="1"
+    count="contacts.length" 
+    when=" {
+        '0'     : 'Aucun contact',
+        '1'     : 'Un contact : {{contacts[0]}}',
+        'one'   : '{{contacts[0]}} et un autre contact'
+        'other' : '{{contacts[0]}} et {} autres contacts'
+    }"
+    offset="1"
 ></ng-pluralize>
 ```
 
@@ -262,10 +262,10 @@ one avec l'offset
 Avec $scope.contacts = ['Joe','Jack','William','Averell'];
 
 count
-  0 : Aucun contact                // quantité exacte
-  1 : Un contact : Joe             // quantité exacte 
-  2 : Joe et un autre contact      // 2-1=1 → catégorie 'one'
-  3 : Joe et 2 autres contacts     // 3-1=2 → catégorie 'other'
+    0 : Aucun contact                // quantité exacte
+    1 : Un contact : Joe             // quantité exacte 
+    2 : Joe et un autre contact      // 2-1=1 → catégorie 'one'
+    3 : Joe et 2 autres contacts     // 3-1=2 → catégorie 'other'
 ```
 
 === Internationalisation des templates

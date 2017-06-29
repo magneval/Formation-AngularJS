@@ -15,9 +15,9 @@
 * Attribut `novalidate` sur le formulaire
 ** Attribut standard HTML5
 
-```
+```html
 <form novalidate>
-	… 
+    … 
 </form>
 ```
 
@@ -27,7 +27,7 @@
 ==== Principe général (3/4)
 * Association des champs de saisie à des propriétés du scope grâce à la directive `ng-model`
 
-```
+```html
 <input type='text' ng-model='contact.name' />
 ```
 
@@ -35,9 +35,9 @@
 ** Attribut `name`
 ** Utile pour la validation
 
-```
+```html
 <form name="contactForm" novalidate>
-	… 
+    … 
 </form>
 ```
 
@@ -47,15 +47,15 @@
 ==== Principe général (4/4)
 * Appel d'une méthode du scope pour traiter le formulaire
 ** `ng-submit` sur le formulaire + bouton "submit"
-```
+```html
 <form ng-submit="saveForm()" novalidate>
-     <input type="submit"/>
+    <input type="submit"/>
 </form>
 ```
 ** `ng-click` sur un bouton simple
-```
+```html
 <form novalidate>
-     <button ng-click="saveForm()" />
+    <button ng-click="saveForm()" />
 </form>
 ```
 
@@ -77,21 +77,21 @@
 
 
 === Formulaires : Exemple
-```
+```html
 <form novalidate>
-	Title : 
-	<input type="radio" ng-model="contact.title" value="Mr"/>Mr
-	<input type="radio" ng-model="contact.title" value="Ms"/>Ms
-	Name : 
-	<input type="text"  ng-model="contact.name"/>
-	Email : 
-	<input type="email" ng-model="contact.email"/>
-	Website :
-	<input type="url"   ng-model="contact.website"/>
-	Notes :
-	<textarea ng-model="contact.notes"></textarea>
+    Title : 
+        <input type="radio" ng-model="contact.title" value="Mr"/>Mr
+        <input type="radio" ng-model="contact.title" value="Ms"/>Ms
+    Name : 
+        <input type="text"  ng-model="contact.name"/>
+    Email : 
+        <input type="email" ng-model="contact.email"/>
+    Website :
+        <input type="url"   ng-model="contact.website"/>
+    Notes :
+        <textarea ng-model="contact.notes"></textarea>
 
-	<button ng-click="saveContact()">Save</button>
+    <button ng-click="saveContact()">Save</button>
 </form>
 ```
 
@@ -103,20 +103,20 @@
 
 === Formulaires : Fonctionnement
 
-```
+```html
 <form name="contactForm">
     <input type="text" 
-           name="address"
-           ng-model="address" 
-           required/> 
+        name="address"
+        ng-model="address" 
+        required/> 
 </form>
 ```
 Etat de tous les validateurs du champ ?
-```
+```handlebars
 {{contactForm.address.$error | json}}      // {"required":true}
 ```
 Validateur "required" en erreur ? 
-```
+```handlebars
 {{contactForm.address.$error.required}}    // true
 ```
 
@@ -125,14 +125,14 @@ Validateur "required" en erreur ?
 * Un champ peut être rendu obligatoire
 ** De manière permanente : `required`
 
-```
+```html
 <input type="text" ng-model="name" required />
 ```
 
 ** De manière conditionnelle : +
 `ng-required="<model>"`
 
-```
+```html
 <input type="checkbox" ng-model="nameRequired"/> 
 <input ng-required="nameRequired" ng-model="name">
 ```
@@ -140,10 +140,10 @@ Validateur "required" en erreur ?
 === Validation : Validation des champs
 
 * Etat du validateur : `<champ>.$error.required`
-```
+```html
 <input name="address" ng-model="address" required>
 <span ng-show="form.address.$error.required">
-	Erreur
+    Erreur
 </span>
 ```
 
@@ -151,9 +151,9 @@ Validateur "required" en erreur ?
 * Validation de la longueur des chaînes
 ** `ng-minlength` et `ng-maxlength`
 
-```
+```html
 <input type="text" name="address" ng-model="address"
-	 ng-minlength="3" ng-maxlength="10" />
+    ng-minlength="3" ng-maxlength="10" />
 ```
 
 === Validation : Validation des champs
@@ -162,10 +162,10 @@ Validateur "required" en erreur ?
 ** `<champ>.$error.minlength`
 ** `<champ>.$error.maxlength`
 
-```
+```html
 <input name="street" ng-model="street" ng-maxlength="30">
 <span ng-show="form.street.$error.maxlength">
-	30 lettres max
+    30 lettres max
 </span>
 ```
 
@@ -174,14 +174,14 @@ Validateur "required" en erreur ?
 * Contrôle du format de la saisie
 ** Expression régulière : `ng-pattern`
 
-```
+```html
 <input type="text" name="phone" ng-model="phone"
-	ng-pattern="/^555-(\d){4}$/" />
+    ng-pattern="/^555-(\d){4}$/" />
 ```
 
 * Etat du validateur : `<champ>.$error.pattern`
 
-```
+```html
 <input name="phone" ng-pattern="/^555-(\d){4}$/">
 <span ng-show="form.phone.$error.pattern">Ex: 555-1234</span>
 ```
@@ -206,12 +206,12 @@ Validateur "required" en erreur ?
 ** `ng-dirty`
 
 === Validation : État du formulaire et des champs
-```
+```html
 <form name="contactForm" novalidate>
     <input type="text" name="contactName" 
-           ng-model="contact.name" required />
+            ng-model="contact.name" required />
 	<div ng-show="contactForm.$valid">
-		Formulaire valide !
+            Formulaire valide !
 	</div>
     <div ng-show="contactForm.contactName.$dirty">
         Champ "name" modifié !

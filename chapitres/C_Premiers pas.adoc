@@ -5,12 +5,12 @@
 ** Permet d'optimiser le chargement de l'application
 * A déclarer de préférence à la fin de la page HTML
 
-```
+```html
 <html>
-	<head>
-		<script src="angular.js"></ script>
-	</head>
-	<body>...</body>
+    <head>
+        <script src="angular.js"></ script>
+    </head>
+    <body>...</body>
 </html>
 ```
 
@@ -24,17 +24,17 @@ Avant de pouvoir utiliser AngularJS, il faut l'importer et l'activer dans la pag
 ** Directive `ng-app`
 ** Généralement placée sur la balise `<html>` ou  `<body>`
 
-```
+```html
 <html ng-app>
-  ...
+    ...
 </html>
 ```
 
 * Il est également possible de charger un module personnalisé (CF. le chapitre sur les modules)
 
-```
+```html
 <html ng-app="myModule">
-  ...
+    ...
 </html>
 ```
 
@@ -194,21 +194,21 @@ pour l'instant, celui de l'application, c'est-à-dire le scope racine `$rootScop
 === Filtres
 ```html
 <ul ng-init="people=[{name:'you'},{name:'me'},{name:'them'}]">
-	<li ng-repeat="p in people | orderBy:'name'">
-		{{p.name | uppercase}}
-	</li>
+    <li ng-repeat="p in people | orderBy:'name'">
+        {{p.name | uppercase}}
+    </li>
 </ul>
 ```
 image::uppercase.png[uppercase, id="uppercase", name="uppercase"]
 
 === Filtres
 
-```
+```html
 <input type="text" ng-model="nameFilter"/>
 <ul ng-init="names=['you','me','them']">
-	<li ng-repeat="name in names | filter:nameFilter">
-		{{name}}
-	</li>
+    <li ng-repeat="name in names | filter:nameFilter">
+        {{name}}
+    </li>
 </ul>
 ```
 [.float-group]
@@ -225,7 +225,7 @@ image::avecFiltre.png[avec Filtre]
 === Quelques directives utiles (1/3)
 * `ng-style`
 ** Applique un style CSS à l'élément :
-```
+```javascript
 ng-style="myStyle"
 myStyle = {
     color:'red',

@@ -32,12 +32,12 @@ function PeopleController($scope) {
 ** Une vue, dans une application de type single-page
 ** Une zone délimitée par une balise (exemple un `<div>`)
 * Directive `ng-controller`
-```
+```html
 <div ng-controller="PeopleController">
-	<ul>
-		<li ng-repeat="name in names">{{name}}</li>
-	</ul>
-	<button ng-click="add()">add</button>
+    <ul>
+        <li ng-repeat="name in names">{{name}}</li>
+    </ul>
+    <button ng-click="add()">add</button>
 </div>
 ```
 
@@ -120,13 +120,13 @@ scope.$apply(function() { … });
 
 === Scopes :
 ====  $apply
-```
+```javascript
 function PeopleController($scope) {
     $scope.names = ['you', 'me', 'them'];
 }
 ```
 
-```
+```html
 <div ng-controller="PeopleController">
     
     <ul>
@@ -159,7 +159,7 @@ function PeopleController($scope) {
     $scope.names = ['you', 'me', 'them'];
 
     $scope.$watch('names', function(newValue, oldValue) {
-		console.log(oldValue + " → " + newValue);
+        console.log(oldValue + " → " + newValue);
     }, false);
 }
 ```

@@ -40,7 +40,7 @@ http://plnkr.co/edit/TXzzaiLeYkFaJLDNyKU0[functions^]
 ```javascript
 function appelServeur(succesFonction) {
     Ajax.get(url, function(donnees) {
-	     succesFonction(donnees);
+        succesFonction(donnees);
     });	
 }
 function afficheResultat(resultat) {
@@ -133,9 +133,9 @@ https://openclassrooms.com/courses/les-closures-en-javascript[doc^]
 === Piéger des Variables
 ```javascript
 function additionFactory(x) {
-  return function(y) {
-    return x + y;
-  };
+    return function(y) {
+        return x + y;
+    };
 };
 
 var ajouter5 = additionFactory(5);

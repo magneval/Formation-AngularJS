@@ -206,9 +206,9 @@ CommandeApp.controller('CommandeListCtrl', ['$scope', 'Commandes',
 ```javascript
 return $resource( '/rest/commandes/:group/:id',        
     { 
-      group:'friends', // constante
-      id:'@userId', // propriété "userId" de l'objet
-      foo:'bar' // paramètre additionnel sans binding
+        group:'friends', // constante
+        id:'@userId', // propriété "userId" de l'objet
+        foo:'bar' // paramètre additionnel sans binding
     } 
 );
 ```
@@ -255,8 +255,8 @@ les "/" serve de séparateurs et ne sont automatiquement supprimé
 ==== Paramètres - Actions
 ```javascript
 $scope.commandes = Commande.query(function(commandes) {
-	var firstCommande = commandes[0];
-	firstCommande.$delete();
+    var firstCommande = commandes[0];
+    firstCommande.$delete();
 });
 ```
 
@@ -271,8 +271,8 @@ $scope.commandes = Commande.query(function(commandes) {
 return $resource( '/rest/commandes/:id', {id:'@userId'}, 
     {
         export: { method: 'GET', params: {format:'pdf'} },
-        call: {method: 'GET', params: {where:'home'} } }
-);
+        call: {method: 'GET', params: {where:'home'} }
+});
 ```
 
 === Le service $resource

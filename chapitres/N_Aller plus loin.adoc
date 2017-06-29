@@ -56,7 +56,7 @@ image::yeoman.png[yeoman, id="yeoman", name="yeoman" alt="Yeoman" ]
 === Industrialisation : Yeoman
 * Exemple d'utilisation de bout en bout
 
-```
+```shell
 // Initialisation de la structure de l'application
 // basée sur le template angular-seed
 mkdir ngapp

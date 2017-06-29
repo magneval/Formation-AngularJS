@@ -21,9 +21,9 @@ image::Jasmine.png[Jasmine, id="Jasmine", name="Jasmine" ]
 
 ```javascript
 describe("A suite", function() {
-  it("contains spec with an expectation", function() {
-    expect(true).toBe(true);
-  });
+    it("contains spec with an expectation", function() {
+        expect(true).toBe(true);
+    });
 });
 ```
 
@@ -58,14 +58,14 @@ angular.module('myApplicationModule', [])
 
 describe('MyApp', function() {
 
-  beforeEach(module('myApplicationModule'));
- 
-  it('should provide a version',
-    inject(function(mode, version) {
-      expect(version).toEqual('v1.0.1');
-      expect(mode).toEqual('app');
-    })
-  );
+    beforeEach(module('myApplicationModule'));
+
+    it('should provide a version',
+        inject(function(mode, version) {
+            expect(version).toEqual('v1.0.1');
+            expect(mode).toEqual('app');
+        })
+    );
   
 });
 ```
@@ -85,19 +85,19 @@ describe('MyApp', function() {
 === ngMock $httpBackend
 ```javascript
 describe('MyController', function() {
-   var httpBackend, rootScope, createController;
+    var httpBackend, rootScope, createController;
  
-   beforeEach(inject(
-	function($httpBackend, $rootScope, $controller) {
-     $httpBackend.when('GET', '/auth.py')
+    beforeEach(inject(
+        function($httpBackend, $rootScope, $controller) {
+            $httpBackend.when('GET', '/auth.py')
 		.respond({userId: 'userX'}, {'A-Token': 'xxx'});
-	rootScope = $rootScope;
-	httpBackend = $httpBackend;
+            rootScope = $rootScope;
+            httpBackend = $httpBackend;
  
-     createController = function() {
-       return $controller('MyController',
-		{'$scope' : $rootScope });
-     };
+            createController = function() {
+                return $controller('MyController',
+                    {'$scope' : $rootScope });
+            };
    }));
 ```
 
@@ -122,19 +122,19 @@ image::SchemaKarma.png[SchemaKarma, id="SchemaKarma", name="SchemaKarma", alt="S
 === Configuration de Karma
 ```javascript
 module.exports = function(config){
-   config.set({
-      basePath : '../',
-      files : [
-         'app/lib/angular/angular.js',
-         'app/lib/angular/angular-*.js',
-         'test/lib/angular/angular-mocks.js',
-         'app/js/**/*.js',
-         'test/unit/**/*.js'
-      ],
-      autoWatch : true,
-      frameworks: ['jasmine'],
-      browsers : ['Chrome']
-   })
+    config.set({
+        basePath : '../',
+        files : [
+            'app/lib/angular/angular.js',
+            'app/lib/angular/angular-*.js',
+            'test/lib/angular/angular-mocks.js',
+            'app/js/**/*.js',
+            'test/unit/**/*.js'
+        ],
+        autoWatch : true,
+        frameworks: ['jasmine'],
+        browsers : ['Chrome']
+    })
 }
 ```
 
@@ -145,13 +145,13 @@ module.exports = function(config){
 
 ```javascript
 angular.module('myModule')
-	.controller('myController', function($scope, $http) {
-		$scope.foo = 'bar'
-		$http.get('http://localhost/api/foo')
-			.success(function(data) {
-				$scope.foo = data
-			})
-	})
+    .controller('myController', function($scope, $http) {
+        $scope.foo = 'bar'
+        $http.get('http://localhost/api/foo')
+            .success(function(data) {
+                $scope.foo = data
+            })
+    })
 ```
 
 
@@ -161,21 +161,21 @@ angular.module('myModule')
 
 ```javascript
 describe('MyController Test', function() {
-	var httpBackend, scope;
-	beforeEach(module('myModule'));
-	beforeEach(inject(
-	  function($rootScope, $httpBackend, $controller) {
-		scope = $rootScope.$new();
-		httpBackend = $httpBackend; 
-		$httpBackend.expect('GET', 'http://localhost/api/foo')
-			.respond('new bar');
-		$controller('myController', {'$scope' : scope} );
-	}));
-	it('should switch foo from bar to new bar', function() {
-		expect(scope.foo).toBe('bar');
-		httpBackend.flush();
-		expect(scope.foo).toBe('new bar');
-	});
+    var httpBackend, scope;
+    beforeEach(module('myModule'));
+    beforeEach(inject(
+        function($rootScope, $httpBackend, $controller) {
+            scope = $rootScope.$new();
+            httpBackend = $httpBackend; 
+            $httpBackend.expect('GET', 'http://localhost/api/foo')
+                .respond('new bar');
+            $controller('myController', {'$scope' : scope} );
+    }));
+    it('should switch foo from bar to new bar', function() {
+        expect(scope.foo).toBe('bar');
+        httpBackend.flush();
+        expect(scope.foo).toBe('new bar');
+    });
 });
 ```
 
@@ -184,23 +184,23 @@ describe('MyController Test', function() {
 === Test d'une directive
 ```javascript
 describe('directives', function() {
-  beforeEach(module('myApp.directives'));
+    beforeEach(module('myApp.directives'));
 
-  describe('app-version', function() {
-    it('should print current version', function() {
+    describe('app-version', function() {
+        it('should print current version', function() {
 
-      module(function($provide) {
-        $provide.value('version', 'TEST_VER');
-      });
+            module(function($provide) {
+                $provide.value('version', 'TEST_VER');
+            });
 
-      inject(function($compile, $rootScope) {
-        var element =
-          $compile('<span app-version></span>')($rootScope);
-        expect(element.text()).toEqual('TEST_VER');
-      });
+            inject(function($compile, $rootScope) {
+                var element =
+                    $compile('<span app-version></span>')($rootScope);
+                expect(element.text()).toEqual('TEST_VER');
+            });
 
+        });
     });
-  });
 });
 ```
 
@@ -257,23 +257,23 @@ describe('directives', function() {
 ##Tests E2E : Exemple
 ```javascript
 describe('Phone list view', function() {
-  beforeEach(function() {
-    browser.get('http://localhost:8080/phones');
-  }); 
-  
-  it('represents data correctly', function() {
-    expect(element(by.tagName('h2')).getText())
-		.toBe('Phone list');
+    beforeEach(function() {
+        browser.get('http://localhost:8080/phones');
+    }); 
 
-    expect(element.all(by.css('img.thumb')).count()).toBe(6);
+    it('represents data correctly', function() {
+        expect(element(by.tagName('h2')).getText())
+            .toBe('Phone list');
 
-    element(by.id('filterInput')).sendKeys('nexus');
+        expect(element.all(by.css('img.thumb')).count()).toBe(6);
 
-    var phoneRows = element.all(by.repeater('phone in phones'));
-    phoneRows.each(function(element) {
-      expect(element.getText()).toMatch(/nexus/)
+        element(by.id('filterInput')).sendKeys('nexus');
+
+        var phoneRows = element.all(by.repeater('phone in phones'));
+        phoneRows.each(function(element) {
+            expect(element.getText()).toMatch(/nexus/)
+        });
     });
-  });
 });
 ```
 

@@ -12,13 +12,13 @@ image::routeur.png[routeur, id="routeur", name="routeur", width=85%]
 * Dans la page hôte, la directive `ng-view` indique l'emplacement où les vues seront insérées
 ** Architecture MVC côté client en pur Javascript
 
-```
+```html
 <body>
-	<div>
-		<h1>Gestion des Commandes</h1>
-		<h2>Taking care of your people, one at a time.</h2>
-	</div>
-	<div ng-view></div>
+    <div>
+        <h1>Gestion des Commandes</h1>
+        <h2>Taking care of your people, one at a time.</h2>
+    </div>
+    <div ng-view></div>
 </body>
 ```
 
@@ -111,9 +111,9 @@ $route.current.title
 === Configuration du routage
 ```javascript
 function CommandeController($scope,$route) {
-	$scope.$on('$routeChangeSuccess', function() {
-		console.log("route changed");
-	});
+    $scope.$on('$routeChangeSuccess', function() {
+        console.log("route changed");
+    });
 }
 ```
 

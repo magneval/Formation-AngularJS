@@ -47,7 +47,7 @@ var MyApplication =
 === Modules : Configuration
 * La directive `ng-app` permet de spécifier le module applicatif
 
-```
+```html
 <html ng-app='Application'>
 ```
 
