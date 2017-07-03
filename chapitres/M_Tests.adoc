@@ -257,21 +257,18 @@ describe('directives', function() {
 
 
 
-##Tests E2E : Exemple
+=== Tests E2E : Exemple
 ```javascript
 describe('Phone list view', function() {
     beforeEach(function() {
         browser.get('http://localhost:8080/phones');
     }); 
-
     it('represents data correctly', function() {
         expect(element(by.tagName('h2')).getText())
             .toBe('Phone list');
-
         expect(element.all(by.css('img.thumb')).count()).toBe(6);
 
         element(by.id('filterInput')).sendKeys('nexus');
-
         var phoneRows = element.all(by.repeater('phone in phones'));
         phoneRows.each(function(element) {
             expect(element.getText()).toMatch(/nexus/)
@@ -280,14 +277,14 @@ describe('Phone list view', function() {
 });
 ```
 
-
-
 === Tests E2E : Module ngMockE2E
 * Externaliser dans **angular-mocke2e.js**
 * Contient uniquement un `$httpBackend` « spécial E2E »
 * Permet de mocker certaines requêtes (règles lâches) pour maîtriser les données retournées.
 * Permet de transmettre au service `$http` « réel » d'autres requêtes (récupération de template par exemple)
 * Pas de règles strictes (`expect(...)` nécessitant un `.flush()`) 
+
+=== Tests E2E : Module ngMockE2E
 
 ```javascript 
 var phones = [{name: 'phone1'}, {name: 'phone2'}] ;  
