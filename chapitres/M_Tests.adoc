@@ -3,6 +3,8 @@
 * C'est principalement l'injection de dépendance qui facilite les tests
 * Il est possible de démarrer un composant dans un contexte «mocké» pour pouvoir le tester en isolation
 * AngularJS propose **angular-mocks.js** qui fournit ces outils
+
+=== Concepts
 * Dans la documentation Jasmine est utilisé comme framework de test
 * AngularJS peut être également testé avec d'autres frameworks
 * Karma propose d’exécuter facilement les tests
@@ -14,14 +16,15 @@
 === Jasmine
 image::Jasmine.png[Jasmine, id="Jasmine", name="Jasmine" ]
 
-* DOM-less simple JavaScript testing framework
-* http://jasmine.github.io/
+* Orienté BDD
+* Framework de test JavaScript simple sans DOM +
+http://jasmine.github.io/
 
 * Propose une API JS plutôt naturelle pour décrire des tests
 
 ```javascript
-describe("A suite", function() {
-    it("contains spec with an expectation", function() {
+describe("Une suite", function() {
+    it("un test", function() {
         expect(true).toBe(true);
     });
 });

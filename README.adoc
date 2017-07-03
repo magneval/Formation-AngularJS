@@ -83,7 +83,7 @@ include::./includes/Chapitre.adoc[]
 include::./includes/Chapitre.adoc[]
 
 :chapter: Tests
-//include::./includes/Chapitre.adoc[]
+include::./includes/Chapitre.adoc[]
 
 :chapter: Aller plus loin
 //include::./includes/Chapitre.adoc[]
