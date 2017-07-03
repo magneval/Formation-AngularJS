@@ -80,7 +80,7 @@ include::./includes/Chapitre.adoc[]
 include::./includes/Chapitre.adoc[]
 
 :chapter: Authentification
-//include::./includes/Chapitre.adoc[]
+include::./includes/Chapitre.adoc[]
 
 :chapter: Tests
 //include::./includes/Chapitre.adoc[]

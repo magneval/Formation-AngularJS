@@ -1,0 +1,4 @@
+** L'authentification sur une SPA
+** Les en-têtes HTTP
+** Les intercepteurs HTTP
+** L'approche JWT
