@@ -1,6 +1,5 @@
 ** Le concept
 ** Les Directives d'angularJS
-** La Directive ngBind
 ** Les APIs
 ** Le cycle de vie
 ** Les scopes
