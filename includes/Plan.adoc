@@ -14,7 +14,7 @@ endif::[]
 
 [NOTE.speaker]
 --
-premier jour -> contrôleur et scope
+premier jour -> contrôleur et scope +
 Deuxieme jour -> Filtre
 --
 
