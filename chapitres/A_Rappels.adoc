@@ -23,10 +23,9 @@ var autreNomVar = function autreNom() { … }
 var anonymeVar = function() { … }
 // Noms des fonctions
 unNom.name === "unNom"
-unNomVar.name === "autreNom"
-autreNomVar.name === "bar"
-anonymeVar.name === ""
-```
+unNomVar.name === "unNom"
+autreNomVar.name === "autreNom"
+anonymeVar.name === "anonymeVar"```
 
 [NOTE.speaker]
 --
