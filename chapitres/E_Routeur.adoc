@@ -79,7 +79,7 @@ $routeProvider.when(
 * Le service `$routeParams` permet alors d'accéder aux valeurs des placeholders
 
 ```javascript
-$routeParams.bookId
+$routeParams.carnetId
 $routeParams.id
 ```
 
