@@ -2,15 +2,15 @@
     <title>demo</title>
     <link rel="stylesheet" href="../css/style.css">
     <body>
-        <ul data-ng-controller='CommandeControlleur as commandes'>
-          <li data-ng-repeat='commande in commandes.liste'>
+        <ul data-ng-controller='CommandeControlleur'>
+          <li data-ng-repeat='commande in liste'>
             {{commande.libelle}} = {{commande.montant}}
           </li>
-          <button data-ng-click="commandes.add()">ajouter</button>
+          <button data-ng-click="add()">ajouter</button>
           <button onclick='
             var scope = angular.element(this).scope();
             scope.$apply(function() {
-                scope.commandes.liste.push(
+                scope.liste.push(
                     {id:4, libelle:"ajouter",montant:300}
                 );
             });'
