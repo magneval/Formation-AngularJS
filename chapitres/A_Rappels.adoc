@@ -1,3 +1,11 @@
+=== Introduction
+* les pages Web
+** le HTML
+** le Javascript
+** les CSS 
+* Les applications Web
+** rendu coté serveur
+** rendu coté client
 === Les fonctions
 * Une fonction est définie par
 ** le mot-clé *function*
