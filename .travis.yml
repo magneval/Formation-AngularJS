@@ -7,7 +7,8 @@ bundler_args:
 
 before_install:
   - mkdir -p output/reveal.js
-  - mkdir -p output/TPs
+  - cp -R ./TPs output/TPs
+  - rm output/TPs/TP*.adoc
   - git clone -b 3.3.0 --depth 1 https://github.com/hakimel/reveal.js.git 
 
 script:
