@@ -14,12 +14,12 @@
 * Un contrôleur AngularJS encapsule un modèle de données et les opérations qui agissent sur ce modèle
 ** Comme un prototype Javascript ou un objet Java/C#
 ** Développé en pur Javascript
-* Modèle et fonctions doivent être associés au `$scope` fourni par AngularJS en paramètre du contrôleur
+* Modèle et fonctions peuvent être associés au `$scope` fourni par AngularJS en paramètre du contrôleur
 
 ```javascript
-function PeopleController($scope) {
-    $scope.names = ['you', 'me', 'them'];
-
+angular.module('myApp', [])
+  .controller('PeopleController', function($scope) {
+    $scope.names = ['you', 'me', 'them']; 
     $scope.add = function () { 
         $scope.names.push('others'); 
     };
@@ -33,11 +33,40 @@ function PeopleController($scope) {
 ** Une zone délimitée par une balise (exemple un `<div>`)
 * Directive `ng-controller`
 ```html
-<div ng-controller="PeopleController">
-    <ul>
+<div data-ng-app="myApp">
+    <ul ng-controller="PeopleController">
         <li ng-repeat="name in names">{{name}}</li>
     </ul>
     <button ng-click="add()">add</button>
+</div>
+```
+
+=== Contrôleurs
+* Le scope du controlleur peut maintenant être assicié directement au controlleur
+
+```javascript
+angular.module('myApp', [])
+  .controller('PeopleController', function() {
+    this.names = ['you', 'me', 'them']; 
+    this.add = function () { 
+        this.names.push('others'); 
+    };
+}
+```
+
+=== Contrôleurs
+* on peut associer un nom au controlleur avec le mot clef as
+
+        ng-controller="PeopleController as peoples"
+
+* l'utilisation u svope du controlleur se fait en le référencent
+
+```html
+<div data-ng-app="myApp">
+    <ul ng-controller="PeopleController as peoples">
+        <li ng-repeat="name in peoples.names">{{name}}</li>
+    </ul>
+    <button ng-click="peoples.add()">add</button>
 </div>
 ```
 
@@ -117,26 +146,26 @@ scope.$apply(function() { … });
 ```
 
 
-
+    
 === Scopes :
 ====  $apply
 ```javascript
-function PeopleController($scope) {
-    $scope.names = ['you', 'me', 'them'];
+  .controller('PeopleController', function() {
+    this.names = ['you', 'me', 'them'];
 }
 ```
 
 ```html
-<div ng-controller="PeopleController">
+<div ng-controller="PeopleController as peoples">
     
     <ul>
-        <li ng-repeat="name in names">{{name}}</li>
+        <li ng-repeat="name in peoples.names">{{name}}</li>
     </ul>
 
     <button onclick="
         var scope = angular.element(this).scope();
         scope.$apply(function() {
-            scope.names.push('others');
+            scope.peoples.names.push('others');
         });"
      >more</button>
 
@@ -145,7 +174,7 @@ function PeopleController($scope) {
 
 === Scopes :
 ====  $watch
-* La méthode `$watch` permet de surveiller un champ du `$scope`
+* La méthode `$watch` permet de surveiller un champ du scope
 * AngularJS utilise la technique du *"dirty-checking"* pour n'appeler l'observateur qu'en cas de réelle modification
 ** 2 modes de comparaison : 
 *** *by-reference* (égalité stricte des références) ou
@@ -155,7 +184,7 @@ function PeopleController($scope) {
 ====  $watch
 
 ```javascript
-function PeopleController($scope) {
+  .controller('PeopleController', function($scope) {
     $scope.names = ['you', 'me', 'them'];
 
     $scope.$watch('names', function(newValue, oldValue) {
@@ -163,5 +192,6 @@ function PeopleController($scope) {
     }, false);
 }
 ```
+:butExercice: Utiliser un controlleur pour afficher la liste dans la page web et pouvoir ajouter un élément
 
 include::../includes/TPs.adoc[]

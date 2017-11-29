@@ -1,0 +1,25 @@
+<html data-ng-app="exo">
+    <title>demo</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <body>
+        <ul data-ng-controller='CommandeControlleur as commandes'>
+          <li data-ng-repeat='commande in commandes.liste'>
+            {{commande.libelle}} = {{commande.montant}}
+          </li>
+          <button data-ng-click="commandes.add()">ajouter</button>
+          <button onclick='
+            var scope = angular.element(this).scope();
+            scope.$apply(function() {
+                scope.commandes.liste.push(
+                    {id:4, libelle:"ajouter",montant:300}
+                );
+            });'
+            >ajouter</button>
+        </ul>
+        <script
+          src="../angular-1.6.6/angular.js"
+          data-require="angular.js@1.6.x"
+          data-semver="1.6.6"></script>
+        <script src="./js/CommandeControlleur.js"></script>
+    </body>
+</html>
