@@ -2,6 +2,6 @@
 ==== TP {counter:tp}
 image::TP{tp}.jpg[TP, id="TP", name="TP", max-height=50%]
 
-:lien: link:TPs/TP{tp}[TP N° {TP}^]
+:lien: link:TPs/TP{tp}[TP N° {TP} {butExercice}^]
 
 {lien}

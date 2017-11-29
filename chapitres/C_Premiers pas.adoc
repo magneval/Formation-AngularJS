@@ -259,6 +259,7 @@ myStyle = {
 ** La directive s'appuie sur le pattern on/when/default
 ** Ajout d'une structure DOM parmi plusieurs possibles en fonction d'une expression.
 
+:butExercice: Afficher une liste dans la page web à partir des éléments d'un tableau JavaScript
 include::../includes/TPs.adoc[]
 
 
