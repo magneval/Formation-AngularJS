@@ -11,6 +11,7 @@ before_install:
 
 script:
  - bundle exec asciidoctor-revealjs README.adoc -D output
+ - bundle exec asciidoctor-revealjs TPs/TP*.adoc -D output
 
 after_success:
   - cp ./.gitignore ./output
