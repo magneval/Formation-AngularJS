@@ -2,10 +2,11 @@
 * les pages Web
 ** le HTML
 ** le Javascript
-** les CSS 
+** les CSS
 * Les applications Web
 ** rendu coté serveur
 ** rendu coté client
+* le principe MVC
 
 === Les fonctions
 * Une fonction est définie par
