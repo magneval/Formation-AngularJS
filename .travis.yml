@@ -7,11 +7,12 @@ bundler_args:
 
 before_install:
   - mkdir -p output/reveal.js
+  - mkdir -p output/TPs
   - git clone -b 3.3.0 --depth 1 https://github.com/hakimel/reveal.js.git 
 
 script:
  - bundle exec asciidoctor-revealjs README.adoc -D output
- - bundle exec asciidoctor-revealjs TPs/TP*.adoc -D output
+ - bundle exec asciidoctor-revealjs TPs/TP*.adoc -D output/TPs/
 
 after_success:
   - cp ./.gitignore ./output
