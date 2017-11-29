@@ -3,8 +3,8 @@
     <link rel="stylesheet" href="../css/style.css">
     <body>
         <ul data-ng-init='commandes=[
-            {id:1, libelle:"test",montant:10},
-            {id:2, libelle:"demo",montant:100}
+            {id:1, libelle:"test",montant:10.99},
+            {id:2, libelle:"demo",montant:100.50}
         ]'>
           <li data-ng-repeat='commande in commandes'>
             {{commande.libelle}} = {{commande.montant}}
