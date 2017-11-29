@@ -163,5 +163,6 @@ function PeopleController($scope) {
     }, false);
 }
 ```
+:cibleExo: afficher une liste dans la page web à partir des éléments d'un tableau JavaScript
 
 include::../includes/TPs.adoc[]
