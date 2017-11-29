@@ -14,7 +14,7 @@
 :revealjs_theme: white
 :customcss: css/Open.css
 :AngularJsLegacyVersion: 1.2.32
-:AngularJsVersion: 1.6.4
+:AngularJsVersion: 1.6.6
 
 = Formation AngularJS   
 
