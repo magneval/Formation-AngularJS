@@ -139,4 +139,6 @@ function CommandeController($scope,$route) {
 ** [rw] `url()` = path + search + hash
 ** [ro] `absUrl()` = URL complète
 
+:butExercice: Mettre en place des vues pour voir soit la liste soit le détail des commandes
+
 include::../includes/TPs.adoc[]
