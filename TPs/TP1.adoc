@@ -1,2 +1,0 @@
-:revealjsdir: ../reveal.js
-== Afficher une liste dans la page web à partir des éléments d'un tableau JavaScript
