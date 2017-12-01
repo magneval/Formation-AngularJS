@@ -6,6 +6,11 @@
 ** Evite d'avoir à utiliser des sélections comme dans jQuery
 ** Peut aller du marqueur informatif au widget très riche
 
+[NOTE.speaker]
+--
+https://www.undefinednull.com/2014/02/11/mastering-the-scope-of-a-directive-in-angularjs/
+--
+
 === Directives
 ==== Concept
 * Il y a 3 moyens de déclencher une directive :
