@@ -296,4 +296,6 @@ marvin.$delete(
     });
 ```
 
+:butExercice: Récuperrer les informations depuis le serveur
+
 include::../includes/TPs.adoc[]
