@@ -1,7 +1,7 @@
 angular.module('commandeApp')
 .controller('VueControlleur', 
   function($scope,$route) {
-    $scope.$on('routeChangeStart', function() {
+    $scope.$on('$routeChangeStart', function() {
       console.log("route start",$route);
     });
     $scope.$on('$routeChangeSuccess', function() {

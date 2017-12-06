@@ -1,7 +1,6 @@
-var commandeApplication = angular.module('commandeApp',['ngRoute']);
-commandeApplication.config(
-    function($routeProvider){
-        $routeProvider.when('/commandes/:id',{
+angular.module('commandeApp',['ngRoute'])
+.config(function($routeProvider, $locationProvider){
+        $routeProvider.when('/Commandes/:id',{
                 templateUrl: 'views/detail.html',
                 controller: 'DetailControlleur'
             }
@@ -11,11 +10,12 @@ commandeApplication.config(
                 controller: 'CommandeControlleur'
             }
         );
-        /*
+        /*  
       this.commandes=[
             {id:1, libelle:"test",montant:10},
             {id:2, libelle:"demo",montant:100}
         ];
         */
+//       $locationProvider.html5Mode(true);
     }
-)
+);
