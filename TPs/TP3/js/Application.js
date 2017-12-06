@@ -23,6 +23,6 @@ angular.module('commandeApp',['ngRoute'])
             {id:2, libelle:"demo",montant:100}
         ];
         */
-//       $locationProvider.html5Mode(true);
+       $locationProvider.html5Mode(true);
     }
 );
