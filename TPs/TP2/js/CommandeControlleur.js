@@ -10,5 +10,11 @@ angular.module('exo', [])
                 {id: 3, libelle: "ajout", montant: 500}
             );
         };
+        this.show = function (commande) {
+            this.detail=commande;
+        };  
+        this.back = function () {
+            this.detail=null;
+        };
     }
 );
