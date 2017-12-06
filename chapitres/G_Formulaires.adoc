@@ -227,6 +227,6 @@ image::form2.png[form2, id="form2", name="form2", width="20%" ]
 
 image::form3.png[form3, id="form3", name="form3", width="20%" ]
 
-:butExercice: Mettre en place un formaulaire pour saisir de nouvelle commandes et les valider
+:butExercice: Mettre en place un formulaire pour saisir de nouvelle commandes et les valider
 
 include::../includes/TPs.adoc[]
