@@ -217,4 +217,6 @@ var$21.func$33('PeopleCtrl', function(param$13) {
 }]);
 ```
 
+:butExercice: Mettre en place un service pour fournir et stocker les commandes
+
 include::../includes/TPs.adoc[]

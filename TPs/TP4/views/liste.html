@@ -1,0 +1,6 @@
+<ul>
+  <li data-ng-repeat='commande in getCommandes()'>
+    <a data-ng-href='Commandes/{{commande.id}}'>{{commande.libelle}}</a> = {{commande.montant}}
+  </li>
+  <button data-ng-click="add()">ajouter</button>
+</ul>
