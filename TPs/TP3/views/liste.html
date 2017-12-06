@@ -1,25 +1,6 @@
-<ul data-ng-hide="ajout">
+<ul>
   <li data-ng-repeat='commande in getCommandes()'>
     <a data-ng-href='Commandes/{{commande.id}}'>{{commande.libelle}}</a> = {{commande.montant}}
   </li>
   <button data-ng-click="add()">ajouter</button>
 </ul>
-<form novalidate name="ajoutCommande" data-ng-show="ajout">
-  <fieldset>
-    <div>
-      <label>libelle</label>
-      <input name="libelle" type="text" required="true" data-ng-model="commande.libelle" />
-    </div>
-    <div>
-      <label>montant</label>
-      <input name="montant" type="number" required="true" data-ng-model="commande.montant" />
-    </div>
-    <div>
-      <label>note</label>
-      <textarea name="note" data-ng-model="commande.note"></textarea>
-    </div>
-    <div>
-      <button data-ng-click='save()' data-ng-show="ajoutCommande.$valid">sauvegarder</button>
-    </div>
-  </fieldset>
-</form>
