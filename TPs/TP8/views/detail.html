@@ -1,0 +1,21 @@
+<fieldset>
+  <div>
+    <label>libelle</label>
+    <output>{{commande.libelle}}</output>
+  </div>
+  <div>
+    <label>montant</label>
+    <output>
+      {{commande.montant | currency:"€"}}
+    </output>
+  </div>
+  <div>
+    <label>note</label>
+    <output>
+      {{commande.note}}
+    </output>
+  </div>
+  <div>
+    <button data-ng-click='save()' data-ng-show="ajoutCommande.$valid">sauvegarder</button>
+  </div>
+</fieldset>
