@@ -173,5 +173,4 @@ Authorization: Bearer <token>
 * La charge utile des jetons JWTs est un objet, elle contient toute l'information nécessaire, reduisant le besoin de requêter la BDD systématiquement.
 * Il faut faire attention au possibilité de rejeut avec un me token JWT
 
-
-include::../includes/TPs.adoc[]
+//include::../includes/TPs.adoc[]
