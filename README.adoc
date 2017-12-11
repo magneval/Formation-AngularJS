@@ -87,3 +87,12 @@ include::./includes/Chapitre.adoc[]
 
 :chapter: Aller plus loin
 //include::./includes/Chapitre.adoc[]
+
+
+[NOTE.speaker]
+--
+mkdir slides
+chmod a+w slides
+[node1] (local) root@192.168.0.33 ~
+docker run --rm -v /root/slides/:/slides astefanutti/decktape https://magneval.github.io/Formation-AngularJS/ slides.pdf
+--
