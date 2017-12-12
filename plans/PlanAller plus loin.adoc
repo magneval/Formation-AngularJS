@@ -1,0 +1,3 @@
+* Industrialisation
+* Optimisation des ressources
+* Librairies de composants

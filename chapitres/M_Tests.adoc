@@ -294,5 +294,7 @@ $httpBackend.whenGET('/phones').respond();
 $httpBackend.whenGET(/^\/templates\//).passThrough();
 ```
 
+:butExercice: faire un test pour verifier le fonctionnement d'un composant
+
 include::../includes/TPs.adoc[]
 

@@ -25,10 +25,7 @@
 
 image::AngularJS-large.png[logo, id="logo", name="logo"]
 
-[NOTE.speaker]
---
-docker run -ti -v $(pwd)/demo:/src:rw -v $(pwd)/output:/src/Formation-AngularJS:rw  -p9000:9000 -p35729:35729 -e "PUID=<user id>" -e "PGID=<group id>" mkenney/npm node_modules/.bin/gulp serve
---
+//docker run -ti -v $(pwd)/demo:/src:rw -v $(pwd)/output:/src/Formation-AngularJS:rw  -p9000:9000 -p35729:35729 -e "PUID=<user id>" -e "PGID=<group id>" mkenney/npm node_modules/.bin/gulp serve
 
 == Formation AngularJS
 
@@ -40,7 +37,7 @@ v1.0, {docdate} +
  +
 https://github.com/magneval/
 
-image::https://api.qrserver.com/v1/create-qr-code/?data=magneval.github.io/Formation-AngularJS/client.html&amp;size=100x100&.png[qrCode, id="qrCode", name="qrCode"]
+//image::https://api.qrserver.com/v1/create-qr-code/?data=magneval.github.io/Formation-AngularJS/client.html&amp;size=100x100&.png[qrCode, id="qrCode", name="qrCode"]
 
 == Plan
 
@@ -86,13 +83,6 @@ include::./includes/Chapitre.adoc[]
 include::./includes/Chapitre.adoc[]
 
 :chapter: Aller plus loin
-//include::./includes/Chapitre.adoc[]
+include::./includes/Chapitre.adoc[]
 
-
-[NOTE.speaker]
---
-mkdir slides
-chmod a+w slides
-[node1] (local) root@192.168.0.33 ~
-docker run --rm -v /root/slides/:/slides astefanutti/decktape https://magneval.github.io/Formation-AngularJS/ slides.pdf
---
+//docker run --rm -v /root/slides/:/slides astefanutti/decktape https://magneval.github.io/Formation-AngularJS/ slides.pdf

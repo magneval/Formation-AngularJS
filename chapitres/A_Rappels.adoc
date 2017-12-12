@@ -35,7 +35,8 @@ var anonymeVar = function() { … }
 unNom.name === "unNom"
 unNomVar.name === "unNom"
 autreNomVar.name === "autreNom"
-anonymeVar.name === "anonymeVar"```
+anonymeVar.name === "anonymeVar"
+```
 
 [NOTE.speaker]
 --

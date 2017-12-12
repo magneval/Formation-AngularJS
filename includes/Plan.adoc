@@ -11,12 +11,9 @@ endif::[]
 * Formulaires
 * Architectures REST
 
+//premier jour -> contrôleur et scope +
+//Deuxieme jour -> Filtre
 
-[NOTE.speaker]
---
-premier jour -> contrôleur et scope +
-Deuxieme jour -> Filtre
---
 
 === Plan
 ifndef::chapter+dev[]
