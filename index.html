@@ -1,0 +1,1084 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><title>Formation AngularJS</title><meta content="yes" name="apple-mobile-web-app-capable"><meta content="black-translucent" name="apple-mobile-web-app-status-bar-style"><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui" name="viewport"><link href="./reveal.js/css/reveal.css" rel="stylesheet"><link rel="stylesheet" href="./reveal.js/css/theme/white.css" id="theme"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.3.0/css/font-awesome.min.css"><link href="./reveal.js/lib/css/zenburn.css" rel="stylesheet"><script>document.write( '<link rel="stylesheet" href="./reveal.js/css/print/' + ( window.location.search.match( /print-pdf/gi ) ? 'pdf' : 'paper' ) + '.css" type="text/css" media="print">' );</script><link rel="stylesheet" href="css/Open.css"></head><body><div class="reveal"><div class="slides"><section class="title" data-state="title"><h1>Formation AngularJS</h1><div class="preamble"><div class="imageblock" id="logo" style=""><img src="./images//AngularJS-large.png" alt="logo"></div></div></section>
+<section id="_formation_angularjs"><h2>Formation AngularJS</h2><div class="paragraph"><p>Charles de MAGNEVAL<br>
+<a href="mailto:Charles.de_magneval@open-groupe.com">Charles.de_magneval@open-groupe.com</a></p></div>
+<div class="imageblock" id="logoOpen" style=""><img src="./images//logoOpen.png" alt="logoOpen"></div>
+<div class="paragraph"><p>v1.0, 2017-12-13<br>
+<br>
+<a href="https://github.com/magneval/" class="bare">https://github.com/magneval/</a></p></div></section>
+<section><section id="_plan"><h2>Plan</h2></section><section id="_plan_2"><h2>Plan</h2><div class="ulist"><ul><li class="fragment"><p>Rappels</p></li><li class="fragment"><p>Presentation AngularJS</p></li><li class="fragment"><p>Premiers pas</p></li><li class="fragment"><p>Contrôleurs et Scopes</p></li><li class="fragment"><p>Routeur</p></li><li class="fragment"><p>Modules et Services</p></li><li class="fragment"><p>Formulaires</p></li><li class="fragment"><p>Architectures REST</p></li></ul></div></section><section id="_plan_3"><h2>Plan</h2><div class="ulist"><ul><li class="fragment"><p>I18N</p></li><li class="fragment"><p>Filtres</p></li><li class="fragment"><p>Directives</p></li><li class="fragment"><p>Authentification</p></li><li class="fragment"><p>Tests</p></li><li class="fragment"><p>Aller plus loin</p></li></ul></div></section></section>
+<section><section id="_rappels"><h2>Rappels</h2></section><section id="_rappels_2"><h2>Rappels</h2><div class="ulist"><ul><li><p>Dans ce chapitre nous allons voir les points suivants</p><div class="ulist"><ul><li class="fragment"><p>Introduction</p></li><li class="fragment"><p>Les fonctions</p></li><li class="fragment"><p>La porté des variables</p></li><li class="fragment"><p>Piéger des Variables</p></li><li class="fragment"><p>Le mot clef this</p></li><li class="fragment"><p>le format JSon</p></li><li class="fragment"><p>Les outils du développeur</p></li><li class="fragment"><p>Les services REST</p></li></ul></div></li></ul></div></section><section id="_introduction"><h2>Introduction</h2><div class="ulist"><ul><li><p>les pages Web</p><div class="ulist"><ul><li><p>le HTML</p></li><li><p>le Javascript</p></li><li><p>les CSS</p></li></ul></div></li><li><p>Les applications Web</p><div class="ulist"><ul><li><p>rendu coté serveur</p></li><li><p>rendu coté client</p></li></ul></div></li><li><p>le principe MVC</p></li></ul></div></section><section id="_les_fonctions"><h2>Les fonctions</h2><div class="ulist"><ul><li><p>Une fonction est définie par</p><div class="ulist"><ul><li><p>le mot-clé <strong>function</strong></p></li><li><p>un nom optionnel</p></li><li><p>une liste optionnelle de paramètres entre parenthèses</p></li><li><p>un corps entre accolades</p></li></ul></div></li><li><p>Une fonction sans nom est dite anonyme</p></li><li><p>La propriété <strong>name</strong> d&#8217;une fonction donne son nom</p></li></ul></div></section><section id="_les_fonctions_2"><h2>Les fonctions</h2><div class="ulist"><ul><li><p>Une fonction peut être assignée à une variable</p></li></ul></div>
+<div class="listingblock"><div class="content"><pre class="highlight"><code class="javascript language-javascript">// Fonction nommée "unNom"
+function unNom() { … }
+// Fonction anonyme
+function() { … }
+// Variable pointant sur une fonction existante
+var unNomVar = unNom;
+// Variable pointant sur une nouvelle fonction nommée
+var autreNomVar = function autreNom() { … }
+// Variable pointant sur une nouvelle fonction anonyme
+var anonymeVar = function() { … }
+// Noms des fonctions
+unNom.name === "unNom"
+unNomVar.name === "unNom"
+autreNomVar.name === "autreNom"
+anonymeVar.name === "anonymeVar"</code></pre></div></div>
+<aside class="notes"><div class="paragraph"><p>qu&#8217;elle soit nommée ou anonyme
+<a href="http://plnkr.co/edit/TXzzaiLeYkFaJLDNyKU0" target="_blank">functions</a></p></div></aside></section><section id="_les_fonctions_3"><h2>Les fonctions</h2><div class="ulist"><ul><li><p>Il est possible de passer une fonction en paramètre d&#8217;une autre fonction</p></li></ul></div>
+<div class="listingblock"><div class="content"><pre class="highlight"><code class="javascript language-javascript">function appelServeur(succesFonction) {
+    Ajax.get(url, function(donnees) {
+        succesFonction(donnees);
+    });
+}
+function afficheResultat(resultat) {
+    alert(resultat);
+}
+appelServeur(afficheResultat);
+// Fonction anonyme
+appelServeur(function(donnees) {
+    alert(donnees);
+});</code></pre></div></div>
+<aside class="notes"><div class="paragraph"><p>Très utilisé pour les <strong>callbacks</strong></p></div></aside></section><section id="_la_port_des_variables"><h2>La porté des variables</h2><div class="ulist"><ul><li><p>La limite d&#8217;existance 'une variable est appelée    <strong>scope</strong></p></li><li><p>Visibilité des symboles au sein d&#8217;une portée</p><div class="ulist"><ul><li><p>Fonctions nommées : utilisable partout dans le scope (<strong>forward-reference</strong> possible)</p></li><li><p><code>var</code> Variables : le symbole existe partout dans le scope, mais sa valeur est undefined jusqu&#8217;à l&#8217;initialisation</p></li><li><p><span class="line-through">var</span> Variables : le symbole devient une propriété de <code>window</code> et est globalement accessible (!!)</p></li></ul></div></li></ul></div>
+<aside class="notes"><div class="ulist"><ul><li><p>En Javascript, les scopes sont uniquement délimités par les corps des fonctions</p><div class="ulist"><ul><li><p>Pas par les accolades des blocs <code>if / for / while</code> !</p></li></ul></div></li></ul></div></aside></section><section id="_la_port_des_variables_2"><h2>La porté des variables</h2><div class="listingblock"><div class="content"><pre class="highlight"><code class="javascript language-javascript">function scope() {
+    console.log("foo = "+foo);
+    console.log("answer1 = "+answer1);
+    var answer1 = foo();
+    console.log("answer1 = "+answer1);
+    function foo() { return 42; }
+    console.log("foo = "+foo);
+    var answer2 = foo();
+    console.log("answer2 = "+answer2);
+    if (true) {
+        console.log("banana = "+banana);
+        var banana = "banana";
+        console.log("banana = "+banana);
+    }
+}
+scope() ;</code></pre></div></div>
+<aside class="notes"><div class="paragraph"><p><a href="http://plnkr.co/edit/D0DGcPQr8g4lRKz32uLM" target="_blank">variables</a>
+<a href="http://jsbin.com/wuyaquq/edit?html,css,js,console,output" target="_blank">variables</a></p></div></aside></section><section id="_la_port_des_variables_3"><h2>La porté des variables</h2><div class="listingblock"><div class="content"><pre class="highlight"><code class="javascript language-javascript">&gt; a
+ReferenceError: a is not defined
+&gt; var a; a
+undefined
+&gt; (function() { var b = a; var a = 1; return b; }())
+undefined
+&gt; (function() { c = 42; }())
+undefined
+&gt; c
+42
+&gt; window.c
+42</code></pre></div></div></section><section id="_piger_des_variables"><h2>Piéger des Variables</h2><div class="ulist"><ul><li><p>Le moteur Javascript permet lors de l&#8217;analyse du code de "pièger" la référence une variable.</p></li><li><p>Une fonction référence le scope dans laquelle elle est déclarée pour son une utilisation future.</p></li><li><p>ce principe est appeler <strong>closure</strong></p></li></ul></div>
+<aside class="notes"><div class="paragraph"><p>Ce concept est très utilisé avec AngularJS
+Attention, il s&#8217;agit bien des pointeurs qui sont capturés</p></div>
+<div class="paragraph"><p><a href="https://openclassrooms.com/courses/les-closures-en-javascript" target="_blank">doc</a></p></div></aside></section><section id="_piger_des_variables_2"><h2>Piéger des Variables</h2><div class="listingblock"><div class="content"><pre class="highlight"><code class="javascript language-javascript">function additionFactory(x) {
+    return function(y) {
+        return x + y;
+    };
+};
+
+var ajouter5 = additionFactory(5);
+var ajouter10 = additionFactory(10);
+
+console.log(ajouter5(2));  // 7
+console.log(ajouter10(2)); // 12</code></pre></div></div>
+<aside class="notes"><div class="paragraph"><p><a href="http://plnkr.co/edit/YGfJgJziHuy89JD5Th6u" target="_blank">exemple</a></p></div></aside></section><section id="_le_mot_clef_this"><h2>Le mot clef this</h2><div class="ulist"><ul><li><p>En JavaScript this se rapporte toujours au « propriétaire » de la fonction que nous exécutons, ou plutôt, à l&#8217;objet dont la fonction est une méthode.</p><div class="ulist"><ul><li><p>En tant que méthode d&#8217;un objet : <code>this =</code> l&#8217;objet</p></li><li><p>En tant que constructeur ("new") : <code>this =</code> l&#8217;objet créé</p></li></ul></div></li><li><p>Il est possible de spécifier l&#8217;objet auquel <code>this</code> fait référence en utilisant la méthode <code>call()</code></p></li></ul></div>
+<aside class="notes"><div class="paragraph"><p><a href="http://www.misfu.com/static/Javascript/this.html" target="_blank">doc</a></p></div></aside></section><section id="_le_mot_clef_this_2"><h2>Le mot clef this</h2><div class="listingblock"><div class="content"><pre class="highlight"><code class="javascript language-javascript">function test() { alert(this); }
+
+test();                         // this = "window"
+var object = { essai: test };
+object.essai();                 // this = object
+test.call(object);              // this = object
+element.onclick = test;         // this = element</code></pre></div></div>
+<div class="listingblock"><div class="content"><pre class="highlight"><code class="html language-html">&lt;element onclick="test()"&gt;      // this = "window"</code></pre></div></div>
+<aside class="notes"><div class="paragraph"><p><a href="http://plnkr.co/edit/kCtZ7PviCaL1qNsOdTph" target="_blank">demo</a></p></div></aside></section><section id="_le_format_json"><h2>le format JSon</h2><div class="dlist"><dl><dt class="hdlist1"><strong>J</strong>ava<strong>S</strong>cript <strong>O</strong>bject <strong>N</strong>otation (JSON)</dt><dd><p>format de données textuelles dérivé de la notation des objets du langage JavaScript</p></dd></dl></div>
+<div class="hdlist"><table><tr><td class="hdlist1">extension</td><td class="hdlist2"><p><code>.json</code></p></td></tr><tr><td class="hdlist1">media type</td><td class="hdlist2"><p><code>application/json</code></p></td></tr></table></div></section><section id="_le_format_json_2"><h2>le format JSon</h2><div class="ulist"><ul><li><p>les données sont soit sous forme de tableaux, soit sous forme d&#8217;objets</p><div class="dlist"><dl><dt class="hdlist1">Tableaux</dt><dd><p>["elem1","elem2"]</p></dd><dt class="hdlist1">Objet</dt><dd><p>{"nom":"valeur"}</p></dd></dl></div></li></ul></div>
+<aside class="notes"><div class="paragraph"><p>les éléments de tableau peuvent être des objets</p></div></aside></section><section id="_le_format_json_3"><h2>le format JSon</h2><div class="ulist"><ul><li><p>les sous éléments peuvent être soit</p><div class="ulist"><ul><li><p>des tableaux,</p></li><li><p>des Objets,</p></li><li><p>des types de bases :</p><div class="ulist"><ul><li><p>Nombre</p></li><li><p>Booléen</p></li><li><p>Chaîne</p></li><li><p>null</p></li></ul></div></li></ul></div></li></ul></div></section><section id="_le_format_json_4"><h2>le format JSon</h2><div class="listingblock" id="app-listing"><div class="title">menu.json</div><div class="content"><pre class="highlight"><code class="json language-json">{
+    "value": "file",
+    "menuItem": [
+        { "value": "New", "onclick": "CreateNewDoc()" },
+        { "value": "Open", "onclick": "OpenDoc()" },
+        { "value": "Close", "onclick": "CloseDoc()" }
+    ]
+}</code></pre></div></div></section><section id="_le_format_json_5"><h2>le format JSon</h2><div class="dlist"><dl><dt class="hdlist1">parsing original</dt><dd><p>var donnees = eval('('donnees_json')');</p></dd><dt class="hdlist1">version conseillé</dt><dd><p>var donnees = JSON.parse(donnees_json);</p><div class="ulist"><ul><li><p>attention à la sécurité</p></li></ul></div></dd></dl></div></section><section id="_le_format_jsonp"><h2>le format JSonP</h2><div class="dlist"><dl><dt class="hdlist1"><strong>J</strong>ava<strong>S</strong>cript <strong>O</strong>bject <strong>N</strong>otation with <strong>P</strong>adding (JSONP)</dt><dd><p>format de données JSON "Paddé" par une methode callback</p></dd></dl></div>
+<div class="listingblock" id="app-listing"><div class="content"><pre class="highlight"><code class="js language-js">showMenu(
+    {
+        "value": "file",
+        "menuitem": [
+            { "value": "New", "onclick": "CreateNewDoc()" },
+            { "value": "Open", "onclick": "OpenDoc()" },
+            { "value": "Close", "onclick": "CloseDoc()" }
+        ]
+    }
+)</code></pre></div></div>
+<aside class="notes"><div class="paragraph"><p><a href="http://plnkr.co/edit/j3gyytvfwo5he2new4n5" target="_blank">demo</a></p></div></aside></section><section id="_les_outils_du_dveloppeur"><h2>Les outils du développeur</h2><div class="ulist"><ul><li><p>Il existe plusieurs moyen de débugger le JavaScript :</p><div class="dlist"><dl><dt class="hdlist1">avec la fonction alert</dt></dl></div></li></ul></div>
+<div class="listingblock"><div class="content"><pre class="highlight"><code class="javascript language-javascript">alert("Hello world");</code></pre></div></div>
+<div class="dlist"><dl><dt class="hdlist1">en ecrivant dans la console</dt></dl></div>
+<div class="listingblock"><div class="content"><pre class="highlight"><code class="javascript language-javascript">console.log("Hello world");</code></pre></div></div></section><section id="_les_outils_du_dveloppeur_2"><h2>Les outils du développeur</h2><div class="ulist"><ul><li><p>Tous les navigateurs récents proposent également des outils d&#8217;analyse et de débuggage, accessibles via <code>F12</code></p><div class="ulist"><ul><li><p>Webkit (Chrome, Safari, Opera) : Web Developer Tools</p></li><li><p>Firefox : Firebug (+ plugins)</p></li><li><p>Internet Explorer : "F12 Tools"</p></li></ul></div></li><li><p>Il existe aussi des pluggins qui permettent de débugger depuis l&#8217;IDE</p></li></ul></div></section><section data-background-image="./images//DebuggueurF12.png" data-background-size="cover"></section><section id="_les_outils_du_dveloppeur_3"><h2>Les outils du développeur</h2><div class="ulist"><ul><li><p><strong>Batarang</strong> est un inspecteur Web pour AngularJS</p><div class="ulist"><ul><li><p>c&#8217;est une extention pour les outils basé sur Webkit</p></li><li><p>Il présente les scopes, les modèles et les services, et de mesurer les performances</p></li></ul></div></li></ul></div></section><section data-background-image="./images//batarang_closeup.png" data-background-size="contain"></section><section id="_les_outils_du_dveloppeur_4"><h2>Les outils du développeur</h2><div class="dlist"><dl><dt class="hdlist1"><a href="http://caniuse.com/" target="_blank">canIUse</a></dt><dd><p>Site web analysant le support des fonctionnalité par les navigateurs</p></dd><dt class="hdlist1">Editeur web interactif</dt><dd><p><a href="http://jsfiddle.net" target="_blank">jsfiddle</a>, <a href="http://plnkr.co" target="_blank">Plunker</a>, <a href="http://jsbin.com" target="_blank">JSBin</a>, &#8230;&#8203;</p></dd><dt class="hdlist1">SonarJS</dt><dd><p>plugin Sonar pour l&#8217;analyse de code JS</p></dd></dl></div></section><section id="_les_services_rest"><h2>Les services REST</h2><div class="dlist"><dl><dt class="hdlist1">REST (<strong>RE</strong>presentational <strong>S</strong>tate <strong>T</strong>ransfer)</dt><dd><p>Architecture pour les systèmes <strong>hypermédia</strong> distribués</p><div class="ulist"><ul><li><p>doit respecter les contraintes suivantes :</p><div class="ulist"><ul><li><p>Client-serveur Sans état auto-descriptif (cachable)</p></li><li><p>l&#8217;identification et la manipulation des ressources</p></li><li><p>Un système hiérarchisé par couches hypermédia</p></li><li><p>Code-on-demand (facultatif)</p></li></ul></div></li></ul></div></dd></dl></div>
+<aside class="notes"><div class="paragraph"><p><a href="https://fr.wikipedia.org/wiki/Representational_state_transfer" target="_blank">REST</a></p></div></aside></section><section id="_les_services_rest_2"><h2>Les services REST</h2><div class="ulist"><ul><li><p>L&#8217;architecture REST s&#8217;appuie sur le protocole HTTP :</p><div class="ulist"><ul><li><p>L&#8217;URL definie l&#8217;organisation des ressources</p></li><li><p>les méthodes HTTP definisse les action à mener :</p><div class="ulist"><ul><li><p>GET:: Liste ou Récupére des ressources</p></li><li><p>POST:: Crée une nouvelle ressources</p></li><li><p>PUT:: remplace une ressource exixtente</p></li><li><p>DELETE:: suprime une ressource</p></li></ul></div></li></ul></div></li></ul></div>
+<aside class="notes"><div class="paragraph"><p>une ressource ou une collection en fonction de l&#8217;URL</p></div></aside></section><section id="_les_services_rest_3"><h2>Les services REST</h2><div class="dlist"><dl><dt class="hdlist1">HATEOAS (<strong>H</strong>ypermedia <strong>A</strong>s <strong>T</strong>he <strong>E</strong>ngine <strong>O</strong>f <strong>A</strong>pplication <strong>S</strong>tate)</dt><dd><p>Hypermédia en tant que moteur de l&#8217;état d&#8217;application</p><div class="ulist"><ul><li><p>Le type de contenu est négocié entre le client et le serveur (XML, JSON, YAML, Texte, CSV, Objets, &#8230;&#8203;)</p></li><li><p>les liens vers les autres ressources peuvent faire partie de la réponse</p><div class="ulist"><ul><li><p>basé sur les standards ( XHTML Friends Network, Atom, RDF, &#8230;&#8203;)</p></li><li><p>apporte de la sémantique aux ressources</p></li></ul></div></li></ul></div></dd></dl></div>
+<aside class="notes"><div class="paragraph"><p>apporte de la sémantique aux ressources
+description dans la réponse plutôt que par la définition d&#8217;interface
+permet l&#8217;extensibilité
+ex: commande V1/V2</p></div></aside></section><section id="_les_services_rest_4"><h2>Les services REST</h2><div class="listingblock"><div class="content"><pre class="highlight"><code class="HTTP language-HTTP">GET /accounts/12345 HTTP/1.1
+Host: my.bank.com
+Accept: application/xml</code></pre></div></div>
+<div class="listingblock"><div class="content"><pre class="highlight"><code class="HTTP language-HTTP">HTTP/1.1 200 OK
+Content-Type: application/xml
+Content-Length: ...</code></pre></div></div></section><section id="_les_services_rest_5"><h2>Les services REST</h2><div class="listingblock"><div class="content"><pre class="highlight"><code class="XML language-XML">&lt;?xml version="1.0"?&gt;
+&lt;account&gt;
+   &lt;account_number&gt;12345&lt;/account_number&gt;
+   &lt;balance currency="usd"&gt;100.00&lt;/balance&gt;
+   &lt;link rel="Contents" href="https://my.bank.com/accounts/" /&gt;
+   &lt;link rel="deposit"
+        href="https://my.bank.com/accounts/12345/deposit" /&gt;
+   &lt;link rel="withdraw"
+        href="https://my.bank.com/accounts/12345/withdraw" /&gt;
+   &lt;link rel="transfer"
+        href="https://my.bank.com/accounts/12345/transfer" /&gt;
+...</code></pre></div></div></section><section id="_rappels_br"><h2>Rappels<br></h2><h3>des questions</h3><div class="imageblock" id="question" style=""><img src="./images//question-mark.jpg" alt="question"></div></section><section id="_rappels_3"><h2>Rappels</h2><div class="ulist"><ul><li><p>Dans ce chapitre nous avons vu les notions de suivantes</p><div class="ulist"><ul><li><p>Introduction</p></li><li><p>Les fonctions</p></li><li><p>La porté des variables</p></li><li><p>Piéger des Variables</p></li><li><p>Le mot clef this</p></li><li><p>le format JSon</p></li><li><p>Les outils du développeur</p></li><li><p>Les services REST</p></li></ul></div></li></ul></div></section></section>
+<section><section id="_angularjs"><h2>AngularJS</h2></section><section id="_angularjs_2"><h2>AngularJS</h2><div class="ulist"><ul><li><p>Dans ce chapitre nous allons voir les points suivants</p><div class="ulist"><ul><li class="fragment"><p>Présentation</p></li><li class="fragment"><p>Points forts</p></li><li class="fragment"><p>Utilisation</p></li><li class="fragment"><p>Les Concepts</p></li><li class="fragment"><p>Forces</p></li><li class="fragment"><p>Faiblesse</p></li></ul></div></li></ul></div></section><section id="_angularjs_3" data-background-image="./images//AngularJS-Shield-medium.png"><h2>AngularJS</h2>
+<div class="hdlist"><table><tr><td class="hdlist1">Développé par</td><td class="hdlist2"><p>Google</p></td></tr><tr><td class="hdlist1">Versions</td><td class="hdlist2"><p>1.2.32 (legacy) ou   1.6.6 (stable)</p></td></tr><tr><td class="hdlist1">Site</td><td class="hdlist2"><p><a href="https://angularjs.org" class="bare">https://angularjs.org</a></p></td></tr><tr><td class="hdlist1">Code</td><td class="hdlist2"><p><a href="https://github.com/angular/angular.js" class="bare">https://github.com/angular/angular.js</a></p></td></tr><tr><td class="hdlist1">Documentation</td><td class="hdlist2"><div class="ulist"><ul><li><p>API : <a href="https://docs.angularjs.org/api" class="bare">https://docs.angularjs.org/api</a></p></li><li><p>Blog : <a href="http://blog.angularjs.org" class="bare">http://blog.angularjs.org</a></p></li></ul></div></td></tr></table></div>
+<aside class="notes"><div class="paragraph"><p>legacy 1.2.x branch is the only version branch that supports IE8
+<a href="https://docs.angularjs.org/guide/migration" target="_blank">migration</a>
+<a href="https://github.com/angular/angular.js/blob/v1.2.32/CHANGELOG.md" target="_blank">changelog 1.2</a>
+<a href="https://github.com/angular/angular.js/blob/v1.6.4/CHANGELOG.md" target="_blank">changelog 1.6</a></p></div></aside></section><section id="_angularjs_4"><h2>AngularJS</h2><div class="ulist"><ul><li><p>AngularJS est un framework "full stack" :<br>
+il intègre l&#8217;ensemble des composants nécessaires à la réalisation d&#8217;applications riches</p><div class="ulist"><ul><li><p>Routage par URL (deep-linking)</p></li><li><p>Contrôleurs Javascript</p></li><li><p>Templates HTML</p></li><li><p>Directives (composants personnalisés)</p></li><li><p>Gestion des ressources REST</p></li><li><p>IOC</p></li><li><p>Tests unitaires et de bout en bout</p></li><li><p>&#8230;&#8203;</p></li></ul></div></li></ul></div></section><section id="_points_forts"><h2>Points forts</h2><div class="ulist"><ul><li><p><strong>Javascript pur</strong></p></li></ul></div>
+<div class="paragraph"><p>Adhérence technique limitée, réactivité de l&#8217;interface</p></div>
+<div class="ulist"><ul><li><p><strong>Deep-linking</strong></p></li></ul></div>
+<div class="paragraph"><p>Les URLs des "pages" de l&#8217;application peuvent être bookmarkées</p></div>
+<div class="ulist"><ul><li><p><strong>Testabilité</strong></p></li></ul></div>
+<div class="paragraph"><p>Possibilité de jouer des tests unitaires ou de bout en bout</p></div>
+<div class="ulist"><ul><li><p><strong>Binding automatique</strong></p></li></ul></div>
+<div class="paragraph"><p>Binding automatique et bi-directionnel entre les placeholders des vues, et avec le modèle du contrôleur</p></div></section><section id="_cas_d_utilisation"><h2>Cas d&#8217;utilisation</h2><div class="ulist"><ul><li><p>Utilisable</p><div class="ulist"><ul><li><p><strong>Localement</strong> pour rendre dynamique un fragment de page <code>templating</code>, composants&#8230;&#8203;</p></li><li><p><strong>Globalement</strong> pour structurer une application full-Javascript MVC2 (routage, contrôleurs, templates, ressources REST&#8230;&#8203;)</p></li></ul></div></li><li><p>Aussi simple ou complexe que nécessaire !</p></li></ul></div></section><section id="_concepts"><h2>concepts :</h2><h3>Contrôleur</h3><div class="ulist"><ul><li><p><strong>Contrôleur</strong></p><div class="ulist"><ul><li><p>Fonction Javascript contenant les données et la logique d&#8217;affichage relatives à un <code>scope</code></p></li><li><p>Peut accéder à toutes les variables déclarées dans le contrôleur ou dans la vue gérée par le contrôleur</p></li></ul></div></li><li><p><a href="#ControlleursScopes">Contrôleur</a></p></li></ul></div></section><section id="_concepts_2"><h2>concepts :</h2><h3>Service</h3><div class="ulist"><ul><li><p><strong>Service</strong></p><div class="ulist"><ul><li><p>Comme son équivalent côté serveur, un service Angular représente un ensemble cohérent de fonctionnalités</p></li><li><p>Le module ng fournit un grand nombre de services $document, $http, $location, $parse, $route, $window&#8230;&#8203;</p></li><li><p>Ce sont des singletons, injectés par IOC dans les contrôleurs</p></li></ul></div></li><li><p><a href="#ModulesServices">Service</a></p></li></ul></div></section><section id="_concepts_directive"><h2>concepts : Directive</h2><div class="ulist"><ul><li><p><strong>Directive</strong></p><div class="ulist"><ul><li><p>Une directive encapsule du code et/ou de la logique d&#8217;affichage qu&#8217;on associe à une balise ou un paramètre dans la page</p></li><li><p>Cela permet de créer des composants auto-contenus et réutilisables</p><div class="ulist"><ul><li><p>Bibliothèque de widgets prêts à l&#8217;emploi</p><div class="ulist"><ul><li><p>Handlers génériques pour certains événements</p></li></ul></div></li></ul></div></li></ul></div></li><li><p><a href="#_directives">Directive</a></p></li></ul></div></section><section id="_concepts_3"><h2>concepts :</h2><h3>Filtre</h3><div class="ulist"><ul><li><p><strong>Filtre</strong></p><div class="ulist"><ul><li><p>Un filtre est un composant permettant d&#8217;appliquer des transformations de données de manière déclarative directement dans la vue</p><div class="ulist"><ul><li><p>Mettre en forme des dates, des montants</p><div class="ulist"><ul><li><p>Filtrer ou ordonner une liste</p></li></ul></div></li></ul></div></li></ul></div></li><li><p><a href="#_filtres">Filtre</a></p></li></ul></div></section><section id="_concepts_module"><h2>concepts : Module</h2><div class="ulist"><ul><li><p><strong>Module</strong></p><div class="ulist"><ul><li><p>Groupement logique de services, contrôleurs, directives et filtres</p></li><li><p>Configure également le mécanisme d&#8217;IOC permettant de les injecter dans les différents composants de l&#8217;application</p></li><li><p>On peut utiliser seulement le module par défaut, ou utiliser un module spécifique (toutes les applications non-triviales)</p></li><li><p>Un module peut dépendre d&#8217;autres modules</p><div class="ulist"><ul><li><p>Ex: myApp → myServices → ngResource</p></li></ul></div></li></ul></div></li><li><p><a href="#ModulesServices">Module</a></p></li></ul></div></section><section id="_concepts_4"><h2>concepts :</h2><h3>Ressource</h3><div class="ulist"><ul><li><p><strong>Ressource</strong></p><div class="ulist"><ul><li><p>Permet d&#8217;accéder à une ressource serveur exposée en REST</p></li><li><p>Fournit des opérations de type CRUD (Create, Read, Update, Delete) par défaut, et autorise la création d&#8217;actions personnalisées</p></li></ul></div></li><li><p><a href="#Ressources">Ressource</a></p></li></ul></div></section><section id="_forces"><h2>Forces</h2><div class="ulist"><ul><li><p>Framework complet</p></li><li><p>Peu intrusif</p></li><li><p>Bonne documentation / Tutoriaux</p></li><li><p>Architecture (Injection de dépendances, MVC)</p></li><li><p>Templates (HTML)</p></li></ul></div></section><section id="_faiblesses"><h2>Faiblesses</h2><div class="ulist"><ul><li><p><a href="#_routeur">Routage</a></p></li><li><p><a href="#_i18n">I18N</a> (partiellement géré par défaut)</p></li><li><p>Directives et binding (difficile à appréhender lorsque l’on est habitué à la logique événementielle de jQuery)</p></li><li><p>Performances (si page lourde et non optimisé)</p></li><li><p>Navigateur &lt; IE8 (pour qui ce n’est pas un problème ?)</p></li></ul></div></section><section id="_conclusion"><h2>Conclusion</h2><div class="ulist"><ul><li><p>LE framework par excellence pour les applications “single page” (porté par Google)
+et également un compagnon idéal pour l’intégration dans des applications “page par page” (très peu intrusif)</p></li></ul></div></section><section id="_angularjs_br"><h2>AngularJS<br></h2><h3>des questions</h3><div class="imageblock" id="question" style=""><img src="./images//question-mark.jpg" alt="question"></div></section><section id="_angularjs_5"><h2>AngularJS</h2><div class="ulist"><ul><li><p>Dans ce chapitre nous avons vu les notions de suivantes</p><div class="ulist"><ul><li><p>Présentation</p></li><li><p>Points forts</p></li><li><p>Utilisation</p></li><li><p>Les Concepts</p></li><li><p>Forces</p></li><li><p>Faiblesse</p></li></ul></div></li></ul></div></section></section>
+<section><section id="_premiers_pas"><h2>Premiers pas</h2></section><section id="_premiers_pas_2"><h2>Premiers pas</h2><div class="ulist"><ul><li><p>Dans ce chapitre nous allons voir les points suivants</p><div class="ulist"><ul><li class="fragment"><p>L&#8217;intégration</p></li><li class="fragment"><p>L&#8217;activation</p></li><li class="fragment"><p>Les templates</p></li><li class="fragment"><p>Le binding</p></li><li class="fragment"><p>Les modèles</p></li><li class="fragment"><p>Les listes</p></li><li class="fragment"><p>Les filtres</p></li><li class="fragment"><p>Les directives</p></li></ul></div></li></ul></div></section><section id="_intgration"><h2>Intégration</h2><div class="ulist"><ul><li><p>Avant de pouvoir utiliser AngularJS, il faut l&#8217;importer</p></li><li><p>AngularJS est composé de plusieurs scripts, soit en version développement ou minifiée (production)</p><div class="ulist"><ul><li><p>angular.js, angular-resource.js, angular-mocks.js&#8230;&#8203;</p></li><li><p>Permet d&#8217;optimiser le chargement de l&#8217;application</p></li></ul></div></li><li><p>A déclarer de préférence à la fin de la page HTML</p></li></ul></div>
+<div class="listingblock"><div class="content"><pre class="highlight"><code class="html language-html">&lt;html&gt;
+    &lt;head&gt;
+        &lt;script src="angular.js"&gt;&lt;/ script&gt;
+    &lt;/head&gt;
+    &lt;body&gt;...&lt;/body&gt;
+&lt;/html&gt;</code></pre></div></div>
+<aside class="notes"><div class="paragraph"><p>Avant de pouvoir utiliser AngularJS, il faut l&#8217;importer et l&#8217;activer dans la page</p></div></aside></section><section id="_activation"><h2>Activation</h2><div class="ulist"><ul><li><p>Une fois AngularJS importé, il faut l&#8217;activer dans la page</p><div class="ulist"><ul><li><p>Directive <code>ng-app</code></p></li><li><p>Généralement placée sur la balise <code>&lt;html&gt;</code> ou  <code>&lt;body&gt;</code></p></li></ul></div></li></ul></div>
+<div class="listingblock"><div class="content"><pre class="highlight"><code class="html language-html">&lt;html ng-app&gt;
+    ...
+&lt;/html&gt;</code></pre></div></div>
+<div class="ulist"><ul><li><p>Il est également possible de charger un module personnalisé (CF. le chapitre sur les modules)</p></li></ul></div>
+<div class="listingblock"><div class="content"><pre class="highlight"><code class="html language-html">&lt;html ng-app="myModule"&gt;
+    ...
+&lt;/html&gt;</code></pre></div></div></section><section id="_templates_et_bindings"><h2>Templates et Bindings :</h2><h3>Template</h3><div class="ulist"><ul><li><p>Un <strong>template</strong> est un modèle de document</p><div class="ulist"><ul><li><p>Page complète ou fragment</p></li><li><p>Complété par des bindings et/ou directives AngularJS</p></li><li><p>Doit être valide au sens HTML5 (data-&#8230;&#8203;,CSS)</p></li></ul></div></li><li><p>des bindings permettent d&#8217;indiquer les éléments dynamiques</p><div class="ulist"><ul><li><p>Lié à un modèle défini sur un <strong>scope</strong></p></li><li><p>Plusieurs notations disponibles</p></li></ul></div></li></ul></div></section><section id="_templates_et_bindings_bindings"><h2>Templates et Bindings : Bindings</h2><div class="ulist"><ul><li><p>Plusieurs notations possibles pour un binding</p><div class="ulist"><ul><li><p>Placeholder à accolades</p></li></ul></div></li></ul></div>
+<div class="listingblock"><div class="content"><pre class="highlight"><code class="html language-html">Hi {{name}}</code></pre></div></div>
+<div class="ulist"><ul><li><p>Attribut de balise</p></li></ul></div>
+<div class="listingblock"><div class="content"><pre class="highlight"><code class="html language-html">Hi &lt;span ng-bind="name"&gt;&lt;/span&gt;</code></pre></div></div>
+<div class="listingblock"><div class="content"><pre class="highlight"><code class="html language-html">Hi &lt;span data-ng-bind="name"&gt;&lt;/span&gt;</code></pre></div></div>
+<div class="ulist"><ul><li><p>Classe CSS</p></li></ul></div>
+<div class="listingblock"><div class="content"><pre class="highlight"><code class="html language-html">Hi &lt;span class="ng-bind:name"&gt;&lt;/span&gt;</code></pre></div></div>
+<aside class="notes"><div class="paragraph"><p>(notation data-* valide HTML5)</p></div></aside></section><section id="_templates_et_bindings_2"><h2>Templates et Bindings :</h2><h3>Cloaking</h3><div class="ulist"><ul><li><p>Les bindings de type <code>{{name}}</code> peuvent être aperçus par l&#8217;utilisateur pendant une instant avant qu&#8217;AngularJS ne les remplace par leur valeur</p></li><li><p>Solutions</p><div class="ulist"><ul><li><p>Utiliser les autres formes de binding</p></li><li><p>Utiliser <code>ng-cloak</code> sur une balise parente pour la masquer temporairement</p></li></ul></div></li></ul></div></section><section id="_templates_et_bindings_3"><h2>Templates et Bindings :</h2><h3>Cloaking</h3><div class="listingblock"><div class="content"><pre class="highlight"><code class="html language-html">&lt;div data-ng-cloak&gt;
+    Hello {{name}}
+&lt;/div&gt;</code></pre></div></div>
+<div class="listingblock"><div class="content"><pre class="highlight"><code class="html language-html">&lt;div class="ng-cloak"&gt;
+    Hello {{name}}
+&lt;/div&gt;</code></pre></div></div></section><section id="_templates_et_bindings_4"><h2>Templates et Bindings :</h2><h3>Autres types de bindings</h3><div class="ulist"><ul><li><p>Autres types de bindings</p><div class="ulist"><ul><li><p><code>ng-bind-html</code></p><div class="ulist"><ul><li><p>Interprètent le binding comme du code HTML et supprime les éléments dangereux (voir $sanitize)</p></li></ul></div></li></ul></div></li></ul></div>
+<div class="listingblock"><div class="content"><pre class="highlight"><code class="html language-html">&lt;span data-ng-bind-html="comment"&gt;&lt;/span&gt;</code></pre></div></div></section><section id="_templates_et_bindings_5"><h2>Templates et Bindings :</h2><h3>Autres types de bindings</h3><div class="ulist"><ul><li><p><code>ng-bind-template</code></p><div class="ulist"><ul><li><p>Permet de fournir un template, dans les cas où il est impossible de placer des <code>&lt;span&gt;</code> (ex : dans <code>&lt;title&gt;</code>)</p></li></ul></div></li></ul></div>
+<div class="listingblock"><div class="content"><pre class="highlight"><code class="html language-html">&lt;title data-ng-bind-template="{{site}} - {{page}}"&gt;&lt;/title&gt;</code></pre></div></div></section><section id="_templates_et_bindings_6"><h2>Templates et Bindings :</h2><h3>Les modèles</h3><div class="ulist"><ul><li><p>Pour définir un modèle sur le scope courant (pour l&#8217;instant, le scope racine <code>$rootScope</code>)</p><div class="ulist"><ul><li><p><code>ng-init</code>
+Généralement placé sur la balise body</p></li></ul></div></li></ul></div>
+<div class="listingblock"><div class="content"><pre class="highlight"><code class="html language-html">&lt;body ng-init='name="Charles"'&gt;</code></pre></div></div>
+<div class="ulist"><ul><li><p><code>ng-model</code>
+Utilisable sur les balises de formulaire</p><div class="ulist"><ul><li><p>input, select, textarea</p></li></ul></div></li></ul></div>
+<div class="listingblock"><div class="content"><pre class="highlight"><code class="html language-html">&lt;input type="text" ng-model="name"/&gt;
+Hello {{name}} !</code></pre></div></div>
+<aside class="notes"><div class="paragraph"><p>pour l&#8217;instant, celui de l&#8217;application, c&#8217;est-à-dire le scope racine <code>$rootScope</code></p></div></aside></section><section id="_gestion_des_listes"><h2>Gestion des listes</h2><div class="ulist"><ul><li><p>La directive <code>ng-repeat</code> permet d&#8217;afficher des listes (appliquer sur l&#8217;élément à répéter)</p></li></ul></div>
+<div class="listingblock"><div class="content"><pre class="highlight"><code class="html language-html">&lt;ul&gt;
+    &lt;li ng-repeat="name in names"&gt; {{name}} &lt;/li&gt;
+&lt;/ul&gt;</code></pre></div></div>
+<div class="ulist"><ul><li><p>Fonctionne également avec des maps</p></li></ul></div>
+<div class="listingblock"><div class="content"><pre class="highlight"><code class="html language-html">&lt;ul&gt;
+    &lt;li ng-repeat="(name,age) in people"&gt;
+        {{name}} is {{age}}
+    &lt;/li&gt;
+&lt;/ul&gt;</code></pre></div></div></section><section id="_gestion_des_listes_2"><h2>Gestion des listes</h2><div class="ulist"><ul><li><p>La boucle expose différentes variables</p><div class="ulist"><ul><li><p><code>$index</code> (nombre) : index de l&#8217;élément courant (0..N-1)</p></li><li><p><code>$first</code> (booléen) : si c&#8217;est le premier élément</p></li><li><p><code>$middle</code> (booléen) : si c&#8217;est un élément intermédiaire</p></li><li><p><code>$last</code> (booléen) : si c&#8217;est le dernier élément</p></li></ul></div></li><li><p>Exemple : combinaison avec <code>ng-show</code> / <code>ng-hide</code></p></li></ul></div>
+<div class="listingblock"><div class="content"><pre class="highlight"><code class="html language-html">&lt;span ng-repeat="name in ['you','me','them']"&gt;
+    {{name}}
+    &lt;span ng-hide="$last"&gt;,&lt;/span&gt;
+&lt;/span&gt;
+// you, me, them</code></pre></div></div></section><section id="_filtres"><h2>Filtres</h2><div class="ulist"><ul><li><p>Un filtre permet d&#8217;altérer la valeur d&#8217;un binding</p></li><li><p>AngularJS en fournit un certain nombre, et il est possible de développer ses propres filtres</p><div class="ulist"><ul><li><p>lowercase, uppercase,</p></li><li><p>number, date, currency</p></li><li><p>filter, limitTo, orderBy</p></li><li><p>json</p></li></ul></div></li><li><p>Syntaxe</p></li></ul></div>
+<div class="listingblock"><div class="content"><pre class="highlight"><code class="javascript language-javascript">{{ expression | filtre1 | filtre2:param1:param2 }}</code></pre></div></div></section><section id="_filtres_2"><h2>Filtres</h2><div class="listingblock"><div class="content"><pre class="highlight"><code class="html language-html">&lt;ul ng-init="people=[{name:'you'},{name:'me'},{name:'them'}]"&gt;
+    &lt;li ng-repeat="p in people | orderBy:'name'"&gt;
+        {{p.name | uppercase}}
+    &lt;/li&gt;
+&lt;/ul&gt;</code></pre></div></div>
+<div class="imageblock" id="uppercase" style=""><img src="./images//uppercase.png" alt="uppercase"></div></section><section id="_filtres_3"><h2>Filtres</h2><div class="listingblock"><div class="content"><pre class="highlight"><code class="html language-html">&lt;input type="text" ng-model="nameFilter"/&gt;
+&lt;ul ng-init="names=['you','me','them']"&gt;
+    &lt;li ng-repeat="name in names | filter:nameFilter"&gt;
+        {{name}}
+    &lt;/li&gt;
+&lt;/ul&gt;</code></pre></div></div>
+<div class="openblock float-group"><div class="content"><div class="imageblock left" style=""><img src="./images//sansFiltre.png" alt="sans Filtre"></div><div class="title">Figure 1. sans Filtre</div>
+<div class="imageblock left" style=""><img src="./images//avecFiltre.png" alt="avec Filtre"></div><div class="title">Figure 2. avec Filtre</div></div></div></section><section id="_quelques_directives_utiles_1_3"><h2>Quelques directives utiles (1/3)</h2><div class="ulist"><ul><li><p><code>ng-style</code></p><div class="ulist"><ul><li><p>Applique un style CSS à l&#8217;élément :</p></li></ul></div></li></ul></div>
+<div class="listingblock"><div class="content"><pre class="highlight"><code class="javascript language-javascript">ng-style="myStyle"
+myStyle = {
+    color:'red',
+    margin:0
+}</code></pre></div></div>
+<div class="ulist"><ul><li><p><code>ng-class</code></p><div class="ulist"><ul><li><p>Modifient la classe CSS de l&#8217;élément soit :</p><div class="ulist"><ul><li><p>par un nom de classe</p></li><li><p>par une pair classe/condition</p></li></ul></div></li></ul></div></li></ul></div>
+<aside class="notes"><div class="ulist"><ul><li><p><code>ng-class-even</code> / <code>ng-class-odd</code> (dans un <code>ng-repeat</code>)</p></li></ul></div></aside></section><section id="_quelques_directives_utiles_2_3"><h2>Quelques directives utiles (2/3)</h2><div class="ulist"><ul><li><p><code>ng-href</code> / <code>ng-src</code></p><div class="ulist"><ul><li><p>Garantissent que les attributs href et src ayant des placeholders <code><code>{{commande}}</code></code> seront bien évalué</p></li></ul></div></li><li><p><code>ng-show</code> / <code>ng-hide</code></p><div class="ulist"><ul><li><p>Affiche ou masque l&#8217;élément en fonction d&#8217;une expression</p></li></ul></div></li><li><p><code>ng-include</code></p><div class="ulist"><ul><li><p>Compilation et ajout d&#8217;un fragment HTML externe</p></li></ul></div></li></ul></div></section><section id="_quelques_directives_utiles_3_3"><h2>Quelques directives utiles (3/3)</h2><div class="ulist"><ul><li><p><code>ng-if</code></p><div class="ulist"><ul><li><p>Ajout ou suppression d&#8217;une partie du DOM en fonction d&#8217;une expression</p></li><li><p>A la différence des directives <code>ng-show</code> / <code>ng-hide</code>, les éléments HTML sont recréés plutôt simplement masqués</p></li></ul></div></li><li><p><code>ng-switch</code></p><div class="ulist"><ul><li><p>La directive s&#8217;appuie sur le pattern on/when/default</p></li><li><p>Ajout d&#8217;une structure DOM parmi plusieurs possibles en fonction d&#8217;une expression.</p></li></ul></div></li></ul></div></section><section id="_premiers_pas_3"><h2>Premiers pas</h2><div class="imageblock" id="TP" style=""><img src="./images//TP1.jpg" alt="TP"></div>
+<div class="paragraph"><p><a href="TPs/TP1/" target="_blank">TP N°1</a> Afficher une liste dans la page web à partir des éléments d&#8217;un tableau JavaScript</p></div>
+<aside class="notes"><div class="paragraph"><p><a href="http://plnkr.co/edit/HHEk8Tg0C0UVKoxg01E6" class="bare">http://plnkr.co/edit/HHEk8Tg0C0UVKoxg01E6</a></p></div></aside></section><section id="_premiers_pas_br"><h2>Premiers pas<br></h2><h3>des questions</h3><div class="imageblock" id="question" style=""><img src="./images//question-mark.jpg" alt="question"></div></section><section id="_premiers_pas_4"><h2>Premiers pas</h2><div class="ulist"><ul><li><p>Dans ce chapitre nous avons vu les notions de suivantes</p><div class="ulist"><ul><li><p>L&#8217;intégration</p></li><li><p>L&#8217;activation</p></li><li><p>Les templates</p></li><li><p>Le binding</p></li><li><p>Les modèles</p></li><li><p>Les listes</p></li><li><p>Les filtres</p></li><li><p>Les directives</p></li></ul></div></li></ul></div></section></section>
+<section><section id="_contrleurs_et_scopes"><h2>Contrôleurs et Scopes</h2></section><section id="_contrleurs_et_scopes_2"><h2>Contrôleurs et Scopes</h2><div class="ulist"><ul><li><p>Dans ce chapitre nous allons voir les points suivants</p><div class="ulist"><ul><li class="fragment"><p>Les contrôleurs</p></li><li class="fragment"><p>Les scopes</p></li><li class="fragment"><p>$apply</p></li><li class="fragment"><p>$watch</p></li></ul></div></li></ul></div></section><section id="_contrleurs"><h2>Contrôleurs</h2><div class="ulist"><ul><li><p>AngularJS promeut le pattern MVC, pour découpler les données de la façon dont elles sont affichées</p><div class="ulist"><ul><li><p>Permet de tester les algorithmes en isolation</p></li><li><p>Permet de varier les représentations (web, mobile, graph, &#8230;&#8203;)</p></li></ul></div></li></ul></div></section><section id="_contrleurs_2"><h2>Contrôleurs</h2><div class="ulist"><ul><li><p>Une application AngularJS est généralement composée</p><div class="ulist"><ul><li><p>De <strong>contrôleurs</strong> en Javascript : Javascript est un langage impératif, idéal pour implémenter les traitements métiers</p></li><li><p>De <strong>templates</strong> (vues) en HTML : HTML est un langage déclaratif, pratique pour exprimer une mise en forme. Pour des raisons de performance, AngularJS compile le template sous la forme d&#8217;un arbre DOM, et utilise ce dernier pour appliquer les transformations.</p></li></ul></div></li></ul></div></section><section id="_contrleurs_3"><h2>Contrôleurs</h2><div class="ulist"><ul><li><p>Un contrôleur AngularJS encapsule un modèle de données et les opérations qui agissent sur ce modèle</p><div class="ulist"><ul><li><p>Comme un prototype Javascript ou un objet Java/C#</p></li><li><p>Développé en pur Javascript</p></li></ul></div></li><li><p>Modèle et fonctions peuvent être associés au <code>$scope</code> fourni par AngularJS en paramètre du contrôleur</p></li></ul></div>
+<div class="listingblock"><div class="content"><pre class="highlight"><code class="javascript language-javascript">angular.module('myApp', [])
+  .controller('PeopleController', function($scope) {
+    $scope.names = ['you', 'me', 'them'];
+    $scope.add = function () {
+        $scope.names.push('others');
+    };
+}
+);</code></pre></div></div></section><section id="_contrleurs_4"><h2>Contrôleurs</h2><div class="ulist"><ul><li><p>Pour afficher les données et appeler les fonctions du contrôleur, il faut l&#8217;associer à un template, qui peut être</p><div class="ulist"><ul><li><p>Une page entière</p></li><li><p>Une vue, dans une application de type single-page</p></li><li><p>Une zone délimitée par une balise (exemple un <code>&lt;div&gt;</code>)</p></li></ul></div></li><li><p>Directive <code>ng-controller</code></p></li></ul></div>
+<div class="listingblock"><div class="content"><pre class="highlight"><code class="html language-html">&lt;div data-ng-app="myApp"&gt;
+    &lt;ul ng-controller="PeopleController"&gt;
+        &lt;li ng-repeat="name in names"&gt;{{name}}&lt;/li&gt;
+    &lt;/ul&gt;
+    &lt;button ng-click="add()"&gt;add&lt;/button&gt;
+&lt;/div&gt;</code></pre></div></div></section><section id="_contrleurs_5"><h2>Contrôleurs</h2><div class="ulist"><ul><li><p>Le scope du controlleur peut maintenant être assicié directement au controlleur</p></li></ul></div>
+<div class="listingblock"><div class="content"><pre class="highlight"><code class="javascript language-javascript">angular.module('myApp', [])
+  .controller('PeopleController', function() {
+    this.names = ['you', 'me', 'them'];
+    this.add = function () {
+        this.names.push('others');
+    };
+}
+);</code></pre></div></div></section><section id="_contrleurs_6"><h2>Contrôleurs</h2><div class="ulist"><ul><li><p>on peut associer un nom au controlleur avec le mot clef as</p><div class="literalblock"><div class="content"><pre>ng-controller="PeopleController as peoples"</pre></div></div></li><li><p>l&#8217;utilisation u svope du controlleur se fait en le référencent</p></li></ul></div>
+<div class="listingblock"><div class="content"><pre class="highlight"><code class="html language-html">&lt;div data-ng-app="myApp"&gt;
+    &lt;ul ng-controller="PeopleController as peoples"&gt;
+        &lt;li ng-repeat="name in peoples.names"&gt;{{name}}&lt;/li&gt;
+    &lt;/ul&gt;
+    &lt;button ng-click="peoples.add()"&gt;add&lt;/button&gt;
+&lt;/div&gt;</code></pre></div></div>
+<aside class="notes"><div class="paragraph"><p>on peut associer un nom au controlleur avec le mot clef as
+ng-controller="PeopleController as peoples"</p></div></aside></section><section id="_scopes"><h2>Scopes :</h2><h3>Principes</h3><div class="ulist"><ul><li><p>Dans une application AngularJS, plusieurs scopes peuvent cohabiter</p><div class="ulist"><ul><li><p>Le scope de l&#8217;application (scope racine ou <code>$rootScope</code>)</p></li><li><p>Les scopes des contrôleurs</p></li><li><p>Les scopes des directives</p></li><li><p>Des scopes dynamiques (ex : au sein d&#8217;un <code>ng-repeat</code>)</p></li></ul></div></li></ul></div></section><section id="_scopes_2"><h2>Scopes :</h2><h3>Principes</h3><div class="ulist"><ul><li><p>Les scopes héritent de leurs scopes parents</p><div class="ulist"><ul><li><p>Permet d&#8217;architecturer l&#8217;application sous forme de modules isolés mais partageant un référentiel commun</p></li></ul></div></li><li><p><strong>Batarang</strong> (plugin pour Chrome) permet de visualiser l&#8217;imbrication et le contenu des différents scopes</p></li></ul></div></section><section id="_scopes_visualisation_avec_batarang"><h2>Scopes :  Visualisation avec Batarang</h2><div class="imageblock" id="batarang" style=""><img src="./images//batarang2.png" alt="batarang"></div></section><section id="_scopes_debug"><h2>Scopes : Debug</h2><div class="ulist"><ul><li><p>Pour voir ou modifier le scope depuis son navigateur</p></li><li><p>Inspecter un élément du DOM, puis taper depuis la console :</p><div class="dlist"><dl><dt class="hdlist1">Google Chrome / Batarang</dt><dd><p><code>$scope</code></p></dd><dt class="hdlist1">Firefox / Firebug</dt><dd><p><code>angular.element($0).scope()</code> ou`$($0).scope()`</p></dd></dl></div></li></ul></div>
+<aside class="notes"><div class="ulist"><ul><li><p>N&#8217;oubliez pas lors de modification de scope de prévenir Angular en invoquant le <code>$apply</code> sur le scope : <code>.$apply()</code></p></li></ul></div></aside></section><section id="_scopes_fonctionnement"><h2>Scopes : Fonctionnement</h2><div class="ulist"><ul><li><p>Toute la magie d&#8217;AngularJS vient de sa gestion des scopes</p></li></ul></div>
+<div class="imageblock" id="concepts-runtime" style=""><img src="./images//concepts-runtime.png" alt="concepts-runtime" width="60%"></div></section><section id="_scopes_fonctionnement_2"><h2>Scopes : Fonctionnement</h2><div class="ulist"><ul><li><p>Un événement natif est déclenché dans le navigateur</p></li><li><p>La fonction callback associée est transférée dans l&#8217;univers AngularJS à l&#8217;aide de la fonction <code>$apply</code> du scope</p></li><li><p>AngularJS "digère" la fonction</p><div class="ulist"><ul><li><p>Il applique les modifications requises au modèle</p></li><li><p>Ces modifications sont détectées par la méthode <code>$watch</code>, et peuvent déclencher d&#8217;autres modifications en cascade</p></li><li><p>Ce cycle se répète jusqu&#8217;à ce que le modèle se stabilise</p></li></ul></div></li></ul></div></section><section id="_scopes_3"><h2>Scopes :</h2><h3>Fonctionnement</h3><div class="ulist"><ul><li><p>Les nouvelles valeurs du modèle sont appliquées au template</p></li><li><p>Enfin, le navigateur peut afficher le DOM mis à jour</p></li></ul></div></section><section id="_scopes_4"><h2>Scopes :</h2><h3>$apply</h3><div class="ulist"><ul><li><p>Lorsque l&#8217;événement est généré par une balise gérée par AngularJS, il passe automatiquement par $apply</p><div class="ulist"><ul><li><p>Par exemple: ng-model sur un champ <code>&lt;input&gt;</code></p></li><li><p>Utiliser <code>$apply</code> uniquement depuis du Javascript pur ou des librairies tierces</p></li></ul></div></li><li><p><strong>En debug, n&#8217;oubliez pas lors de modification de scope de prévenir Angular en invoquant le <code>$apply</code> sur le scope : <code>.$apply()</code></strong></p></li></ul></div></section><section id="_scopes_5"><h2>Scopes :</h2><h3>$apply</h3><div class="ulist"><ul><li><p>Pour appeler <code>$apply</code> manuellement (depuis un framework tiers par exemple), il faut récupérer une référence sur le scope</p><div class="ulist"><ul><li><p>Par injection depuis un composant AngularJS</p></li><li><p>Ou en utilisant les API AngularJS</p></li></ul></div></li></ul></div>
+<div class="listingblock"><div class="content"><pre class="highlight"><code class="javascript language-javascript">var element = document.getElementById( … );
+var scope = angular.element(element).scope();
+scope.$apply(function() { … });</code></pre></div></div></section><section id="_scopes_6"><h2>Scopes :</h2><h3>$apply</h3><div class="listingblock"><div class="content"><pre class="highlight"><code class="javascript language-javascript">  .controller('PeopleController', function() {
+    this.names = ['you', 'me', 'them'];
+}</code></pre></div></div>
+<div class="listingblock"><div class="content"><pre class="highlight"><code class="html language-html">&lt;div ng-controller="PeopleController as peoples"&gt;
+
+    &lt;ul&gt;
+        &lt;li ng-repeat="name in peoples.names"&gt;{{name}}&lt;/li&gt;
+    &lt;/ul&gt;
+
+    &lt;button onclick="
+        var scope = angular.element(this).scope();
+        scope.$apply(function() {
+            scope.peoples.names.push('others');
+        });"
+     &gt;more&lt;/button&gt;
+
+&lt;/div&gt;</code></pre></div></div></section><section id="_scopes_7"><h2>Scopes :</h2><h3>$watch</h3><div class="ulist"><ul><li><p>La méthode <code>$watch</code> permet de surveiller un champ du scope</p></li><li><p>AngularJS utilise la technique du <strong>"dirty-checking"</strong> pour n&#8217;appeler l&#8217;observateur qu&#8217;en cas de réelle modification</p><div class="ulist"><ul><li><p>2 modes de comparaison :</p><div class="ulist"><ul><li><p><strong>by-reference</strong> (égalité stricte des références) ou</p></li><li><p><strong>by-value</strong> (comparaison des valeurs des champs)</p></li></ul></div></li></ul></div></li></ul></div></section><section id="_scopes_8"><h2>Scopes :</h2><h3>$watch</h3><div class="listingblock"><div class="content"><pre class="highlight"><code class="javascript language-javascript">  .controller('PeopleController', function($scope) {
+    $scope.names = ['you', 'me', 'them'];
+
+    $scope.$watch('names', function(newValue, oldValue) {
+        console.log(oldValue + " → " + newValue);
+    }, false);
+}</code></pre></div></div></section><section id="_contrleurs_et_scopes_3"><h2>Contrôleurs et Scopes</h2><div class="imageblock" id="TP" style=""><img src="./images//TP2.jpg" alt="TP"></div>
+<div class="paragraph"><p><a href="TPs/TP2/" target="_blank">TP N°2</a> Utiliser un controlleur pour afficher la liste dans la page web et pouvoir ajouter un élément</p></div></section><section id="_contrleurs_et_scopes_br"><h2>Contrôleurs et Scopes<br></h2><h3>des questions</h3><div class="imageblock" id="question" style=""><img src="./images//question-mark.jpg" alt="question"></div></section><section id="_contrleurs_et_scopes_4"><h2>Contrôleurs et Scopes</h2><div class="ulist"><ul><li><p>Dans ce chapitre nous avons vu les notions de suivantes</p><div class="ulist"><ul><li><p>Les contrôleurs</p></li><li><p>Les scopes</p></li><li><p>$apply</p></li><li><p>$watch</p></li></ul></div></li></ul></div></section></section>
+<section><section id="_routeur"><h2>Routeur</h2></section><section id="_routeur_2"><h2>Routeur</h2><div class="ulist"><ul><li><p>Dans ce chapitre nous allons voir les points suivants</p><div class="ulist"><ul><li class="fragment"><p>Le routage</p></li><li class="fragment"><p>La configuration</p></li><li class="fragment"><p>Les routeParams</p></li><li class="fragment"><p>Les URLs</p></li><li class="fragment"><p>La barre d&#8217;adresse</p></li></ul></div></li></ul></div></section><section id="_routeur_3"><h2>Routeur</h2><div class="ulist"><ul><li><p>AngularJS permet de faire des applications multi-vues</p></li></ul></div>
+<div class="imageblock" id="routeur" style=""><img src="./images//routeur.png" alt="routeur" width="85%"></div>
+<aside class="notes"><div class="ulist"><ul><li><p>Architecture MVC côté client en pur Javascript</p></li></ul></div></aside></section><section id="_routeur_4"><h2>Routeur</h2><div class="ulist"><ul><li><p>Dans la page hôte, la directive <code>ng-view</code> indique l&#8217;emplacement où les vues seront insérées</p><div class="ulist"><ul><li><p>Architecture MVC côté client en pur Javascript</p></li></ul></div></li></ul></div>
+<div class="listingblock"><div class="content"><pre class="highlight"><code class="html language-html">&lt;body&gt;
+    &lt;div&gt;
+        &lt;h1&gt;Gestion des Commandes&lt;/h1&gt;
+        &lt;h2&gt;Taking care of your people, one at a time.&lt;/h2&gt;
+    &lt;/div&gt;
+    &lt;div ng-view&gt;&lt;/div&gt;
+&lt;/body&gt;</code></pre></div></div></section><section id="_configuration_du_routage"><h2>Configuration du routage</h2><div class="ulist"><ul><li><p>Le service <code>$routeProvider</code> permet de paramétrer la table de routage, qui associe des vues à des URLs particulières</p><div class="ulist"><ul><li><p>when(route, config) : configure une route</p></li><li><p>otherwise(config) : si aucune route ne correspond</p></li></ul></div></li></ul></div></section><section id="_configuration_du_routage_2"><h2>Configuration du routage</h2><div class="ulist"><ul><li><p>Propriétés usuelles de configuration d&#8217;une route</p><div class="ulist"><ul><li><p>controller : nom du contrôleur gérant la vue</p></li><li><p>templateUrl : chemin vers la vue (template)</p></li><li><p>redirectTo : URL vers laquelle rediriger l&#8217;utilisateur</p></li></ul></div></li></ul></div>
+<aside class="notes"><div class="paragraph"><p>Chaque zone peut avoir sont propre controlleur et/ou sa propre vue</p></div></aside></section><section id="_configuration_du_routage_3"><h2>Configuration du routage</h2><div class="ulist"><ul><li><p>Il existe d&#8217;autres possibilités de configuration</p><div class="ulist"><ul><li><p>En particulier, on peut associer des propriétés personnalisées aux routes<br>
+(ex : pour donner un titre de page à chaque vue)</p></li></ul></div></li></ul></div>
+<div class="listingblock"><div class="content"><pre class="highlight"><code class="javascript language-javascript">var app = angular.module('app',['ngRoute']);
+app.config(function($routeProvider) {
+    $routeProvider.when('/login', {
+        templateUrl: 'view/login.html',
+        controller: 'LoginController'});
+    $routeProvider.when('/commandes', {
+        templateUrl: 'view/commande.html',
+        controller: 'CommandeController',
+        title: 'Consultations des commandes' });
+    ( … )
+    $routeProvider.otherwise({
+        redirectTo: '/commandes'});
+});</code></pre></div></div>
+<aside class="notes"><div class="paragraph"><p>La definition des URLs permet de définir une sémantique de navigation
+comme sur un site Web statique
+des vues peuvent être réutilisé entre plusieurs zones (comme des listes</p></div></aside></section><section id="_configuration_du_routage_4"><h2>Configuration du routage</h2><div class="ulist"><ul><li><p>Il est également possible de spécifier des patterns d&#8217;URL</p></li></ul></div>
+<div class="listingblock"><div class="content"><pre class="highlight"><code class="javascript language-javascript">$routeProvider.when(
+    '/carnetCommande/:carnetId/commande/:id', {
+    templateUrl: 'view/commande.html',
+    controller: 'CommandeController'});</code></pre></div></div>
+<div class="ulist"><ul><li><p>Le service <code>$routeParams</code> permet alors d&#8217;accéder aux valeurs des placeholders</p></li></ul></div>
+<div class="listingblock"><div class="content"><pre class="highlight"><code class="javascript language-javascript">$routeParams.carnetId
+$routeParams.id</code></pre></div></div>
+<div class="ulist"><ul><li><p>les routes peuvent avoir plusieurs niveaux de paramétrages</p></li></ul></div>
+<aside class="notes"><div class="paragraph"><p>On peut peut reprendre les concepts sémantique définis paour les services Rest, mais en restant qur le point de la navigation.
+WARNING: Les routes peuvent indiquer des chemins d&#8217;ataques</p></div></aside></section><section id="_configuration_du_routage_5"><h2>Configuration du routage</h2><div class="ulist"><ul><li><p>La configuration de routage est exposée par le service <code>$route</code></p><div class="ulist"><ul><li><p>routes configurées : <code>$route.routes</code></p></li><li><p>propriétés de la route courante : <code>$route.current</code> (y compris les propriétés personnalisées)</p></li></ul></div></li></ul></div>
+<div class="listingblock"><div class="content"><pre class="highlight"><code class="javascript language-javascript">$route.current.title</code></pre></div></div></section><section id="_configuration_du_routage_6"><h2>Configuration du routage</h2><div class="ulist"><ul><li><p>Le service <code>$route</code> expose également différents événements</p><div class="ulist"><ul><li><p><code>$routeChangeStart</code>,</p></li><li><p><code>$routeChangeSuccess</code>,</p></li><li><p><code>$routeChangeError</code>,</p></li><li><p><code>$routeUpdate</code></p></li></ul></div></li></ul></div></section><section id="_configuration_du_routage_7"><h2>Configuration du routage</h2><div class="listingblock"><div class="content"><pre class="highlight"><code class="javascript language-javascript">function CommandeController($scope,$route) {
+    $scope.$on('$routeChangeSuccess', function() {
+        console.log("route changed");
+    });
+}</code></pre></div></div></section><section id="_format_des_urls"><h2>Format des URLs</h2><div class="ulist"><ul><li><p>Mode par default</p><div class="literalblock"><div class="content"><pre>http://server:port/gestion_commandes/index.html#!/list?a=b&amp;c</pre></div></div></li><li><p>AngularJS fait usage du caractère # ("Hash" en anglais) qui permet de modifier l&#8217;URL sans déclencher un rechargement de la page par le navigateur</p></li><li><p>Il existe également un mode HTML5 qui se base sur l&#8217;API History HTML5 mais qui demande alors une gestion coté serveur des URL (URL rewriting)</p></li></ul></div></section><section id="_gestion_de_la_barre_d_adresse"><h2>Gestion de la barre d&#8217;adresse</h2><div class="ulist"><ul><li><p>Le service <code>$location</code> permet de lire et de modifier l&#8217;URL dans la barre d&#8217;adresse du navigateur</p><div class="ulist"><ul><li><p>Abstraction de <code>window.location</code></p></li><li><p>Synchronisation bidirectionnelle</p></li></ul></div></li><li><p>Accesseurs</p><div class="ulist"><ul><li><p>[ro] <code>protocol()</code>, <code>host()</code>, <code>port()</code></p></li><li><p>[rw] <code>path()</code>, <code>search()</code>, <code>hash()</code></p></li><li><p>[rw] <code>url()</code> = path + search + hash</p></li><li><p>[ro] <code>absUrl()</code> = URL complète</p></li></ul></div></li></ul></div></section><section id="_routeur_5"><h2>Routeur</h2><div class="imageblock" id="TP" style=""><img src="./images//TP3.jpg" alt="TP"></div>
+<div class="paragraph"><p><a href="TPs/TP3/" target="_blank">TP N°3</a> Mettre en place des vues pour voir soit la liste soit le détail des commandes</p></div></section><section id="_routeur_br"><h2>Routeur<br></h2><h3>des questions</h3><div class="imageblock" id="question" style=""><img src="./images//question-mark.jpg" alt="question"></div></section><section id="_routeur_6"><h2>Routeur</h2><div class="ulist"><ul><li><p>Dans ce chapitre nous avons vu les notions de suivantes</p><div class="ulist"><ul><li><p>Le routage</p></li><li><p>La configuration</p></li><li><p>Les routeParams</p></li><li><p>Les URLs</p></li><li><p>La barre d&#8217;adresse</p></li></ul></div></li></ul></div></section></section>
+<section><section id="_modules_et_services"><h2>Modules et Services</h2></section><section id="_modules_et_services_2"><h2>Modules et Services</h2><div class="ulist"><ul><li><p>Dans ce chapitre nous allons voir les points suivants</p><div class="ulist"><ul><li class="fragment"><p>La notion de module</p></li><li class="fragment"><p>Déclarer un module</p></li><li class="fragment"><p>La configuration</p></li><li class="fragment"><p>Les Factories</p></li><li class="fragment"><p>Service V Factory</p></li><li class="fragment"><p>Le paramétrage</p></li><li class="fragment"><p>L&#8217;IOC</p></li></ul></div></li></ul></div></section><section id="_modules_notion_de_module"><h2>Modules : Notion de module</h2><div class="ulist"><ul><li><p>AngularJS propose la notion de <strong>module</strong></p></li><li><p>Un module permet d&#8217;encapsuler un ensemble de fonctionnalités</p><div class="ulist"><ul><li><p>Code de configuration</p></li><li><p>Services, contrôleurs, directives et filtres</p></li></ul></div></li></ul></div></section><section id="_modules_notion_de_module_2"><h2>Modules : Notion de module</h2><div class="ulist"><ul><li><p>Avantages</p><div class="ulist"><ul><li><p>Architecture modulaire</p></li><li><p>Réutilisabilité</p></li><li><p>Testabilité (module de test, module de production)</p></li></ul></div></li><li><p>Le module <strong>ng</strong> fournit toutes les fonctionnalités vues jusqu&#8217;ici</p><div class="ulist"><ul><li><p>Automatiquement importé</p></li></ul></div></li></ul></div></section><section id="_modules_notion_de_module_3"><h2>Modules : Notion de module</h2><div class="ulist"><ul><li><p>De manière générale, les modules peuvent être organisés</p><div class="ulist"><ul><li><p>Par type (services, contrôleurs&#8230;&#8203;)</p></li><li><p>Par fonctionnalité ("gestion des commandes", "admin"&#8230;&#8203;)</p></li></ul></div></li><li><p>On peut par exemple utiliser le découpage suivant</p><div class="ulist"><ul><li><p>Un module par type de composant (services, contrôleurs&#8230;&#8203;)</p></li><li><p>Un module applicatif qui importe les précédents, ainsi que les modules tierce-partie</p></li></ul></div></li></ul></div></section><section id="_modules_notion_de_module_4"><h2>Modules : Notion de module</h2><div class="imageblock" id="modules" style=""><img src="./images//modules.png" alt="modules" width="60%"></div></section><section id="_modules_dclarer_un_module"><h2>Modules : Déclarer un module</h2><div class="ulist"><ul><li><p>La fonction <code>angular.module</code> permet de déclarer un module</p></li></ul></div>
+<div class="listingblock"><div class="content"><pre class="highlight"><code class="javascript language-javascript">var Foo = angular.module('Foo', []);</code></pre></div></div>
+<div class="ulist"><ul><li><p>Exemple</p></li></ul></div>
+<div class="listingblock"><div class="content"><pre class="highlight"><code class="javascript language-javascript">var Services    = angular.module('Services',    []);
+var Controllers = angular.module('Controllers', []);
+var MyApplication =
+    angular.module('Application',
+        ['Services','Controllers']
+    );</code></pre></div></div></section><section id="_modules_configuration"><h2>Modules : Configuration</h2><div class="ulist"><ul><li><p>La directive <code>ng-app</code> permet de spécifier le module applicatif</p></li></ul></div>
+<div class="listingblock"><div class="content"><pre class="highlight"><code class="html language-html">&lt;html ng-app='Application'&gt;</code></pre></div></div></section><section id="_modules_configuration_2"><h2>Modules : Configuration</h2><div class="ulist"><ul><li><p>Un module dispose de deux fonctions d&#8217;initialisation</p><div class="ulist"><ul><li><p><code>config()</code> : appelée au chargement du module</p></li><li><p><code>run()</code> : appelée lorsque tous les modules ont été chargés</p></li></ul></div></li><li><p>Utile pour configurer l&#8217;application au démarrage (ex : le routage des URLs vers les vues)</p></li></ul></div></section><section id="_modules_configuration_3"><h2>Modules : Configuration</h2><div class="listingblock"><div class="content"><pre class="highlight"><code class="javascript language-javascript">var App = angular.module('App', []);
+
+App.config(function() {
+    console.log('Chargement...');
+});
+
+App.run(function() {
+    console.log('Initialisation...');
+});</code></pre></div></div></section><section id="_modules_et_composants_factories"><h2>Modules et Composants : Factories</h2><div class="ulist"><ul><li><p>Un module instancie et expose des composants (services, contrôleurs, directives et filtres) grâce à des fonctions <strong>factory</strong></p><div class="ulist"><ul><li><p><code>service(name, configFn)</code></p></li><li><p><code>controller(name, configFn)</code></p></li><li><p><code>directive(name, configFn)</code></p></li><li><p><code>filter(name, configFn)</code></p></li></ul></div></li></ul></div></section><section id="_modules_et_composants_factories_2"><h2>Modules et Composants : Factories</h2><div class="ulist"><ul><li><p>Exemple : déclaration d&#8217;un contrôleur</p></li></ul></div>
+<div class="listingblock"><div class="content"><pre class="highlight"><code class="javascript language-javascript">var Controllers = angular.module('Controllers', []);
+Controllers.controller('PeopleCtrl', function($scope) {
+    $scope.names = ['you', 'me', 'them'];
+    $scope.add = function () { … };
+});</code></pre></div></div></section><section id="_modules_et_composants_service_vs_factory"><h2>Modules et composants : service() vs factory()</h2><div class="ulist"><ul><li><p>Il existe une méthode alternative pour créer un service</p><div class="ulist"><ul><li><p>Méthode <code>&lt;module&gt;.factory(nom, configFn)</code></p></li><li><p>Permet d&#8217;exécuter du code avant d&#8217;instancier le service</p></li></ul></div></li><li><p>Différences</p><div class="ulist"><ul><li><p>Avec <code>service()</code>, this fait référence à l&#8217;instance du service en cours de création.</p></li><li><p>Avec <code>factory()</code>, il faut instancier manuellement le service et retourner la nouvelle instance. this fait référence au module.</p></li></ul></div></li></ul></div></section><section id="_modules_et_composants_service_vs_factory_2"><h2>Modules et composants : service() vs factory()</h2><div class="ulist"><ul><li><p>Avec <code>module.service()</code></p></li></ul></div>
+<div class="listingblock"><div class="content"><pre class="highlight"><code class="javascript language-javascript">&lt;module&gt;.service('PeopleSrvc', function() {
+    this.foo = 42;
+    this.bar = function() { … };
+});</code></pre></div></div>
+<div class="ulist"><ul><li><p>Avec <code>module.factory()</code></p></li></ul></div>
+<div class="listingblock"><div class="content"><pre class="highlight"><code class="javascript language-javascript">&lt;module&gt;.factory('PeopleSrvc', function() {
+    var instance = {};
+    instance.foo = 42;
+    instance.bar = function() { … };
+    return instance;
+});</code></pre></div></div></section><section id="_modules_valeurs"><h2>Modules : Valeurs</h2><div class="ulist"><ul><li><p>Pour finir, un module peut exposer des valeurs</p><div class="ulist"><ul><li><p>Réutilisabilité, principe DRY</p></li><li><p>Injectables dans les composants</p></li></ul></div></li><li><p>Utilisation de la fonction factory <code>module.value</code></p></li></ul></div>
+<div class="listingblock"><div class="content"><pre class="highlight"><code class="javascript language-javascript">&lt;module&gt;.value('Answer', 42);
+
+&lt;module&gt;.service('Q', function(Answer) {
+    this.answerMe = function(anyQuestion) {
+        return Answer;
+    }
+});</code></pre></div></div></section><section id="_injection_de_dpendances"><h2>Injection de dépendances</h2><div class="ulist"><ul><li><p>AngularJS propose un mécanisme d'<strong>injection de dépendances</strong></p></li><li><p>Principe : un composant ne va pas chercher lui-même ses dépendances, mais attend qu&#8217;on les lui fournisse</p><div class="ulist"><ul><li><p>Aussi appelé <strong>IOC</strong> (Inversion Of Control)</p></li></ul></div></li><li><p>Avantages</p><div class="ulist"><ul><li><p>Simplifie le code</p></li><li><p>Permet de varier les implémentations d&#8217;une dépendance (production vs mock)</p></li></ul></div></li></ul></div></section><section id="_injection_de_dpendances_injection_dans_un_module"><h2>Injection de dépendances : Injection dans un module</h2><div class="ulist"><ul><li><p>Dans le cas d&#8217;un module</p><div class="ulist"><ul><li><p>Les dépendances envers les autres modules sont déclarées dans le tableau des dépendances</p></li><li><p>Les fonctions d&#8217;initialisation <code>run</code> et <code>config</code> acceptent également des dépendances en paramètre</p></li></ul></div></li></ul></div>
+<div class="listingblock"><div class="content"><pre class="highlight"><code class="javascript language-javascript">// dépendance envers les modules annexes Services et Controllers
+var App = angular.module('App', ['Services','Controllers']);
+
+// injection du service $routeProvider
+App.config(function($routeProvider) {
+    $routeProvider.when(…);
+});</code></pre></div></div></section><section id="_injection_de_dpendances_injection_dans_un_service_contrleur"><h2>Injection de dépendances : Injection dans un service, contrôleur&#8230;&#8203;</h2><div class="ulist"><ul><li><p>Dans le cas des services, contrôleurs, filtres et directives, les dépendances sont déclarées comme des paramètres de la fonction de configuration</p></li></ul></div>
+<div class="listingblock"><div class="content"><pre class="highlight"><code class="javascript language-javascript">Services.service('PeopleSrvc', function() {
+	…
+});
+
+// le $scope des contrôleurs est également une dépendance
+// injectée !
+Controllers.
+    controller('PeopleCtrl', function($scope, PeopleSrvc) {
+        …
+    });</code></pre></div></div></section><section id="_injection_de_dpendances_minification_et_obfuscation"><h2>Injection de dépendances : Minification et obfuscation</h2><div class="ulist"><ul><li><p>AngularJS se base sur le nom du paramètre pour déterminer la dépendance à injecter</p><div class="ulist"><ul><li><p>Nom défini lors de son instanciation par le module</p></li></ul></div></li></ul></div></section><section id="_injection_de_dpendances_minification_et_obfuscation_2"><h2>Injection de dépendances : Minification et obfuscation</h2><div class="admonitionblock warning"><table><tr><td class="icon"><i class="fa fa-warning" title="Warning"></i></td><td class="content">en cas de minification et/ou obfuscation du code, les variables, fonctions et paramètres sont renommés !</td></tr></table></div>
+<div class="ulist"><ul><li><p>Avant</p></li></ul></div>
+<div class="listingblock"><div class="content"><pre class="highlight"><code class="javascript language-javascript">ControllersCtrls.controller('PeopleCtrl', function($scope) {
+     (...)
+});</code></pre></div></div>
+<div class="ulist"><ul><li><p>Après</p></li></ul></div>
+<div class="listingblock"><div class="content"><pre class="highlight"><code class="javascript language-javascript">var$21.func$33('PeopleCtrl', function(param$13) {
+     (...)
+});</code></pre></div></div></section><section id="_injection_de_dpendances_minification_et_obfuscation_3"><h2>Injection de dépendances : Minification et obfuscation</h2><div class="ulist"><ul><li><p>Solution : une notation alternative permet de préciser les dépendances sous forme de String</p><div class="ulist"><ul><li><p>Les Strings ne sont pas minifiées ni obfusquées</p></li></ul></div></li><li><p>Utilisation d&#8217;un tableau</p><div class="ulist"><ul><li><p>Les N premiers éléments sont les noms des dépendances</p></li><li><p>Le dernier élément est la fonction de configuration</p></li><li><p>L&#8217;ordre des noms doit correspondre à celui des paramètres</p></li></ul></div></li></ul></div></section><section id="_injection_de_dpendances_minification_et_obfuscation_4"><h2>Injection de dépendances : Minification et obfuscation</h2><div class="listingblock"><div class="content"><pre class="highlight"><code class="javascript language-javascript">&lt;module&gt;.controller('MyCtrl',['foo','bar',function(foo,bar){
+     foo.(…);
+     bar.(…);
+}]);</code></pre></div></div></section><section id="_modules_et_services_3"><h2>Modules et Services</h2><div class="imageblock" id="TP" style=""><img src="./images//TP4.jpg" alt="TP"></div>
+<div class="paragraph"><p><a href="TPs/TP4/" target="_blank">TP N°4</a> Mettre en place un service pour fournir et stocker les commandes</p></div></section><section id="_modules_et_services_br"><h2>Modules et Services<br></h2><h3>des questions</h3><div class="imageblock" id="question" style=""><img src="./images//question-mark.jpg" alt="question"></div></section><section id="_modules_et_services_4"><h2>Modules et Services</h2><div class="ulist"><ul><li><p>Dans ce chapitre nous avons vu les notions de suivantes</p><div class="ulist"><ul><li><p>La notion de module</p></li><li><p>Déclarer un module</p></li><li><p>La configuration</p></li><li><p>Les Factories</p></li><li><p>Service V Factory</p></li><li><p>Le paramétrage</p></li><li><p>L&#8217;IOC</p></li></ul></div></li></ul></div></section></section>
+<section><section id="_formulaires"><h2>Formulaires</h2></section><section id="_formulaires_2"><h2>Formulaires</h2><div class="ulist"><ul><li><p>Dans ce chapitre nous allons voir les points suivants</p><div class="ulist"><ul><li class="fragment"><p>Le Principe général</p></li><li class="fragment"><p>Les type de champs</p></li><li class="fragment"><p>Le fonctionnement</p></li><li class="fragment"><p>La validation des champs</p></li><li class="fragment"><p>L&#8217;état du formulaire</p></li></ul></div></li></ul></div></section><section id="_formulaires_3"><h2>Formulaires :</h2><h3>Principe général (1/4)</h3><div class="ulist"><ul><li><p>Principe général de gestion des formulaires</p><div class="ulist"><ul><li><p>Formulaire classique HTML</p></li><li><p>Désactiver le mécanisme de validation natif du navigateur</p></li><li><p>Associer des champs de saisie à des propriétés du scope grâce à la directive <code>ng-model</code></p></li><li><p>Appeler une méthode du scope pour traiter le formulaire en Javascript</p></li></ul></div></li></ul></div></section><section id="_formulaires_4"><h2>Formulaires :</h2><h3>Principe général (2/4)</h3><div class="ulist"><ul><li><p>Désactivation du mécanisme de validation natif du navigateur</p><div class="ulist"><ul><li><p>La validation sera effectuée par AngularJS</p></li></ul></div></li><li><p>Attribut <code>novalidate</code> sur le formulaire</p><div class="ulist"><ul><li><p>Attribut standard HTML5</p></li></ul></div></li></ul></div>
+<div class="listingblock"><div class="content"><pre class="highlight"><code class="html language-html">&lt;form novalidate&gt;
+    …
+&lt;/form&gt;</code></pre></div></div></section><section id="_formulaires_5"><h2>Formulaires :</h2><h3>Principe général (3/4)</h3><div class="ulist"><ul><li><p>Association des champs de saisie à des propriétés du scope grâce à la directive <code>ng-model</code></p></li></ul></div>
+<div class="listingblock"><div class="content"><pre class="highlight"><code class="html language-html">&lt;input type='text' ng-model='contact.name' /&gt;</code></pre></div></div>
+<div class="ulist"><ul><li><p>Association du formulaire à une propriété du scope</p><div class="ulist"><ul><li><p>Attribut <code>name</code></p></li><li><p>Utile pour la validation</p></li></ul></div></li></ul></div>
+<div class="listingblock"><div class="content"><pre class="highlight"><code class="html language-html">&lt;form name="contactForm" novalidate&gt;
+    …
+&lt;/form&gt;</code></pre></div></div></section><section id="_formulaires_6"><h2>Formulaires :</h2><h3>Principe général (4/4)</h3><div class="ulist"><ul><li><p>Appel d&#8217;une méthode du scope pour traiter le formulaire</p><div class="ulist"><ul><li><p><code>ng-submit</code> sur le formulaire + bouton "submit"</p></li></ul></div></li></ul></div>
+<div class="listingblock"><div class="content"><pre class="highlight"><code class="html language-html">&lt;form ng-submit="saveForm()" novalidate&gt;
+    &lt;input type="submit"/&gt;
+&lt;/form&gt;</code></pre></div></div>
+<div class="ulist"><ul><li><p><code>ng-click</code> sur un bouton simple</p></li></ul></div>
+<div class="listingblock"><div class="content"><pre class="highlight"><code class="html language-html">&lt;form novalidate&gt;
+    &lt;button ng-click="saveForm()" /&gt;
+&lt;/form&gt;</code></pre></div></div></section><section id="_formulaires_types_de_champs"><h2>Formulaires : Types de champs</h2><div class="ulist"><ul><li><p>AngularJS gère les types de champs de saisie habituels</p><div class="ulist"><ul><li><p><code>input[text]</code>, <code>input[radio]</code>, <code>input[checkbox]</code>, &#8230;&#8203;</p></li><li><p><code>select</code></p></li><li><p><code>textarea</code></p></li></ul></div></li></ul></div></section><section id="_formulaires_types_de_champs_2"><h2>Formulaires : Types de champs</h2><div class="ulist"><ul><li><p>Ainsi que certains des nouveaux types introduits par HTML5</p><div class="ulist"><ul><li><p><code>input[email]</code>,</p></li><li><p><code>input[number]</code>,</p></li><li><p><code>input[url]</code></p></li><li><p>&#8230;&#8203;</p></li></ul></div></li><li><p>Il est possible de créer ses propres types de champs</p><div class="ulist"><ul><li><p>Directive personnalisée</p></li></ul></div></li></ul></div></section><section id="_formulaires_exemple"><h2>Formulaires : Exemple</h2><div class="listingblock"><div class="content"><pre class="highlight"><code class="html language-html">&lt;form novalidate&gt;
+    Title :
+        &lt;input type="radio" ng-model="contact.title" value="Mr"/&gt;Mr
+        &lt;input type="radio" ng-model="contact.title" value="Ms"/&gt;Ms
+    Name :
+        &lt;input type="text"  ng-model="contact.name"/&gt;
+    Email :
+        &lt;input type="email" ng-model="contact.email"/&gt;
+    Website :
+        &lt;input type="url"   ng-model="contact.website"/&gt;
+    Notes :
+        &lt;textarea ng-model="contact.notes"&gt;&lt;/textarea&gt;
+
+    &lt;button ng-click="saveContact()"&gt;Save&lt;/button&gt;
+&lt;/form&gt;</code></pre></div></div></section><section id="_formulaires_fonctionnement"><h2>Formulaires : Fonctionnement</h2><div class="ulist"><ul><li><p>Un champ peut posséder un ou plusieurs validateurs</p><div class="ulist"><ul><li><p>Standards ou personnalisés</p></li></ul></div></li><li><p>Chaque champ dispose également d&#8217;une propriété <code>$error</code></p><div class="ulist"><ul><li><p>Map contenant l&#8217;état de chaque validateur du champ</p></li></ul></div></li></ul></div></section><section id="_formulaires_fonctionnement_2"><h2>Formulaires : Fonctionnement</h2><div class="listingblock"><div class="content"><pre class="highlight"><code class="html language-html">&lt;form name="contactForm"&gt;
+    &lt;input type="text"
+        name="address"
+        ng-model="address"
+        required/&gt;
+&lt;/form&gt;</code></pre></div></div>
+<div class="paragraph"><p>Etat de tous les validateurs du champ ?</p></div>
+<div class="listingblock"><div class="content"><pre class="highlight"><code class="handlebars language-handlebars">{{contactForm.address.$error | json}}      // {"required":true}</code></pre></div></div>
+<div class="paragraph"><p>Validateur "required" en erreur ?</p></div>
+<div class="listingblock"><div class="content"><pre class="highlight"><code class="handlebars language-handlebars">{{contactForm.address.$error.required}}    // true</code></pre></div></div></section><section id="_validation_validation_des_champs"><h2>Validation : Validation des champs</h2><div class="ulist"><ul><li><p>Un champ peut être rendu obligatoire</p><div class="ulist"><ul><li><p>De manière permanente : <code>required</code></p></li></ul></div></li></ul></div>
+<div class="listingblock"><div class="content"><pre class="highlight"><code class="html language-html">&lt;input type="text" ng-model="name" required /&gt;</code></pre></div></div>
+<div class="ulist"><ul><li><p>De manière conditionnelle :<br>
+<code>ng-required="&lt;model&gt;"</code></p></li></ul></div>
+<div class="listingblock"><div class="content"><pre class="highlight"><code class="html language-html">&lt;input type="checkbox" ng-model="nameRequired"/&gt;
+&lt;input ng-required="nameRequired" ng-model="name"&gt;</code></pre></div></div></section><section id="_validation_validation_des_champs_2"><h2>Validation : Validation des champs</h2><div class="ulist"><ul><li><p>Etat du validateur : <code>&lt;champ&gt;.$error.required</code></p></li></ul></div>
+<div class="listingblock"><div class="content"><pre class="highlight"><code class="html language-html">&lt;input name="address" ng-model="address" required&gt;
+&lt;span ng-show="form.address.$error.required"&gt;
+    Erreur
+&lt;/span&gt;</code></pre></div></div></section><section id="_validation_validation_des_champs_3"><h2>Validation : Validation des champs</h2><div class="ulist"><ul><li><p>Validation de la longueur des chaînes</p><div class="ulist"><ul><li><p><code>ng-minlength</code> et <code>ng-maxlength</code></p></li></ul></div></li></ul></div>
+<div class="listingblock"><div class="content"><pre class="highlight"><code class="html language-html">&lt;input type="text" name="address" ng-model="address"
+    ng-minlength="3" ng-maxlength="10" /&gt;</code></pre></div></div></section><section id="_validation_validation_des_champs_4"><h2>Validation : Validation des champs</h2><div class="ulist"><ul><li><p>Etat du validateur :</p><div class="ulist"><ul><li><p><code>&lt;champ&gt;.$error.minlength</code></p></li><li><p><code>&lt;champ&gt;.$error.maxlength</code></p></li></ul></div></li></ul></div>
+<div class="listingblock"><div class="content"><pre class="highlight"><code class="html language-html">&lt;input name="street" ng-model="street" ng-maxlength="30"&gt;
+&lt;span ng-show="form.street.$error.maxlength"&gt;
+    30 lettres max
+&lt;/span&gt;</code></pre></div></div></section><section id="_validation_validation_des_champs_5"><h2>Validation : Validation des champs</h2><div class="ulist"><ul><li><p>Contrôle du format de la saisie</p><div class="ulist"><ul><li><p>Expression régulière : <code>ng-pattern</code></p></li></ul></div></li></ul></div>
+<div class="listingblock"><div class="content"><pre class="highlight"><code class="html language-html">&lt;input type="text" name="phone" ng-model="phone"
+    ng-pattern="/^555-(\d){4}$/" /&gt;</code></pre></div></div>
+<div class="ulist"><ul><li><p>Etat du validateur : <code>&lt;champ&gt;.$error.pattern</code></p></li></ul></div>
+<div class="listingblock"><div class="content"><pre class="highlight"><code class="html language-html">&lt;input name="phone" ng-pattern="/^555-(\d){4}$/"&gt;
+&lt;span ng-show="form.phone.$error.pattern"&gt;Ex: 555-1234&lt;/span&gt;</code></pre></div></div></section><section id="_validation_tat_du_formulaire_et_des_champs"><h2>Validation : État du formulaire et des champs</h2><div class="ulist"><ul><li><p>AngularJS expose 4 propriétés au niveau du formulaire et de chacun des champs de saisie</p><div class="ulist"><ul><li><p><code>$valid</code> / <code>$invalid</code></p><div class="ulist"><ul><li><p>Indiquent si l&#8217;élément passe le contrôle des validateurs</p></li></ul></div></li></ul></div></li></ul></div></section><section id="_validation_tat_du_formulaire_et_des_champs_2"><h2>Validation : État du formulaire et des champs</h2><div class="ulist"><ul><li><p><code>$pristine</code> / <code>$dirty</code></p><div class="ulist"><ul><li><p>Indiquent si l&#8217;utilisateur a altéré l&#8217;élément</p></li><li><p>Un élément est considéré dirty dès qu&#8217;il subit une modification, même si la valeur initiale est restaurée ensuite</p></li></ul></div></li></ul></div></section><section id="_validation_tat_du_formulaire_et_des_champs_3"><h2>Validation : État du formulaire et des champs</h2><div class="ulist"><ul><li><p>Les classes CSS correspondantes sont appliquées aux éléments</p><div class="ulist"><ul><li><p><code>ng-valid</code>,</p></li><li><p><code>ng-invalid</code>,</p></li><li><p><code>ng-pristine</code>,</p></li><li><p><code>ng-dirty</code></p></li></ul></div></li></ul></div></section><section id="_validation_tat_du_formulaire_et_des_champs_4"><h2>Validation : État du formulaire et des champs</h2><div class="listingblock"><div class="content"><pre class="highlight"><code class="html language-html">&lt;form name="contactForm" novalidate&gt;
+    &lt;input type="text" name="contactName"
+            ng-model="contact.name" required /&gt;
+	&lt;div ng-show="contactForm.$valid"&gt;
+            Formulaire valide !
+	&lt;/div&gt;
+    &lt;div ng-show="contactForm.contactName.$dirty"&gt;
+        Champ "name" modifié !
+    &lt;/div&gt;
+&lt;/form&gt;</code></pre></div></div></section><section id="_validation_tat_du_formulaire_et_des_champs_5"><h2>Validation : État du formulaire et des champs</h2><div class="imageblock" id="form1" style=""><img src="./images//form1.png" alt="form1" width="20%"></div>
+<div class="imageblock" id="form2" style=""><img src="./images//form2.png" alt="form2" width="20%"></div>
+<div class="imageblock" id="form3" style=""><img src="./images//form3.png" alt="form3" width="20%"></div></section><section id="_formulaires_7"><h2>Formulaires</h2><div class="imageblock" id="TP" style=""><img src="./images//TP5.jpg" alt="TP"></div>
+<div class="paragraph"><p><a href="TPs/TP5/" target="_blank">TP N°5</a> Mettre en place un formulaire pour saisir de nouvelle commandes et les valider</p></div></section><section id="_formulaires_br"><h2>Formulaires<br></h2><h3>des questions</h3><div class="imageblock" id="question" style=""><img src="./images//question-mark.jpg" alt="question"></div></section><section id="_formulaires_8"><h2>Formulaires</h2><div class="ulist"><ul><li><p>Dans ce chapitre nous avons vu les notions de suivantes</p><div class="ulist"><ul><li><p>Le Principe général</p></li><li><p>Les type de champs</p></li><li><p>Le fonctionnement</p></li><li><p>La validation des champs</p></li><li><p>L&#8217;état du formulaire</p></li></ul></div></li></ul></div></section></section>
+<section><section id="_architectures_rest"><h2>Architectures REST</h2></section><section id="_architectures_rest_2"><h2>Architectures REST</h2><div class="ulist"><ul><li><p>Dans ce chapitre nous allons voir les points suivants</p><div class="ulist"><ul><li class="fragment"><p>L&#8217;architecture Rest</p></li><li class="fragment"><p>Le service $http</p></li><li class="fragment"><p>Les méthodes du service $http</p></li><li class="fragment"><p>Le service $resource</p></li><li class="fragment"><p>Les URLs avec des paramètres</p></li><li class="fragment"><p>Les actions</p></li><li class="fragment"><p>Les callbacks</p></li></ul></div></li></ul></div></section><section id="_architectures_rest_3"><h2>Architectures REST</h2><div class="ulist"><ul><li><p><strong>REST</strong> : *RE*presentational *S*tate *T*ransfer</p><div class="ulist"><ul><li><p>Type d’architecture pour systèmes hypermédia distribués</p></li><li><p>Inventé par Roy Fielding en 2000</p></li></ul></div></li></ul></div></section><section id="_architectures_rest_4"><h2>Architectures REST</h2><div class="ulist"><ul><li><p>Architecture</p><div class="ulist"><ul><li><p>Client / Serveur</p></li><li><p>Stateless : chaque requête au serveur contient toutes les informations nécessaires à son traitement</p></li><li><p>Basée sur la manipulation de ressources identifiées par leur URI</p><div class="ulist"><ul><li><p>création,</p></li><li><p>modification,</p></li><li><p>suppression</p></li></ul></div></li></ul></div></li></ul></div></section><section id="_architectures_rest_5"><h2>Architectures REST</h2><div class="ulist"><ul><li><p>Un système basé sur cette architecture est qualifié de <strong>RESTful</strong></p></li><li><p>Avantages</p><div class="ulist"><ul><li><p>Découplage client/serveur</p></li><li><p>Scalabilité du serveur</p></li><li><p>Mise en cache des ressources</p></li></ul></div></li><li><p>Inconvénients</p><div class="ulist"><ul><li><p>Pas d&#8217;indexation du site facilement</p></li><li><p>Gestion de la sécurité plus difficile (code côté client)</p></li><li><p>Traffic réseau supplémentaire</p></li></ul></div></li></ul></div></section><section id="_architectures_rest_6"><h2>Architectures REST</h2><div class="ulist"><ul><li><p>AngularJS promeut les architectures REST</p><div class="ulist"><ul><li><p>Applications riches entièrement gérées côté client</p></li><li><p>Manipulation de ressources REST</p></li><li><p>Utilisation possible du stockage local</p></li></ul></div></li><li><p>2 mécanismes d&#8217;interaction avec le serveur</p><div class="ulist"><ul><li><p><code>$http</code> : requêtes AJAX simples</p></li><li><p><code>$resource</code> : abstraction de ressources REST pour faciliter leur manipulation</p></li></ul></div></li></ul></div></section><section id="_le_service_http"><h2>Le service $http</h2><div class="ulist"><ul><li><p>Le service <code>$http</code> est construit autour de la notion de promesses (<strong>promise</strong>)</p><div class="ulist"><ul><li><p>Représente une valeur calculée de manière asynchrone</p></li><li><p>Implémentée par le service AngularJS <code>$q</code></p><div class="ulist"><ul><li><p>remplace la  “Pyramid of Doom” par des promise</p></li></ul></div></li><li><p>Comparable à la classe <code>Future&lt;T&gt;</code> en Java</p></li></ul></div></li></ul></div>
+<aside class="notes"><div class="paragraph"><p>$q est inspiré de <a href="https://github.com/kriskowal/q" target="_blank">l&#8217;API "Q" de Kris Kowal</a></p></div></aside></section><section id="_le_service_http_2"><h2>Le service $http</h2><div class="ulist"><ul><li><p>Avantages</p><div class="ulist"><ul><li><p>Interface plus réactive</p></li><li><p>Utilisation transparente dans les modèles et les templates</p></li><li><p>Possibilité de composer plusieurs opérations asynchrones</p></li></ul></div></li></ul></div></section><section id="_le_service_http_3"><h2>Le service $http</h2><div class="ulist"><ul><li><p>Le service <code>$http</code></p><div class="ulist"><ul><li><p>prend en paramètre une map de configuration</p></li><li><p>renvoie une <strong>promise</strong> exposant deux méthodes callback <strong>sucess</strong> et <strong>error</strong></p></li></ul></div></li></ul></div>
+<div class="listingblock"><div class="content"><pre class="highlight"><code class="javascript language-javascript">$http({method:'GET', url:'/foo'}).
+    success(
+        function(data, status, headers, config, statusText) {
+            // Appelée lorsque la réponse est disponible
+            // et valide (code HTTP 2xx)
+        }
+    ).
+    error(
+        function(data, status, headers, config, statusText) {
+            // Appelée en cas d'erreur technique,
+            // ou de réponse négative du serveur
+        }
+    );</code></pre></div></div></section><section id="_le_service_http_4"><h2>Le service $http</h2><div class="ulist"><ul><li><p>Principaux paramètres de configuration de la requête</p><div class="ulist"><ul><li><p>[string] <strong>method</strong> : 'GET', 'POST'&#8230;&#8203;</p></li><li><p>[string] <strong>url</strong> : '/foo'</p></li><li><p>[map] <strong>params</strong> : {foo:'bar'}</p></li><li><p>[map] <strong>headers</strong> : {accept:'text/html'}</p></li><li><p>[string/object] <strong>data</strong> : {values:['a','b'],&#8230;&#8203;}</p></li></ul></div></li></ul></div></section><section id="_le_service_http_5"><h2>Le service $http</h2><div class="ulist"><ul><li><p>Paramètres des fonctions callback <strong>success</strong> / <strong>error</strong></p><div class="ulist"><ul><li><p>[string/object] <strong>data</strong> : le corps du message</p></li><li><p>[number] <strong>status</strong> : code de retour HTTP</p></li><li><p>[fonction] <strong>headers</strong> : fonction d&#8217;accès aux headers</p></li><li><p>[map] <strong>config</strong> : la configuration utilisée pour la requête</p></li><li><p>[string] <strong>statusText</strong> : Le message de l&#8217;état de la réponse</p></li></ul></div></li></ul></div></section><section id="_le_service_http_6"><h2>Le service $http</h2><div class="ulist"><ul><li><p>Exemple : récupération de commandes depuis un contrôleur</p></li></ul></div>
+<div class="listingblock"><div class="content"><pre class="highlight"><code class="javascript language-javascript">$scope.commandes = [];
+$scope.errorMsg = '';
+
+$scope.getCommandes = function() {
+
+    $http({method:'GET', url:'/commandes'}).
+
+        success(function(data) {
+            $scope.commandes = data;
+            $scope.errorMsg = '';
+        }).
+        error(function(data, status) {
+            $scope.commandes = [];
+            $scope.errorMsg = 'Error ' + status;
+        });
+}</code></pre></div></div></section><section id="_le_service_http_7"><h2>Le service $http</h2><h3>une API simplifiée</h3><div class="listingblock"><div class="content"><pre class="highlight"><code class="javascript language-javascript">$http.jsonp("http://monServeur/Commandes?callback=JSON_CALLBACK").
+    success(function(data) {
+        $scope.commandes = data;
+});</code></pre></div></div>
+<div class="ulist"><ul><li><p><code>get(url, [config])</code></p></li><li><p><code>jsonp(url, [config])</code></p></li><li><p><code>post(url, data, [config])</code></p></li><li><p><code>put(url, data, [config])</code></p></li><li><p><code>head(url, [config])</code></p></li><li><p><code>delete(url, [config])</code></p></li></ul></div>
+<aside class="notes"><div class="paragraph"><p>Le nom du callback doit être la chaine JSON_CALLBACK qui sera remplacé à l&#8217;appel par le nom de la méthode correspondante.
+<a href="https://angularjs.org/greet.php?callback=JSON_CALLBACK&amp;name=Super%20Hero" class="bare">https://angularjs.org/greet.php?callback=JSON_CALLBACK&amp;name=Super%20Hero</a>
+<a href="https://angularjs.org/greet.php?callback=angular.callbacks._0&amp;name=Super%20Hero" class="bare">https://angularjs.org/greet.php?callback=angular.callbacks._0&amp;name=Super%20Hero</a>
+<a href="http://plnkr.co/edit/qTFQ3HshfpYqVxlpALUo" target="_blank">demo</a></p></div></aside></section><section id="_le_service_resource"><h2>Le service $resource</h2><div class="ulist"><ul><li><p>Angular fournit une surcouche au service $http,</p></li><li><p>Le service <code>$resource</code> permet d&#8217;abstraire et de simplifier l&#8217;interaction avec des ressources exposées en REST</p><div class="ulist"><ul><li><p>"Convention over configuration"</p></li><li><p>Basé sur le service <code>$http</code></p></li><li><p>Objet de type "ActiveRecord"</p></li></ul></div></li></ul></div></section><section id="_le_service_resource_2"><h2>Le service $resource</h2><div class="ulist"><ul><li><p>Syntaxe du service <code>$resource</code></p></li></ul></div>
+<div class="listingblock"><div class="content"><pre class="highlight"><code class="javascript language-javascript">$resource(url, [params], [actions]);</code></pre></div></div>
+<div class="ulist"><ul><li><p>Paramètres (détaillés plus loin)</p><div class="ulist"><ul><li><p>[string] <strong>url</strong> : l&#8217;URL de la ressource REST (obligatoire)</p></li><li><p>[map] <strong>params</strong> : valeurs par défaut pour les bindings d&#8217;URL</p></li><li><p>[map] <strong>actions</strong> : actions personnalisées additionnelles</p></li></ul></div></li></ul></div></section><section id="_le_service_resource_3"><h2>Le service $resource</h2><div class="ulist"><ul><li><p>Installation</p><div class="ulist"><ul><li><p>Inclure le script <strong>angular-resource.js</strong></p></li><li><p>Déclarer une dépendance vers le module <code>ngResource</code></p></li></ul></div></li></ul></div>
+<div class="listingblock"><div class="content"><pre class="highlight"><code class="javascript language-javascript">var myModule = angular.module('myModule', ['ngResource']);</code></pre></div></div></section><section id="_le_service_resource_4"><h2>Le service $resource</h2><h3>Déclaration d&#8217;une ressource</h3><div class="ulist"><ul><li><p>Une ressource se déclare via la méthode <code>factory</code> d&#8217;un module</p></li></ul></div>
+<div class="listingblock"><div class="content"><pre class="highlight"><code class="javascript language-javascript">var CommandeApp = angular.module('CommandeApp', ['ngResource']);
+CommandeApp.factory('Commandes', ['$resource',
+   function($resource) {
+      return $resource('/rest/commandes');
+   }
+]);</code></pre></div></div></section><section id="_le_service_resource_5"><h2>Le service $resource</h2><h3>Déclaration d&#8217;une ressource</h3><div class="ulist"><ul><li><p>Elle peut alors être injectée dans d&#8217;autres entités AngularJS</p><div class="ulist"><ul><li><p>Contrôleurs, services, modules, directives&#8230;&#8203;</p></li></ul></div></li></ul></div>
+<div class="listingblock"><div class="content"><pre class="highlight"><code class="javascript language-javascript">CommandeApp.controller('CommandeListCtrl', ['$scope', 'Commandes',
+  function ($scope, Commandes) {
+    $scope.commandes = Commandes.query();
+  }
+]);</code></pre></div></div></section><section id="_le_service_resource_6"><h2>Le service $resource</h2><h3>Paramètres - URL</h3><div class="ulist"><ul><li><p>L&#8217;URL peut contenir des paramètres de binding</p><div class="ulist"><ul><li><p>Forme ":binding" (ex: "/rest/commandes/:id")</p></li><li><p>Possibilité d&#8217;indiquer des valeurs par défaut</p></li><li><p>Les paramètres non associés à un binding sont passés sous forme de paramètres d&#8217;URL (?foo=bar)</p></li></ul></div></li></ul></div>
+<div class="listingblock"><div class="content"><pre class="highlight"><code class="javascript language-javascript">return $resource( '/rest/commandes/:group/:id',
+    {
+        group:'friends', // constante
+        id:'@userId', // propriété "userId" de l'objet
+        foo:'bar' // paramètre additionnel sans binding
+    }
+);</code></pre></div></div>
+<aside class="notes"><div class="paragraph"><p>valeurs par défaut (constantes ou extraites des propriétés de l&#8217;objet)
+les "/" serve de séparateurs et ne sont automatiquement supprimé</p></div></aside></section><section id="_le_service_resource_7"><h2>Le service $resource</h2><h3>Paramètres - Actions</h3><div class="ulist"><ul><li><p>Une ressource expose différentes <strong>actions</strong></p></li><li><p>Une action représente une configuration particulière des paramètres d&#8217;appel du service <code>$http</code></p><div class="ulist"><ul><li><p><code>method</code>, <code>url</code>, <code>params</code></p></li></ul></div></li></ul></div></section><section id="_le_service_resource_8"><h2>Le service $resource</h2><h3>Paramètres - Actions</h3><div class="ulist"><ul><li><p>Une action peut être invoquée</p><div class="ulist"><ul><li><p>A partir de la ressource, en lui passant une instance</p></li><li><p>Directement sur une instance particulière</p><div class="ulist"><ul><li><p>l&#8217;action est alors préfixée par <code>$</code></p></li></ul></div></li></ul></div></li><li><p>Les actions retournent un résultat <strong>synchrone</strong> qui sera complété de manière <strong>asynchrone</strong> afin d&#8217;utiliser une notation pratique</p></li></ul></div></section><section id="_le_service_resource_9"><h2>Le service $resource</h2><h3>Paramètres - Actions</h3><div class="ulist"><ul><li><p>Chaque ressource AngularJS expose 5 actions préconfigurées permettant la création, la mise à jour, la suppression et la recherche de ses instances</p><div class="ulist"><ul><li><p><code>get</code>,</p></li><li><p><code>save</code>,</p></li><li><p><code>remove</code>,</p></li><li><p><code>delete</code>,</p></li><li><p><code>query</code></p></li></ul></div></li></ul></div></section><section id="_le_service_resource_10"><h2>Le service $resource</h2><h3>Paramètres - Actions</h3><div class="ulist"><ul><li><p>Paramétrage des actions préconfigurées</p><div class="ulist"><ul><li><p><code>url</code> : l&#8217;URL de la ressource</p></li><li><p><code>method</code> :</p><div class="ulist"><ul><li><p><code>get</code>, <code>query</code> → GET</p></li><li><p><code>remove</code>, <code>delete</code> → DELETE</p></li><li><p><code>save</code> → POST</p></li></ul></div></li></ul></div></li></ul></div></section><section id="_le_service_resource_11"><h2>Le service $resource</h2><h3>Paramètres - Actions</h3><div class="listingblock"><div class="content"><pre class="highlight"><code class="javascript language-javascript">$scope.commandes = Commande.query(function(commandes) {
+    var firstCommande = commandes[0];
+    firstCommande.$delete();
+});</code></pre></div></div></section><section id="_le_service_resource_12"><h2>Le service $resource</h2><h3>Paramètres - Actions</h3><div class="ulist"><ul><li><p>De nouvelles actions peuvent être définies</p><div class="ulist"><ul><li><p>Dernier paramètre de la factory <code>$resource</code></p></li><li><p>Possibilité de définir le type de requête HTTP et les paramètres par défaut</p></li></ul></div></li></ul></div>
+<div class="listingblock"><div class="content"><pre class="highlight"><code class="javascript language-javascript">return $resource( '/rest/commandes/:id', {id:'@userId'},
+    {
+        export: { method: 'GET', params: {format:'pdf'} },
+        call: {method: 'GET', params: {where:'home'} }
+});</code></pre></div></div></section><section id="_le_service_resource_13"><h2>Le service $resource</h2><h3>Paramètres - Actions</h3><div class="ulist"><ul><li><p>A l&#8217;appel d&#8217;une action (préconfigurée ou personnalisée),+
+il est possible de passer 3 paramètres optionnels :</p><div class="ulist"><ul><li><p>[map] <strong>params</strong> : paramètres d&#8217;appel, fusionnés avec les paramètres par défaut de l&#8217;action et ceux de la ressource</p></li><li><p>[fonction] <strong>success</strong> : callback de réussite</p></li><li><p>[fonction] <strong>error</strong> : callback d&#8217;erreur</p></li></ul></div></li></ul></div></section><section id="_le_service_resource_14"><h2>Le service $resource</h2><h3>Paramètres - Actions</h3><div class="listingblock"><div class="content"><pre class="highlight"><code class="javascript language-javascript">var marvin = Commande.get( {id:42} ); // params
+
+marvin.$delete(
+    // fonction callback en cas de succès
+    function() {
+        console.log("Commande deleted.");
+    });</code></pre></div></div></section><section id="_architectures_rest_7"><h2>Architectures REST</h2><div class="imageblock" id="TP" style=""><img src="./images//TP6.jpg" alt="TP"></div>
+<div class="paragraph"><p><a href="TPs/TP6/" target="_blank">TP N°6</a> Récuperrer les informations depuis le serveur</p></div></section><section id="_architectures_rest_br"><h2>Architectures REST<br></h2><h3>des questions</h3><div class="imageblock" id="question" style=""><img src="./images//question-mark.jpg" alt="question"></div></section><section id="_architectures_rest_8"><h2>Architectures REST</h2><div class="ulist"><ul><li><p>Dans ce chapitre nous avons vu les notions de suivantes</p><div class="ulist"><ul><li><p>L&#8217;architecture Rest</p></li><li><p>Le service $http</p></li><li><p>Les méthodes du service $http</p></li><li><p>Le service $resource</p></li><li><p>Les URLs avec des paramètres</p></li><li><p>Les actions</p></li><li><p>Les callbacks</p></li></ul></div></li></ul></div></section></section>
+<section><section id="_i18n"><h2>I18N</h2></section><section id="_i18n_2"><h2>I18N</h2><div class="ulist"><ul><li><p>Dans ce chapitre nous allons voir les points suivants</p><div class="ulist"><ul><li class="fragment"><p>Installation</p></li><li class="fragment"><p>Les nombres</p></li><li class="fragment"><p>Les dates et l&#8217;heure</p></li><li class="fragment"><p>Les montants monétaires</p></li><li class="fragment"><p>La gestion du pluriel</p></li><li class="fragment"><p>L’internationalisation des templates</p></li></ul></div></li></ul></div></section><section id="_installation"><h2>Installation</h2><div class="ulist"><ul><li><p>AngularJS offre des fonctionnalités d&#8217;internationalisation</p><div class="ulist"><ul><li><p>155 langues ou variantes</p></li><li><p>Fichiers <strong>i18n/angular-locale_\*.js</strong>
+=== Installation</p></li></ul></div></li><li><p>C&#8217;est au développeur de sélectionner et d&#8217;importer les locales qu&#8217;il souhaite supporter</p><div class="ulist"><ul><li><p>Déterminé côté serveur</p></li><li><p>Alternativement, les scripts peuvent être concaténés (manuellement) afin de limiter le nombre de requêtes</p></li></ul></div></li></ul></div>
+<div class="listingblock"><div class="content"><pre class="highlight"><code class="html language-html">&lt;script src="js/angular/angular.js" /&gt;
+&lt;script src="js/angular/i18n/angular-locale_fr.js" /&gt;</code></pre></div></div>
+<aside class="notes"><div class="ulist"><ul><li><p>Les filtres <code>number</code>, <code>date</code> et <code>currency</code> utilisent alors le bon format</p></li></ul></div></aside></section><section id="_nombre"><h2>Nombre</h2><div class="ulist"><ul><li><p>Le filtre <code>number</code> permet de localiser les nombres</p></li></ul></div>
+<div class="listingblock"><div class="content"><pre class="highlight"><code class="handlebars language-handlebars">{{ &lt;binding/expression&gt; | number[:fractionSize] }}</code></pre></div></div>
+<div class="ulist"><ul><li><p>Paramètres</p><div class="ulist"><ul><li><p>[number] <strong>fractionSize</strong> : nombre de décimales<br>
+Par défaut 3</p></li></ul></div></li></ul></div>
+<div class="listingblock"><div class="content"><pre class="highlight"><code class="handlebars language-handlebars">{{ 1234.5678 | number }}
+Locale EN : 1,234.568
+Locale FR : 1 234,568
+Locale DE : 1.234,568
+{{ 1234.5678 | number:1 }}
+Locale FR : 1 234,6
+{{ 1234.5678 | number:6 }}
+Locale FR : 1 234,567800</code></pre></div></div>
+<aside class="notes"><div class="paragraph"><p>Par défaut 3 ; des zéros sont ajoutés au besoin</p></div></aside></section><section id="_dates_et_heures"><h2>Dates et heures</h2><div class="ulist"><ul><li><p>Le filtre <code>date</code> permet de localiser les dates et heures</p></li></ul></div>
+<div class="listingblock"><div class="content"><pre class="highlight"><code class="handlebars language-handlebars">{{ &lt;binding/expression&gt; | date[:format] }}</code></pre></div></div>
+<div class="ulist"><ul><li><p>Paramètres</p><div class="ulist"><ul><li><p>[string] <strong>format</strong> : format de date/heure<br>
+Format prédéfini ("short", "long"&#8230;&#8203;) ou personnalisé</p></li></ul></div></li></ul></div>
+<div class="listingblock"><div class="content"><pre class="highlight"><code class="handlebars language-handlebars">{{ 1366668000000 | date:'short' }}
+Locale EN : 4/23/13 12:00 AM
+Locale FR : 23/04/13 00:00
+Locale DE : 23.04.13 00:00
+{{ 1366668000000 | date:'fullDate' }}
+Locale FR : mardi 23 avril 2013
+{{ 1366668000000 | date:'dd/MM/yyyy' }}
+Locale FR : 23/04/2013</code></pre></div></div>
+<aside class="notes"><div class="paragraph"><p>Ne pas confondre short, shortDate et shortTime
+Idem avec medium</p></div></aside></section><section id="_dates_et_heures_2"><h2>Dates et heures</h2><div class="ulist"><ul><li><p>Formats prédéfinis (dépendants de la locale)</p></li></ul></div>
+<div class="listingblock"><div class="content"><pre class="highlight"><code class="javascript language-javascript">// Locale EN
+'medium'     : Apr 23, 2013 12:00:00 PM
+'short'      : 4/23/13 12:00 PM
+'fullDate'   : Tuesday, April 23, 2013
+'longDate'   : April 23, 2013
+'mediumDate' : Apr 23, 2013
+'shortDate'  : 4/23/13
+'mediumTime' : 12:00:00 PM
+'shortTime'  : 12:00 PM</code></pre></div></div>
+<div class="listingblock"><div class="content"><pre class="highlight"><code class="javascript language-javascript">// Locale FR
+'medium'     : 23 avr. 2013 12:00:00
+'short'      : 23/04/13 12:00
+'fullDate'   : mardi 23 avril 2013
+'longDate'   : 23 avril 2013
+'mediumDate' : 23 avr. 2013
+'shortDate'  : 23/04/13
+'mediumTime' : 12:00:00
+'shortTime'  : 12:00</code></pre></div></div></section><section id="_dates_et_heures_3"><h2>Dates et heures</h2><div class="ulist"><ul><li><p>Format personnalisé</p><div class="ulist"><ul><li><p>Composé à partir de symboles représentant les composantes d&#8217;une date</p></li><li><p>Gestion manuelle des locales</p></li></ul></div></li></ul></div>
+<div class="listingblock"><div class="content"><pre class="highlight"><code class="javascript language-javascript">'yyyy', 'yy', 'y' : Année
+'MMMM', 'MM', 'M' : Mois
+'dd', 'd'         : Jour (numéro)
+'EEEE', 'EEE'     : Jour (nom)
+'HH', 'H'         : Heure (sur 24h)
+'hh', 'h'         : Heure (sur 12h)
+'mm', 'm'         : Minute
+'ss', 's'         : Seconde
+'a'               : AM/PM
+'Z'               : Décalage du fuseau horaire</code></pre></div></div></section><section id="_montants_montaires"><h2>Montants monétaires</h2><div class="ulist"><ul><li><p>Le filtre <code>currency</code> permet de localiser les montants monétaires</p></li><li><p>Paramètres</p><div class="ulist"><ul><li><p>[string] <strong>symbol</strong> : symbole monétaire (€, $, USD…)<br>
+Le formatage reste celui de la locale, seul le symbole change</p></li></ul></div></li></ul></div>
+<div class="listingblock"><div class="content"><pre class="highlight"><code class="handlebars language-handlebars">{{ 1234.5678 | currency }}
+Locale EN :   $1,234.57
+Locale FR :    1 234,57 €
+Locale NO : kr 1 234,57</code></pre></div></div>
+<div class="listingblock"><div class="content"><pre class="highlight"><code class="handlebars language-handlebars">{{ 1234.5678 | currency:'€' }}
+Locale EN :  €1,234.57
+Locale FR :   1 234,57 €
+Locale NO : € 1 234,57</code></pre></div></div>
+<aside class="notes"><div class="listingblock"><div class="content"><pre class="highlight"><code class="handlebars language-handlebars">{{ &lt;binding/expression&gt; | currency[:symbol] }}</code></pre></div></div></aside></section><section id="_ngpluralize"><h2>ngPluralize</h2><div class="ulist"><ul><li><p>La directive <code>ngPluralize</code> permet d&#8217;adapter l&#8217;affichage de quantités en fonction de règles de catégorisation</p><div class="ulist"><ul><li><p>Ex : "Aucun contact", "Un contact", "Plusieurs contacts"</p></li></ul></div></li><li><p>Une forme particulière de pluralisation peut être associée à</p><div class="ulist"><ul><li><p>Une <strong>quantité précise</strong> d&#8217;éléments : 0, 1, 2, 27, 42…</p></li><li><p>Une <strong>catégorie</strong> (variable selon les locales)</p></li></ul></div></li></ul></div></section><section id="_ngpluralize_2"><h2>ngPluralize</h2><div class="ulist"><ul><li><p>Catégories</p><div class="ulist"><ul><li><p>En général, seulement "one" (1) et "other" (2+)</p></li><li><p>Japonais : "other" seulement</p></li><li><p>Irlandais : "one" (1), "two" (2), "few" (3..6), "many" (7..10), "other" (11+)</p></li></ul></div></li></ul></div></section><section id="_ngpluralize_3"><h2>ngPluralize</h2><div class="ulist"><ul><li><p>Syntaxe</p></li></ul></div>
+<div class="listingblock"><div class="content"><pre class="highlight"><code class="html language-html">&lt;ng-pluralize count="&lt;binding/expression&gt;" when="&lt;règles&gt;"&gt;
+&lt;/ng-pluralize&gt;</code></pre></div></div>
+<div class="ulist"><ul><li><p>Règles</p><div class="ulist"><ul><li><p>Exprimées sous la forme d&#8217;une map</p></li><li><p>Correspondance sur des quantités exactes ou des catégories<br></p></li></ul></div></li></ul></div>
+<div class="listingblock"><div class="content"><pre class="highlight"><code class="javascript language-javascript">{
+    '0'    : 'Aucun contact',
+    '42'   : 'Juste le bon nombre de contacts',
+    'one'  : 'Un contact',
+    'other': 'Plusieurs contacts'
+}</code></pre></div></div>
+<aside class="notes"><div class="paragraph"><p>les quantités exactes sont toujours prioritaires</p></div></aside></section><section id="_ngpluralize_4"><h2>ngPluralize</h2><div class="ulist"><ul><li><p>Les chaînes pluralisées peuvent contenir</p><div class="ulist"><ul><li><p>Des bindings AngularJS : <code>{{binding}}</code></p></li><li><p>Un placeholder pour le nombre d&#8217;entités : <code>{}</code></p></li></ul></div></li></ul></div>
+<div class="listingblock"><div class="content"><pre class="highlight"><code class="html language-html">&lt;ng-pluralize
+    count="contacts.length"
+    when=" {
+        '0'     : 'Aucun contact',
+        '1'     : 'Un contact : {{contacts[0]}}',
+        'other' : '{} contacts, dont
+            {{contacts[0]}} et {{contacts[1]}}'
+    }"
+&gt;&lt;/ng-pluralize&gt;</code></pre></div></div></section><section id="_ngpluralize_5"><h2>ngPluralize</h2><div class="listingblock"><div class="content"><pre class="highlight"><code>Avec $scope.contacts = ['Joe','Jack','William','Averell'];
+Si count = 0 : Aucun contact
+           1 : Un contact : Joe
+           2 : 2 contacts, dont Joe et Jack
+           3 : 3 contacts, dont Joe et Jack</code></pre></div></div>
+<div class="ulist"><ul><li><p>La directive <code>ngPluralize</code> offre également un paramètre <strong>offset</strong></p><div class="ulist"><ul><li><p>Valeur numérique</p></li><li><p>Autorise une pluralisation plus fine</p></li></ul></div></li></ul></div>
+<aside class="notes"><div class="paragraph"><p>1 et one n&#8217;auront pas la même spécification
+1 sera sans l&#8217;offset,
+one avec l&#8217;offset</p></div></aside></section><section id="_ngpluralize_6"><h2>ngPluralize</h2><div class="ulist"><ul><li><p>Algorithme</p><div class="ulist"><ul><li><p>Si count correspond exactement à une <strong>quantité exacte</strong> définie, utiliser la forme plurielle correspondante</p></li><li><p>Sinon, soustraire l&#8217;offset, et utiliser la forme plurielle de la <strong>catégorie</strong> adaptée à la nouvelle valeur</p></li></ul></div></li><li><p>L&#8217;ordre de déclaration des cas dans la map n&#8217;est pas significatif</p></li></ul></div></section><section id="_ngpluralize_7"><h2>ngPluralize</h2><div class="ulist"><ul><li><p>Exemple</p></li></ul></div>
+<div class="listingblock"><div class="content"><pre class="highlight"><code class="html language-html">&lt;ng-pluralize
+    count="contacts.length"
+    when=" {
+        '0'     : 'Aucun contact',
+        '1'     : 'Un contact : {{contacts[0]}}',
+        'one'   : '{{contacts[0]}} et un autre contact'
+        'other' : '{{contacts[0]}} et {} autres contacts'
+    }"
+    offset="1"
+&gt;&lt;/ng-pluralize&gt;</code></pre></div></div>
+<div class="listingblock"><div class="content"><pre class="highlight"><code>Avec $scope.contacts = ['Joe','Jack','William','Averell'];
+
+count
+    0 : Aucun contact                // quantité exacte
+    1 : Un contact : Joe             // quantité exacte
+    2 : Joe et un autre contact      // 2-1=1 → catégorie 'one'
+    3 : Joe et 2 autres contacts     // 3-1=2 → catégorie 'other'</code></pre></div></div></section><section id="_internationalisation_des_templates"><h2>Internationalisation des templates</h2><div class="ulist"><ul><li><p>En-dehors des mécanismes vus dans ce chapitre, AngularJS n&#8217;offre pas de mécanisme global d&#8217;internationalisation</p></li><li><p>Pistes</p><div class="ulist"><ul><li><p>Paramétrer le serveur pour envoyer les ressources dans la bonne locale : templates, images, scripts&#8230;&#8203;</p></li><li><p>Embarquer des dictionnaires dans l&#8217;application, interrogés à l&#8217;aide de directives AngularJS</p></li></ul></div></li></ul></div></section><section id="_internationalisation_des_templates_2"><h2>Internationalisation des templates</h2><div class="ulist"><ul><li><p>L&#8217;internationalisation reste l&#8217;un des points complexes des applications déportées côté client</p></li><li><p>Une solution peut-être d&#8217;utilisé <a href="http://angular-translate.github.io/" target="_blank">angular-translate</a></p></li></ul></div></section><section id="_i18n_br"><h2>I18N<br></h2><h3>des questions</h3><div class="imageblock" id="question" style=""><img src="./images//question-mark.jpg" alt="question"></div></section><section id="_i18n_3"><h2>I18N</h2><div class="ulist"><ul><li><p>Dans ce chapitre nous avons vu les notions de suivantes</p><div class="ulist"><ul><li><p>Installation</p></li><li><p>Les nombres</p></li><li><p>Les dates et l&#8217;heure</p></li><li><p>Les montants monétaires</p></li><li><p>La gestion du pluriel</p></li><li><p>L’internationalisation des templates</p></li></ul></div></li></ul></div></section></section>
+<section><section id="_filtres_4"><h2>Filtres</h2></section><section id="_filtres_5"><h2>Filtres</h2><div class="ulist"><ul><li><p>Dans ce chapitre nous allons voir les points suivants</p><div class="ulist"><ul><li class="fragment"><p>Les concepts</p></li><li class="fragment"><p>Le Filtre "Filter"</p></li><li class="fragment"><p>Les Filtres personnalisés</p></li></ul></div></li></ul></div></section><section id="_filtres_concept"><h2>Filtres : Concept</h2><div class="ulist"><ul><li><p>Un filtre dans AngularJS permet de mettre en forme une donnée</p><div class="ulist"><ul><li><p>Conserve un model de données propre</p></li><li><p>Pilote la mise en forme des données depuis la vue</p></li></ul></div></li></ul></div>
+<div class="listingblock"><div class="content"><pre class="highlight"><code class="handlebars language-handlebars">data | filtre1 | filtre2:param1 | filtre3:param1:param2</code></pre></div></div>
+<div class="ulist"><ul><li><p>Les filtres peuvent s&#8217;enchainer et avoir des paramètres</p></li></ul></div></section><section id="_filtres_concept_2"><h2>Filtres : Concept</h2><div class="ulist"><ul><li><p>AngularJS propose un ensemble de filtre par défaut :</p><div class="ulist"><ul><li><p><code>currency</code></p></li><li><p><code>date</code></p></li><li><p><code>filter</code></p></li><li><p><code>limitTo</code></p></li><li><p><code>lowercase</code></p></li><li><p><code>number</code></p></li><li><p><code>orderBy</code></p></li><li><p><code>uppercase</code></p></li><li><p><code>json</code></p></li></ul></div></li></ul></div></section><section id="_filtres_filter"><h2>Filtres : Filter</h2><div class="ulist"><ul><li><p>Le filtre <code>filter</code> est très important et est très modulable</p></li><li><p>Il permet de filtrer un tableau de données</p></li></ul></div>
+<div class="listingblock"><div class="content"><pre class="highlight"><code class="handlebars language-handlebars">data | filter:'string'
+data | filter:{prop1:'value', prop2:'value'}</code></pre></div></div>
+<div class="ulist"><ul><li><p><strong>String</strong> : Retourne les éléments qui contiennent la chaine</p></li><li><p><strong>Object</strong> : Propriété par propriété, retourne les éléments qui contiennent chaque valeur</p></li></ul></div></section><section id="_filtres_filter_2"><h2>Filtres : Filter</h2><div class="ulist"><ul><li><p><strong>Function</strong> : La fonction est appelée pour chaque élément de la liste. Si la fonction retourne <code>true</code>, l&#8217;élément est conservé.</p></li></ul></div>
+<div class="listingblock"><div class="content"><pre class="highlight"><code class="javascript language-javascript">data | filter:commande
+$scope.commande = function(element) {
+    return element.indexOf('bar')!= -1 }</code></pre></div></div></section><section id="_filtres_filtre_personnalis_1_2"><h2>Filtres : Filtre personnalisé 1/2</h2><div class="ulist"><ul><li><p>Se déclare dans un module via la fonction <code>filter</code></p></li></ul></div>
+<div class="listingblock"><div class="content"><pre class="highlight"><code class="javascript language-javascript">angular.module('MyModule')
+    .filter('myFilter', function factory( … /*$inject*/) {
+        return function(input, param1, param2) { … }
+    })</code></pre></div></div>
+<div class="ulist"><ul><li><p>S&#8217;utilise dans un template</p></li></ul></div>
+<div class="listingblock"><div class="content"><pre class="highlight"><code class="html language-html">&lt;span&gt;{{ data | myFilter:'value1':'value2' }}&lt;/span&gt;</code></pre></div></div></section><section id="_filtres_filtre_personnalis_1_2_2"><h2>Filtres : Filtre personnalisé 1/2</h2><div class="ulist"><ul><li><p>S&#8217;utilise dans du JS à l&#8217;aide de l&#8217;injection du service <code>$filter</code></p></li></ul></div>
+<div class="listingblock"><div class="content"><pre class="highlight"><code class="javascript language-javascript">function ($scope, commandeService, Commande, $filter) {
+$scope.value = $filter('myFilter')(data,'value1','value2');
+... }</code></pre></div></div></section><section id="_filtres_filtre_personnalis_2_2"><h2>Filtres : Filtre personnalisé 2/2</h2><div class="ulist"><ul><li><p>Permet d&#8217;utiliser les services d&#8217;AngularJS (à injecter)</p></li><li><p>Attention à ne pas confondre à la fonction du filtre <code>filter</code></p></li><li><p>Permet d&#8217;aller plus loin qu&#8217;avec le filtre <code>filter</code></p><div class="ulist"><ul><li><p>Transformation de données simples (pas seulement filtre de listes)</p></li><li><p>Possibilité d&#8217;utiliser des paramètres</p></li></ul></div></li><li><p>Le filtre est accessible dans les templates dès que le module est en dépendance</p></li></ul></div></section><section id="_filtres_6"><h2>Filtres</h2><div class="imageblock" id="TP" style=""><img src="./images//TP7.jpg" alt="TP"></div>
+<div class="paragraph"><p><a href="TPs/TP7/" target="_blank">TP N°7</a> changer les montants présentés a l&#8217;aide de filtres</p></div></section><section id="_filtres_br"><h2>Filtres<br></h2><h3>des questions</h3><div class="imageblock" id="question" style=""><img src="./images//question-mark.jpg" alt="question"></div></section><section id="_filtres_7"><h2>Filtres</h2><div class="ulist"><ul><li><p>Dans ce chapitre nous avons vu les notions de suivantes</p><div class="ulist"><ul><li><p>Les concepts</p></li><li><p>Le Filtre "Filter"</p></li><li><p>Les Filtres personnalisés</p></li></ul></div></li></ul></div></section></section>
+<section><section id="_directives"><h2>Directives</h2></section><section id="_directives_2"><h2>Directives</h2><div class="ulist"><ul><li><p>Dans ce chapitre nous allons voir les points suivants</p><div class="ulist"><ul><li class="fragment"><p>Le concept</p></li><li class="fragment"><p>Les Directives d&#8217;angularJS</p></li><li class="fragment"><p>Les APIs</p></li><li class="fragment"><p>Le cycle de vie</p></li><li class="fragment"><p>Les scopes</p></li><li class="fragment"><p>Les Directive ngModel&#8230;&#8203;</p></li><li class="fragment"><p>La transclusion</p></li><li class="fragment"><p>La boite à outils</p></li></ul></div></li></ul></div></section><section id="_directives_3"><h2>Directives</h2><h3>Concept</h3><div class="ulist"><ul><li><p>Une directive dans AngularJS permet d&#8217;ajouter du comportement au DOM</p><div class="ulist"><ul><li><p>Permet d&#8217;enrichir le langage HTML</p></li><li><p>Associe du comportement</p></li><li><p>Evite d&#8217;avoir à utiliser des sélections comme dans jQuery</p></li><li><p>Peut aller du marqueur informatif au widget très riche</p></li></ul></div></li></ul></div>
+<aside class="notes"><div class="paragraph"><p><a href="https://www.undefinednull.com/2014/02/11/mastering-the-scope-of-a-directive-in-angularjs/" class="bare">https://www.undefinednull.com/2014/02/11/mastering-the-scope-of-a-directive-in-angularjs/</a></p></div></aside></section><section id="_directives_4"><h2>Directives</h2><h3>Concept</h3><div class="ulist"><ul><li><p>Il y a 3 moyens de déclencher une directive :</p></li></ul></div>
+<div class="listingblock"><div class="content"><pre class="highlight"><code class="html language-html">&lt;span data-my-directive="exp"&gt;&lt;/span&gt;</code></pre></div></div>
+<div class="listingblock"><div class="content"><pre class="highlight"><code class="html language-html">&lt;my-directive&gt;&lt;/my-directive&gt;</code></pre></div></div>
+<div class="listingblock"><div class="content"><pre class="highlight"><code class="html language-html">&lt;span class="my-directive: exp;"&gt;&lt;/span&gt;</code></pre></div></div>
+<div class="ulist"><ul><li><p>Une URL à retenir : <a href="http://docs.angularjs.org/guide/directive" class="bare">http://docs.angularjs.org/guide/directive</a></p></li></ul></div>
+<aside class="notes"><div class="paragraph"><p><a href="http://plnkr.co/edit/fzfECnthWFjb9MYj4dJA?p=preview" class="bare">http://plnkr.co/edit/fzfECnthWFjb9MYj4dJA?p=preview</a></p></div></aside></section><section id="_directives_5"><h2>Directives</h2><h3>Directives d&#8217;AngularJS</h3><div class="ulist"><ul><li><p>AngularJS propose par défaut de nombreuses directives</p></li><li><p>Elles sont toutes écrites avec la même API que celle qui nous est proposé (le code source peut être consulté)</p></li><li><p>C&#8217;est l&#8217;ensemble de ces directives augmenté du bloc <code>{{}}</code> qui forment le langage de template d&#8217;Angular</p></li></ul></div></section><section id="_directives_6"><h2>Directives</h2><h3>Directives d&#8217;AngularJS</h3><div class="ulist"><ul><li><p>Directives de base les plus connues :</p><div class="ulist"><ul><li><p><code>ngBind</code>,</p></li><li><p><code>ngShow</code>,</p></li><li><p><code>ngRepeat</code>,</p></li><li><p><code>ngClick</code>,</p></li><li><p><code>ngModel</code>,</p></li><li><p>&#8230;&#8203;</p></li></ul></div></li></ul></div></section><section id="_directives_7"><h2>Directives</h2><h3>La directive ngBind</h3><div class="listingblock"><div class="content"><pre class="highlight"><code class="html language-html">&lt;span data-ng-bing="commande.address"&gt;&lt;/span&gt;</code></pre></div></div>
+<div class="listingblock"><div class="content"><pre class="highlight"><code class="javascript language-javascript">// github.com/angular/angular.js
+//      /blob/master/src/ng/directive/ngBind.js
+
+var ngBindDirective = ngDirective(
+    function(scope, element, attr) {
+        element.addClass('ng-binding')
+            .data('$binding', attr.ngBind);
+        scope.$watch(attr.ngBind,
+            function ngBindWatchAction(value) {
+                element.text(value == undefined ? '' : value);
+            }
+        );
+    }
+);</code></pre></div></div></section><section id="_directives_8"><h2>Directives</h2><h3>API : Les bases</h3><div class="ulist"><ul><li><p>Se déclare dans un module via la fonction <code>directive</code></p></li></ul></div>
+<div class="listingblock"><div class="content"><pre class="highlight"><code class="javascript language-javascript">angular.module('MyModule')
+    .directive('myDirective1', function() {
+        return { … directive definition … }
+    })
+    .directive('myDirective2', function factory() {
+        return function(scope, elem, attrs) { … }
+    })</code></pre></div></div></section><section id="_directives_9"><h2>Directives</h2><h3>API : Les bases</h3><div class="ulist"><ul><li><p><code>&lt;name&gt;</code> : le nom de la directive sera repris dans son déclencheur.</p></li></ul></div>
+<div class="admonitionblock warning"><table><tr><td class="icon"><i class="fa fa-warning" title="Warning"></i></td><td class="content">camelCase dans le JS, kebab-case dans l&#8217;HTML<br>
+&#8658; <code>myDirective1</code> devient <code>my-directive1</code></td></tr></table></div>
+<div class="ulist"><ul><li><p><code>&lt;restrict&gt;</code> : Types de déclencheurs souhaités :</p><div class="ulist"><ul><li><p>balise (<code>E</code>)lement,</p></li><li><p>attribut (<code>A</code>)ttribut par défaut,</p></li><li><p>classe (<code>C</code>)lasse</p></li></ul></div></li></ul></div>
+<aside class="notes"><div class="paragraph"><p>process de normalization :</p></div>
+<div class="paragraph"><p>Supprimé x- et data- au début du nom de  l&#8217;element/l&#8217;attribut.
+Convertir les nom delimited par <code>:</code>, <code>-</code>, or <code>_</code> name to camelCase.</p></div>
+<div class="paragraph"><p>Les types ne sont pas exclusif, on peut en associer plusieurs</p></div></aside></section><section id="_directives_10"><h2>Directives</h2><h3>API : Les bases</h3><div class="ulist"><ul><li><p><code>&lt;template&gt;</code>,</p></li><li><p><code>&lt;templateUrl&gt;</code> : L&#8217;activation de la directive ajoutera le contenu du template dans l&#8217;élément du DOM</p></li><li><p><code>&lt;replace&gt;</code> : remplace l&#8217;élément au profit du template, au lieu de remplacer le contenu de l&#8217;element</p></li></ul></div>
+<div class="listingblock"><div class="content"><pre class="highlight"><code class="javascript language-javascript">  .directive('myCustomer', function() {
+    return {
+      restrict: 'E',
+      templateUrl: 'my-customer.html'
+    };
+  });</code></pre></div></div></section><section id="_directives_api_cycle_de_vie"><h2>Directives : API : Cycle de vie</h2><div class="imageblock" id="API" style=""><img src="./images//API-cycle-vie.png" alt="API : Cycle de vie" width="85%"></div></section><section id="_directives_11"><h2>Directives</h2><h3>API : Cycle de vie</h3><div class="ulist"><ul><li><p>Les éléments sont éffectué dans l&#8217;ordre suivant :</p><div class="ulist"><ul><li><p>Parcours du DOM</p></li><li><p>Compile (1 fois par directive)</p></li><li><p>Controller (1 par instance d&#8217;une directive)</p></li><li><p>Link</p><div class="ulist"><ul><li><p>PreLink</p></li><li><p>PostLink</p></li></ul></div></li></ul></div></li></ul></div>
+<aside class="notes"><div class="paragraph"><p>DOM : recherche des directives
+Compile : pas de scope, insertions des templates
+Controller : pas le controlleur classique, celui de la directive, exposant ses méthodes
+PreLink : avant la transclusion permet d&#8217;enrichir une directive pour ses enfants
+PostLink : au moment de la transclusion, scope et binding pret, mise en place de $watch</p></div>
+<div class="paragraph"><p><a href="http://plnkr.co/edit/oInSBuKWzibxTbbUS5F7" class="bare">http://plnkr.co/edit/oInSBuKWzibxTbbUS5F7</a>
+<a href="http://embed.plnkr.co/oInSBuKWzibxTbbUS5F7/" class="bare">http://embed.plnkr.co/oInSBuKWzibxTbbUS5F7/</a></p></div></aside></section><section id="_directives_12"><h2>Directives</h2><h3>API : Cycle de vie</h3><div class="ulist"><ul><li><p>La plupart du code des directives se positionnent dans la fonction link (postLink plus précisément)</p><div class="ulist"><ul><li><p>On y a accès au scope, à l&#8217;élément et ses attributs</p></li><li><p>Le template est alors déjà compilé et réagira au scope</p></li></ul></div></li><li><p>On utilise la fonction compile quand on veut pouvoir intervenir sur le template avant sa compilation</p><div class="ulist"><ul><li><p>Utiliser un template différent suivant les cas</p></li><li><p>Utilisation de la transclusion (voir plus loin)</p></li></ul></div></li></ul></div></section><section id="_directives_13"><h2>Directives</h2><h3>API : Cycle de vie</h3><div class="ulist"><ul><li><p>Le controller est principalement utilisé pour la collaboration entre plusieurs directives</p><div class="ulist"><ul><li><p>C&#8217;est le seul élément qui pourra être partagé entre deux directives en dehors du scope</p></li><li><p>On retrouve un controller d&#8217;une autre directive en utilisant le paramètre require sur la directive</p></li></ul></div></li></ul></div></section><section id="_directives_api_cycle_de_vie_2"><h2>Directives : API : Cycle de vie</h2><div class="ulist"><ul><li><p>Différentes méthodes de déclaration des étapes du cycle de vie :</p></li></ul></div>
+<div class="listingblock"><div class="content"><pre class="highlight"><code class="javascript language-javascript">.directive('myDirective1', function dirInjection() {
+    return { link : function(scope, elem, attrs) { … } }
+})
+.directive('myDirective2', function dirInjection() { return {
+        controller : function($scope, $elem, $attrs, $transclude,
+            otherInjectables) { … }
+        compile : function(elem, attrs, transclude) {
+            return {
+                pre :
+                    function(scope, elem, attrs, controller){ … }
+                post :
+                    function(scope, elem, attrs, controller){ … }
+                } }
+} } )
+.directive('myDirective3', function() {
+    return function(scope, elem, attrs) { … }
+})</code></pre></div></div>
+<aside class="notes"><div class="paragraph"><p>Les fonction pre et post retourné par la fonction compile sont utilié par la fonction link
+il s&#8217;agit de pre-link et post-link</p></div></aside></section><section id="_directives_api_scopes"><h2>Directives : API : Scopes</h2><div class="ulist"><ul><li><p>Le lien entre la directive et le scope est fondamental et doit être paramétré avec soins</p></li><li><p>Par défaut, la directive ne crée pas de scope et fonctionne dans le scope courant, c&#8217;est rarement le fonctionnement souhaité</p></li><li><p><code>scope</code> : <code>true</code></p><div class="ulist"><ul><li><p>Crée un scope enfant avec héritage</p></li><li><p>C&#8217;est celui qui est utilisé avec ng-controller</p></li><li><p>Attention à la directive qui modifie le scope parent par héritage</p></li></ul></div></li></ul></div></section><section id="_directives_14"><h2>Directives</h2><h3>API : Scopes</h3><div class="ulist"><ul><li><p><code>scope</code> : <code>{}</code></p><div class="ulist"><ul><li><p>Crée un scope enfant mais isolé</p></li><li><p>Permet à la directive de ne pas avoir d&#8217;impact sur le scope</p></li><li><p>Brise l&#8217;héritage des scopes si la directive n&#8217;est pas « finale »</p></li><li><p>Propose des notations simplifiées : <code>@</code>, <code>=</code>, <code>&amp;</code></p></li></ul></div></li></ul></div></section><section id="_directives_15"><h2>Directives</h2><h3>API : Scopes</h3><div class="ulist"><ul><li><p>Notations raccourcies pour manipuler un scope isolé</p><div class="ulist"><ul><li><p><code>'='</code> instaure un binding bi-directionnel avec le scope parent</p></li><li><p><code>'@'</code> copie dans le scope enfant le résultat d&#8217;une expression évaluée dans le scope parent</p></li><li><p><code>'&amp;'</code> ajoute au scope enfant une fonction qui évalue une expression dans le scope parent</p></li></ul></div></li></ul></div></section><section id="_directives_16"><h2>Directives</h2><h3>API : Scopes</h3><div class="listingblock"><div class="content"><pre class="highlight"><code class="html language-html">//HTML
+&lt;my-directive	my-attr-1="foo"
+                my-attr-2="hello {{foo}}"
+                my-attr-3="func(myAttr1)"&gt;
+&lt;/my-directive&gt;</code></pre></div></div>
+<div class="listingblock"><div class="content"><pre class="highlight"><code class="javascript language-javascript">//Controller
+$scope.foo = 'bar'
+$scope.func = alert
+
+//Directive
+scope : {
+    myAttr1 : '=',	// scope.myAttr1 &lt;=&gt; $scope.foo
+    myAttr2 : '@',	// scope.myAttr2 = 'hello bar'
+    myAttr3 : '&amp;'	// scope.myAttr3() =&gt; alert('bar')
+}</code></pre></div></div></section><section id="_directives_17"><h2>Directives</h2><h3>ngModel</h3><div class="ulist"><ul><li><p><code>ngModel</code> est une directive très importante dans AngularJS</p><div class="ulist"><ul><li><p>Unifie le fonctionnement du binding bi-directionnel des champs de saisies avec le model</p></li><li><p>Communique avec les directives associées au champ de saisie pour réaliser le binding</p></li><li><p>Publie un controlleur très important <code>ngModelController</code></p></li></ul></div></li></ul></div></section><section id="_directives_18"><h2>Directives</h2><h3>ngModel</h3><div class="ulist"><ul><li><p>Réaliser proprement une directive qui traite d&#8217;un champ de saisie implique de s&#8217;intégrer avec la directive <code>ngModel</code></p></li><li><p>elle ajoute les classes suivante</p><div class="ulist"><ul><li><p>ng-valid si le modèle est valide.</p></li><li><p>ng-invalid si le modèle est invalide.</p></li><li><p>ng-pristine si le modèle est neuf.</p></li><li><p>ng-dirty si le modèle est modifié.</p></li></ul></div></li></ul></div>
+<aside class="notes"><div class="paragraph"><p>ngAnnimate ainsi que les classes CSS peuvent s&#8217;appuyé sur l&#8217;apparition et la disparition de ces classes</p></div></aside></section><section id="_directives_19"><h2>Directives</h2><h3>ngModel</h3><div class="ulist"><ul><li><p>Par défaut, <code>ngModel</code> collabore avec :</p><div class="ulist"><ul><li><p>input</p><div class="ulist"><ul><li><p>text, number, email, url,</p></li><li><p>checkbox,</p></li><li><p>radio,</p></li></ul></div></li><li><p>select,</p></li><li><p>textarea</p></li></ul></div></li></ul></div></section><section id="_directives_20"><h2>Directives</h2><h3>ngModelController</h3><div class="ulist"><ul><li><p>Pour utiliser le <code>ngModelController</code></p><div class="ulist"><ul><li><p>Déclarer une directive avec</p></li></ul></div></li></ul></div>
+<div class="listingblock"><div class="content"><pre class="highlight"><code>require : '?ngModel'</code></pre></div></div>
+<div class="ulist"><ul><li><p>Positionner comme quatrième paramètre de la fonction link l&#8217;argument <code>ngModelController</code></p></li></ul></div></section><section id="_directives_21"><h2>Directives</h2><h3>ngModelController</h3><div class="ulist"><ul><li><p>Utiliser le <code>ngModelController</code> permet de</p><div class="ulist"><ul><li><p>Se brancher avec le système de validité de formulaire</p></li><li><p>Profiter du système de chaîne de</p><div class="ulist"><ul><li><p>parsers</p></li><li><p>formatters</p></li></ul></div></li></ul></div></li></ul></div></section><section id="_directives_22"><h2>Directives</h2><h3>ngModelController</h3><div class="ulist"><ul><li><p>Fonctions à définir ou utiliser :</p><div class="ulist"><ul><li><p><code>$render</code>,</p></li><li><p><code>$setPristine</code>,</p></li><li><p><code>$setValidity</code>,</p></li><li><p><code>$setViewValue</code></p></li></ul></div></li></ul></div></section><section id="_directives_23"><h2>Directives</h2><h3>ngModelController</h3><div class="ulist"><ul><li><p>Propriétés :</p><div class="ulist"><ul><li><p><code>$viewValue</code>,</p></li><li><p><code>$modelValue</code>,</p></li><li><p><code>$parsers</code>,</p></li><li><p><code>$formatters</code>,</p></li><li><p><code>$error</code>,</p></li><li><p>$pristine`, <code>$dirty</code>, <code>$valid</code>, <code>$invalid</code></p></li></ul></div></li></ul></div></section><section id="_directives_ngmodelcontroller"><h2>Directives : ngModelController</h2><div class="listingblock"><div class="content"><pre class="highlight"><code class="javascript language-javascript">module.directive('contenteditable', function() {
+    return { restrict: 'A', require: '?ngModel',
+        link: function(scope, element, attrs, ngModel) {
+            if(!ngModel) return;
+            ngModel.$render = function() {
+                element.html(ngModel.$viewValue || '');
+            };
+            element.on('blur keyup change', function() {
+                scope.$evalAsync(read);
+            });
+            read();
+            function read() {
+                var html = element.html();
+                if( attrs.stripBr &amp;&amp; html=='&lt;br&gt;' ) { html = ''; }
+                ngModel.$setViewValue(html);
+            }}};
+});</code></pre></div></div></section><section id="_directives_24"><h2>Directives</h2><h3>Transclusion</h3><div class="ulist"><ul><li><p>La <strong>transclusion</strong> est ce qui permet à une directive de capturer le contenu de l&#8217;élément dans le quel elle se trouve pour le reproduire ailleurs</p></li></ul></div>
+<div class="listingblock"><div class="content"><pre class="highlight"><code class="html language-html">&lt;pane title="{{title}}"&gt;{{text}}&lt;/pane&gt;</code></pre></div></div>
+<div class="listingblock"><div class="content"><pre class="highlight"><code class="javascript language-javascript">angular.module('transclude', []).directive('pane', function(){
+    return {
+        restrict: 'E',
+        transclude: true,
+        scope: { title:'@' },
+        template: '&lt;article&gt;' +
+            '&lt;header&gt;&lt;h1&gt;{{title}}&lt;/h1&gt;&lt;/header&gt;' +
+            '&lt;p ng-transclude&gt;&lt;/p&gt;' +
+            '&lt;/article&gt;'
+    };
+});</code></pre></div></div></section><section id="_directives_25"><h2>Directives</h2><h3>ngTransclude &amp; compile</h3><div class="ulist"><ul><li><p>Deux solutions pour mettre en œuvre la transclusion</p><div class="ulist"><ul><li><p>Utiliser la directive <code>ngTransclude</code> (simple)</p></li><li><p>Utiliser la fonction transclude dans un fonction (avancé)</p></li></ul></div></li><li><p>Dans les deux cas, ne pas oublier le paramètre <code>transclude : true</code></p></li><li><p>Directive <code>ngTransclude</code></p><div class="ulist"><ul><li><p>A utiliser dans le template d&#8217;une directive</p></li><li><p>Reporte le contenu capturé dans un nouveau scope</p></li></ul></div></li></ul></div>
+<aside class="notes"><div class="literalblock"><div class="content"><pre>transclude : true</pre></div></div>
+<div class="paragraph"><p>crée un nouveau scope,
+si l&#8217;on met en plus</p></div>
+<div class="literalblock"><div class="content"><pre>scope : true</pre></div></div>
+<div class="paragraph"><p>il y as 2 scopes</p></div></aside></section><section id="_directives_26"><h2>Directives</h2><h3>ngTransclude &amp; compile</h3><div class="ulist"><ul><li><p>Fonction <code>transclude</code></p><div class="ulist"><ul><li><p>En paramètre (3ème) de la fonction <code>compile</code></p></li></ul></div></li></ul></div>
+<div class="listingblock"><div class="content"><pre class="highlight"><code class="javascript language-javascript">compile : function($elem, $attrs, $transclude) {
+    ...
+    $transclude(scope, function(clone) {
+        anElement.append(clone);
+    })
+}</code></pre></div></div></section><section id="_directives_27"><h2>Directives</h2><h3>ngTransclude &amp; link</h3><div class="ulist"><ul><li><p>Fonction <code>transclude</code></p><div class="ulist"><ul><li><p>En paramètre (5ème) de la fonction <code>link</code></p></li></ul></div></li></ul></div>
+<div class="listingblock"><div class="content"><pre class="highlight"><code class="javascript language-javascript">    link: function(scope, el, attr, ctrl, transclude) {
+      el.append(transclude());
+    }</code></pre></div></div>
+<aside class="notes"><div class="paragraph"><p><a href="http://teropa.info/blog/2015/06/09/transclusion.html" class="bare">http://teropa.info/blog/2015/06/09/transclusion.html</a></p></div></aside></section><section id="_directives_28"><h2>Directives</h2><h3>Boite à outils : Scope</h3><div class="ulist"><ul><li><p>Pour développer une directive, il faut bien connaître l&#8217;API mais aussi savoir bien manipuler certains outils d&#8217;AngularJS</p></li><li><p>La plupart des directives agissent sur le scope soit via un scope lié par héritage soit isolé</p></li><li><p><code>$watch</code></p><div class="ulist"><ul><li><p>Pour que la directive puisse réagir à la modification du model, il faudra utiliser des <code>$watch</code> sur le scope</p></li><li><p>Attention à limiter au maximum le <code>$watch</code> par égalité</p></li></ul></div></li></ul></div>
+<aside class="notes"><div class="paragraph"><p>préférrer $on plutôt que $watch
+permet une approche plus événementielle</p></div></aside></section><section id="_directives_29"><h2>Directives</h2><h3>Boite à outils : Scope</h3><div class="ulist"><ul><li><p>l&#8217;approche plus événementielle</p><div class="ulist"><ul><li><p>la fonction $on permet de réagir sur un évènement d&#8217;autres composants</p></li><li><p>améliore la sépartion des briques</p></li></ul></div></li></ul></div>
+<div class="listingblock"><div class="content"><pre class="highlight"><code class="javascript language-javascript">$rootScope.$broadcast('myEvent', 'foo');</code></pre></div></div>
+<div class="listingblock"><div class="content"><pre class="highlight"><code class="javascript language-javascript">angular.module('myApp')
+  .controller('myController', ['$scope', '$rootScope',
+    function ($scope, $rootScope) {
+      $scope.$on('myEvent', function (event, param1) {
+        console.log(param1);
+      });
+    }
+  ]);</code></pre></div></div></section><section id="_directives_30"><h2>Directives</h2><h3>Boite à outils : Scope</h3><div class="ulist"><ul><li><p><code>$apply</code></p><div class="ulist"><ul><li><p>Si la directive écoute des événements hors d&#8217;Angular, il faut utiliser des <code>$apply</code></p></li><li><p>Attention, il ne peut pas y avoir deux <code>$apply</code> dans la même pile d&#8217;execution, cela soulève une erreur</p></li><li><p>Possibilité de remplacer <code>$apply</code> par le service <code>$timeout</code></p></li></ul></div></li></ul></div></section><section id="_directives_31"><h2>Directives</h2><h3>Boite à outils : $parse &amp; $compile</h3><div class="ulist"><ul><li><p>Le paramétrage d&#8217;une directive se fait par les attributs de l&#8217;élément, des outils existent pour les traiter efficacement</p></li><li><p>Le service <code>$parse</code> permet de</p><div class="ulist"><ul><li><p>Évaluer une expression dans un scope</p></li><li><p>Définir une valeur d&#8217;une expression dans un scope</p></li><li><p>Exécuter une expression dans un scope enrichie</p></li></ul></div></li></ul></div></section><section id="_directives_32"><h2>Directives</h2><h3>Boite à outils : $parse &amp; $compile</h3><div class="listingblock"><div class="content"><pre class="highlight"><code class="javascript language-javascript">var getter = $parse('user.name')
+var setter = getter.assign
+var context = {user : {name : 'angular'}}
+getter(context) // --&gt; angular
+setter(context, 'newValue') // --&gt; newValue</code></pre></div></div></section><section id="_directives_33"><h2>Directives</h2><h3>Boite à outils : $parse &amp; $compile</h3><div class="ulist"><ul><li><p>Il peut arriver également dans une directive d&#8217;avoir à compiler une partie d&#8217;HTML manuellement</p></li></ul></div>
+<div class="listingblock"><div class="content"><pre class="highlight"><code class="javascript language-javascript">$compile(element.contents())(scope)</code></pre></div></div></section><section id="_directives_34"><h2>Directives</h2><h3>Boite à outils : angular.element</h3><div class="ulist"><ul><li><p>Dans les directives, on dispose de l&#8217;élément sur lequel est appliqué la directive</p></li><li><p>Cet élément est un objet enrichi par jqLite qui ressemble à un élément jQuery avec quelques particularités</p><div class="ulist"><ul><li><p>Toutes les fonctionnalités de jQuery ne sont pas disponibles (consulter la liste dans la documentation)</p></li></ul></div></li></ul></div></section><section id="_directives_35"><h2>Directives</h2><h3>Boite à outils : angular.element</h3><div class="ulist"><ul><li><p><code>controller(&lt;name&gt;)</code> : Récupère le contrôleur courant</p></li><li><p><code>injector()</code> : Récupère l&#8217;injecteur courant</p></li><li><p><code>scope()</code> : Récupère le scope courant</p></li></ul></div></section><section id="_directives_36"><h2>Directives</h2><h3>Boite à outils : angular.element</h3><div class="ulist"><ul><li><p>Ces outils peuvent s&#8217;avérer utile pour retrouver le contexte Angular dans un composant « non Angular »</p></li><li><p><a href="http://docs.angularjs.org/api/angular.element" class="bare">http://docs.angularjs.org/api/angular.element</a></p></li></ul></div></section><section id="_directives_37"><h2>Directives</h2><div class="imageblock" id="TP" style=""><img src="./images//TP8.jpg" alt="TP"></div>
+<div class="paragraph"><p><a href="TPs/TP8/" target="_blank">TP N°8</a> faire une directive pour afficher les informations</p></div></section><section id="_directives_br"><h2>Directives<br></h2><h3>des questions</h3><div class="imageblock" id="question" style=""><img src="./images//question-mark.jpg" alt="question"></div></section><section id="_directives_38"><h2>Directives</h2><div class="ulist"><ul><li><p>Dans ce chapitre nous avons vu les notions de suivantes</p><div class="ulist"><ul><li><p>Le concept</p></li><li><p>Les Directives d&#8217;angularJS</p></li><li><p>Les APIs</p></li><li><p>Le cycle de vie</p></li><li><p>Les scopes</p></li><li><p>Les Directive ngModel&#8230;&#8203;</p></li><li><p>La transclusion</p></li><li><p>La boite à outils</p></li></ul></div></li></ul></div></section></section>
+<section><section id="_authentification"><h2>Authentification</h2></section><section id="_authentification_2"><h2>Authentification</h2><div class="ulist"><ul><li><p>Dans ce chapitre nous allons voir les points suivants</p><div class="ulist"><ul><li class="fragment"><p>L&#8217;authentification sur une SPA</p></li><li class="fragment"><p>Les en-têtes HTTP</p></li><li class="fragment"><p>Les intercepteurs HTTP</p></li><li class="fragment"><p>L&#8217;approche JWT</p></li></ul></div></li></ul></div></section><section id="_authentification_sur_une_spa"><h2>Authentification sur une SPA</h2><div class="ulist"><ul><li><p>Approches au niveau du formulaire d&#8217;identification</p><div class="ulist"><ul><li><p>SSO : formulaire déporté sur un service différent</p></li><li><p>Page de login : navigation après validation du formulaire</p></li><li><p>Login intégré : formulaire intégré à l&#8217;application</p></li></ul></div></li></ul></div>
+<aside class="notes"><div class="paragraph"><p>SSO : Single Sign On</p></div></aside></section><section id="_authentification_sur_une_spa_2"><h2>Authentification sur une SPA</h2><div class="ulist"><ul><li><p>Approches au niveau de la transmission de la session</p><div class="ulist"><ul><li><p>Cookie de session : nécessite du statefull côté serveur</p></li><li><p>Cookie avec credentials : nécessite un bon cryptage</p></li><li><p>Headers dans chaque requêtes</p></li><li><p>Passage d&#8217;un token en paramètre des requêtes</p></li></ul></div></li></ul></div></section><section id="_authentification_sur_une_spa_3"><h2>Authentification sur une SPA</h2><div class="ulist"><ul><li><p>Toutes les méthodes ont des avantages et des inconvénients mais certaines nécessités reviennent</p></li><li><p>Quelque soit la sécurité mise en oeuvre côté client (JS), il faudra <strong>toujours</strong> implémenter une couche de sécurité côté serveur</p></li></ul></div></section><section id="_en_ttes_http"><h2>En-têtes HTTP</h2><div class="ulist"><ul><li><p>Le service $http ajoute déjà automatiquement des en-têtes HTTP</p></li><li><p>On peut y accéder au moment de la configuration de l&#8217;application via <code>$httpProvider.defaults.headers</code></p></li></ul></div></section><section id="_en_ttes_http_2"><h2>En-têtes HTTP</h2><div class="ulist"><ul><li><p>On pourra par exemple ajouter un entête sur les requêtes de type GET</p></li></ul></div>
+<div class="listingblock"><div class="content"><pre class="highlight"><code class="javascript language-javascript">$httpProvider.defaults.headers.get = { 'My-Header' : 'value' }</code></pre></div></div>
+<div class="ulist"><ul><li><p>On peut aussi y accéder au moment de l&#8217;exécution via <code>$http.defaults.headers</code></p></li></ul></div>
+<div class="listingblock"><div class="content"><pre class="highlight"><code class="javascript language-javascript">$http.defaults.headers.common =
+    { 'Content-Type' : 'application/xml' }</code></pre></div></div></section><section id="_intercepteurs_http"><h2>Intercepteurs HTTP</h2><div class="ulist"><ul><li><p>Les intercepteurs de filtrent les requêtes et les réponses de manière synchrone ou asynchrone à l&#8217;aide du service <code>$q</code></p></li><li><p>Il faut enregistrer les factory d&#8217;intercepteurs avec leurs dépendances dans l&#8217;array <code>$httpProvider.interceptors</code></p></li></ul></div></section><section id="_intercepteurs_http_2"><h2>Intercepteurs HTTP</h2><div class="listingblock"><div class="content"><pre class="highlight"><code class="javascript language-javascript">$httpProvider.interceptors.push(
+    function($q, dependency1, dependency2) {
+        return {
+            request: function(config)
+                { return config || $q.when(config); },
+            requestError: function(rejection)
+                { return $q.reject(rejection); },
+            response: function(response)
+                { return response || $q.when(response); },
+            responseError: function(rejection)
+                { return $q.reject(rejection); }
+        };
+    }
+);</code></pre></div></div></section><section id="_intercepteurs_http_3"><h2>Intercepteurs HTTP</h2><div class="ulist"><ul><li><p>Un exemple d&#8217;intercepteur qui stocke localement :</p><div class="ulist"><ul><li><p>Les headers de la dernière réponse OK reçue</p></li><li><p>Le statut HTTP de la dernière réponse KO reçue</p></li></ul></div></li></ul></div>
+<div class="listingblock"><div class="content"><pre class="highlight"><code class="javascript language-javascript">$httpProvider.interceptors.push(function($q) {
+    return {
+        response: function(response) {
+            localStorage.setItem('latestHeaders', response.headers);
+            return response || $q.when(response);
+        },
+        responseError: function(rejection) {
+            localStorage.setItem('latestRejectionStatus',
+                rejection.status);
+            return $q.reject(rejection);
+        }
+    };
+});</code></pre></div></div></section><section id="_l_approche_jwt"><h2>L&#8217;approche JWT</h2><div class="ulist"><ul><li><p>JSON Web Token (JWT) est un standard ouvert pour échanger de l&#8217;information de manière sécurisée via un jeton signé.</p></li><li><p>Un jeton JWT est composée de trois parties :</p><div class="ulist"><ul><li><p>un entête,</p></li><li><p>une charge utile et</p></li><li><p>une signature.</p></li></ul></div></li></ul></div></section><section id="_l_approche_jwt_2"><h2>L&#8217;approche JWT</h2><h3>L&#8217;en-tête</h3><div class="ulist"><ul><li><p>L&#8217;en-tête indique l&#8217;algorithme utilisé pour la signature :</p></li></ul></div>
+<div class="listingblock"><div class="content"><pre class="highlight"><code>header = '{"alg":"HS256","typ":"JWT"}'</code></pre></div></div></section><section id="_l_approche_jwt_3"><h2>L&#8217;approche JWT</h2><h3>La charge utile</h3><div class="ulist"><ul><li><p>La charge utile est variable en fonction de l&#8217;application, mais il est indiqué dans les spécifications de JWT d&#8217;inclure une empreinte temporelle à la création<br>
+(un "iat" ou encore "issued at" en anglais):</p></li></ul></div>
+<div class="listingblock"><div class="content"><pre class="highlight"><code>payload = '{"loggedInAs":"admin","iat":1422779638}'</code></pre></div></div></section><section id="_l_approche_jwt_4"><h2>L&#8217;approche JWT</h2><h3>La signature</h3><div class="ulist"><ul><li><p>La signature est calculée via une concaténation de l&#8217;en-tête et de la charge utile, encodés en base64url, et séparés par un point.<br>
+La signature elle même est obtenue via l&#8217;algorithme spécifié dans l&#8217;en-tête appliqué au jeton et à la clé :</p></li></ul></div>
+<div class="listingblock"><div class="content"><pre class="highlight"><code>key           = 'secretkey'
+unsignedToken = encodeBase64(header) + '.' + encodeBase64(payload)
+signature     = HMAC-SHA256(key, unsignedToken)</code></pre></div></div>
+<aside class="notes"><div class="paragraph"><p>La signature est généré coté serveur, est il n&#8217;y as pas besoin de partagé la clef de Chiffrage qui peut changer très régulièrement</p></div></aside></section><section id="_l_approche_jwt_5"><h2>L&#8217;approche JWT</h2><h3>Le Token</h3><div class="ulist"><ul><li><p>Le token est généré a partir de la concaténation des trois parties encodé en base64, séparré par <code>.</code> :</p></li></ul></div>
+<div class="listingblock"><div class="content"><pre class="highlight"><code>token = encodeBase64(header) + '.'
+    + encodeBase64(payload) + '.'
+    + encodeBase64(signature)</code></pre></div></div>
+<div class="ulist"><ul><li><p>le token vaut : <br>
+eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2d<br>
+nZWRJbkFzIjoiYWRtaW4iLCJpYXQiOjE0MjI3Nzk2Mzh<br>
+9.gzSraSYS8EXBxLN_oWnFSRgCzcmJmMjLiuyu5CSpyHI</p></li></ul></div></section><section id="_l_approche_jwt_6"><h2>L&#8217;approche JWT</h2><h3>L&#8217;utilisation</h3><div class="ulist"><ul><li><p>Lors de l&#8217;authentication,</p><div class="ulist"><ul><li><p>quand l&#8217;utilisateur c&#8217;est correctement identifé,</p></li><li><p>un JSON Web Token est retourné au client</p></li><li><p>il est sauvegardé localement</p><div class="ulist"><ul><li><p>dans le local storage,</p></li><li><p>dans le session storage</p></li><li><p>ou dans un cookie</p></li></ul></div></li></ul></div></li></ul></div>
+<aside class="notes"><div class="paragraph"><p>au lieu de l&#8217;approche traditionnelle de création de session sur le serveur et le retour par cookie.</p></div></aside></section><section id="_l_approche_jwt_7"><h2>L&#8217;approche JWT</h2><h3>L&#8217;utilisation</h3><div class="ulist"><ul><li><p>Quand l&#8217;utilisateur veux acceder à une route ou une resource protégée, le "user agent" transmettra le JWT, typiquement en temps qu&#8217;en-tête Authorization utilisant le schema Bearer.</p></li></ul></div>
+<div class="listingblock"><div class="content"><pre class="highlight"><code>Authorization: Bearer &lt;token&gt;</code></pre></div></div></section><section id="_l_approche_jwt_8"><h2>L&#8217;approche JWT</h2><h3>L&#8217;utilisation</h3><div class="ulist"><ul><li><p>c&#8217;est un méchanisme d&#8217;authentication stateless car l&#8217;état de l&#8217;utilisateur n&#8217;est jamais stocké en mémoire.</p></li><li><p>Le serveur vérifiera la validité du Token JWT contenu dans l&#8217;en-tête Autaurisation.</p></li><li><p>La charge utile des jetons JWTs est un objet, elle contient toute l&#8217;information nécessaire, reduisant le besoin de requêter la BDD systématiquement.</p></li><li><p>Il faut faire attention au possibilité de rejeut avec un me token JWT</p></li></ul></div></section><section id="_authentification_br"><h2>Authentification<br></h2><h3>des questions</h3><div class="imageblock" id="question" style=""><img src="./images//question-mark.jpg" alt="question"></div></section><section id="_authentification_3"><h2>Authentification</h2><div class="ulist"><ul><li><p>Dans ce chapitre nous avons vu les notions de suivantes</p><div class="ulist"><ul><li><p>L&#8217;authentification sur une SPA</p></li><li><p>Les en-têtes HTTP</p></li><li><p>Les intercepteurs HTTP</p></li><li><p>L&#8217;approche JWT</p></li></ul></div></li></ul></div></section></section>
+<section><section id="_tests"><h2>Tests</h2></section><section id="_tests_2"><h2>Tests</h2><div class="ulist"><ul><li><p>Dans ce chapitre nous allons voir les points suivants</p><div class="ulist"><ul><li class="fragment"><p>Les Concepts</p></li><li class="fragment"><p>Jasmine</p></li><li class="fragment"><p>ngMock</p></li><li class="fragment"><p>Karma</p></li><li class="fragment"><p>Test d&#8217;un contrôlleur</p></li><li class="fragment"><p>Test d&#8217;une directive</p></li><li class="fragment"><p>Test end-2-end</p></li><li class="fragment"><p>ngMockE2E</p></li></ul></div></li></ul></div></section><section id="_concepts_5"><h2>Concepts</h2><div class="ulist"><ul><li><p>AngularJS a été conçu avec l&#8217;objectif d&#8217;être facilement testable</p></li><li><p>C&#8217;est principalement l&#8217;injection de dépendance qui facilite les tests</p></li><li><p>Il est possible de démarrer un composant dans un contexte «mocké» pour pouvoir le tester en isolation</p></li><li><p>AngularJS propose <strong>angular-mocks.js</strong> qui fournit ces outils</p></li></ul></div></section><section id="_concepts_6"><h2>Concepts</h2><div class="ulist"><ul><li><p>Dans la documentation Jasmine est utilisé comme framework de test</p></li><li><p>AngularJS peut être également testé avec d&#8217;autres frameworks</p></li><li><p>Karma propose d’exécuter facilement les tests</p></li><li><p>Il a été développé par l&#8217;équipe d&#8217;Angular, il est donc mis en avant</p></li><li><p>Il n&#8217;est pour autant ni indispensable ni lié à Angular</p></li></ul></div></section><section id="_jasmine"><h2>Jasmine</h2><div class="imageblock" id="Jasmine" style=""><img src="./images//Jasmine.png" alt="Jasmine"></div>
+<div class="ulist"><ul><li><p>Orienté BDD</p></li><li><p>Framework de test JavaScript simple sans DOM<br>
+<a href="http://jasmine.github.io/" class="bare">http://jasmine.github.io/</a></p></li><li><p>Propose une API JS plutôt naturelle pour décrire des tests</p></li></ul></div>
+<div class="listingblock"><div class="content"><pre class="highlight"><code class="javascript language-javascript">describe("Une suite", function() {
+    it("un test", function() {
+        expect(true).toBe(true);
+    });
+});</code></pre></div></div></section><section id="_jasmine_2"><h2>Jasmine</h2><div class="ulist"><ul><li><p>Fournit la page SpecRunner.html</p></li></ul></div>
+<div class="imageblock" id="SpecRunner" style=""><img src="./images//SpecRunner.png" alt="SpecRunner.html" width="100%"></div></section><section id="_ngmock"><h2>ngMock</h2><div class="ulist"><ul><li><p>Boite à outils fournit par AngularJS pour les tests unitaires</p></li><li><p>Charger le fichier <strong>angular-mocks.js</strong> dans les tests</p></li><li><p>Définit des fonctions globales :  <code>dump</code>, <code>inject</code>, <code>module</code>, <code>TzDate</code></p></li><li><p>Définit des services supplémentaires : <code>$exceptionHandler</code>, <code>$httpBackend</code>, <code>$log</code>, <code>$timeout</code></p></li><li><p><code>module('moduleName')</code></p><div class="ulist"><ul><li><p>Charge le module et toutes ses dépendances et les rends disponibles à la fonction <code>inject</code></p></li></ul></div></li><li><p><code>inject(function(&#8230;&#8203;) {…})</code></p><div class="ulist"><ul><li><p>Exécute la fonction en mettant en œuvre l&#8217;injection de dépendance d&#8217;AngularJS avec le contexte du module chargé</p></li></ul></div></li></ul></div></section><section id="_jasmine_ngmock"><h2>Jasmine &amp; ngMock</h2><div class="ulist"><ul><li><p>Avec les outils proposés par <code>ngMock</code>, il est possible de faire un test Jasmine d&#8217;un composant d&#8217;AngularJS</p></li></ul></div>
+<div class="listingblock"><div class="content"><pre class="highlight"><code class="javascript language-javascript">angular.module('myApplicationModule', [])
+    .value('mode', 'app')
+    .value('version', 'v1.0.1');
+
+describe('MyApp', function() {
+
+    beforeEach(module('myApplicationModule'));
+
+    it('should provide a version',
+        inject(function(mode, version) {
+            expect(version).toEqual('v1.0.1');
+            expect(mode).toEqual('app');
+        })
+    );
+
+});</code></pre></div></div></section><section id="_ngmock_httpbackend"><h2>ngMock $httpBackend</h2><div class="ulist"><ul><li><p><code>$httpBackend</code> est le service fourni par <code>ngMock</code> qui permet de mocker des requêtes HTTP</p></li><li><p>Il fonctionne dans le système d&#8217;injection de dépendance d&#8217;Angular et intercepte les requêtes lancées par <code>$http</code></p></li><li><p><code>$httpBackend.expect</code></p><div class="ulist"><ul><li><p>Définit une requête « attendue » (stricte)</p></li></ul></div></li><li><p><code>$httpBackend.when</code></p><div class="ulist"><ul><li><p>Définit une requête qui « peut » arriver (lâche)</p></li></ul></div></li></ul></div></section><section id="_ngmock_httpbackend_2"><h2>ngMock $httpBackend</h2><div class="listingblock"><div class="content"><pre class="highlight"><code class="javascript language-javascript">describe('MyController', function() {
+    var httpBackend, rootScope, createController;
+
+    beforeEach(inject(
+        function($httpBackend, $rootScope, $controller) {
+            $httpBackend.when('GET', '/auth.py')
+		.respond({userId: 'userX'}, {'A-Token': 'xxx'});
+            rootScope = $rootScope;
+            httpBackend = $httpBackend;
+
+            createController = function() {
+                return $controller('MyController',
+                    {'$scope' : $rootScope });
+            };
+   }));</code></pre></div></div></section><section id="_karma"><h2>Karma</h2><div class="ulist"><ul><li><p>Karma est un outil qui permet d&#8217;automatiser l’exécution des tests</p></li></ul></div>
+<div class="imageblock" id="SchemaKarma" style=""><img src="./images//SchemaKarma.png" alt="Schema Karma" width="75%"></div></section><section id="_configuration_de_karma"><h2>Configuration de Karma</h2><div class="ulist"><ul><li><p>Karma nécessite un fichier de configuration en JS, il contient :</p><div class="ulist"><ul><li><p>Le framework de test (compatibilité avec plusieurs fmk)</p></li><li><p>La liste des scripts à charger</p></li><li><p>Les navigateurs à piloter</p></li><li><p>Diverses configurations techniques</p></li></ul></div></li></ul></div></section><section id="_configuration_de_karma_2"><h2>Configuration de Karma</h2><div class="listingblock"><div class="content"><pre class="highlight"><code class="javascript language-javascript">module.exports = function(config){
+    config.set({
+        basePath : '../',
+        files : [
+            'app/lib/angular/angular.js',
+            'app/lib/angular/angular-*.js',
+            'test/lib/angular/angular-mocks.js',
+            'app/js/**/*.js',
+            'test/unit/**/*.js'
+        ],
+        autoWatch : true,
+        frameworks: ['jasmine'],
+        browsers : ['Chrome']
+    })
+}</code></pre></div></div></section><section id="_test_d_un_contrleur"><h2>Test d&#8217;un contrôleur</h2><div class="ulist"><ul><li><p>Le contrôleur à tester</p></li></ul></div>
+<div class="listingblock"><div class="content"><pre class="highlight"><code class="javascript language-javascript">angular.module('myModule')
+    .controller('myController', function($scope, $http) {
+        $scope.foo = 'bar'
+        $http.get('http://localhost/api/foo')
+            .success(function(data) {
+                $scope.foo = data
+            })
+    })</code></pre></div></div></section><section id="_test_d_un_contrleur_2"><h2>Test d&#8217;un contrôleur</h2><div class="ulist"><ul><li><p>Le test</p></li></ul></div>
+<div class="listingblock"><div class="content"><pre class="highlight"><code class="javascript language-javascript">describe('MyController Test', function() {
+    var httpBackend, scope;
+    beforeEach(module('myModule'));
+    beforeEach(inject(
+        function($rootScope, $httpBackend, $controller) {
+            scope = $rootScope.$new();
+            httpBackend = $httpBackend; 
+            $httpBackend.expect('GET', 'http://localhost/api/foo')
+                .respond('new bar');
+            $controller('myController', {'$scope' : scope} );
+    }));
+    it('should switch foo from bar to new bar', function() {
+        expect(scope.foo).toBe('bar');
+        httpBackend.flush();
+        expect(scope.foo).toBe('new bar');
+    });
+});</code></pre></div></div></section><section id="_test_d_une_directive"><h2>Test d&#8217;une directive</h2><div class="listingblock"><div class="content"><pre class="highlight"><code class="javascript language-javascript">describe('directives', function() {
+    beforeEach(module('myApp.directives'));
+
+    describe('app-version', function() {
+        it('should print current version', function() {
+
+            module(function($provide) {
+                $provide.value('version', 'TEST_VER');
+            });
+
+            inject(function($compile, $rootScope) {
+                var element =
+                    $compile('&lt;span app-version&gt;&lt;/span&gt;')($rootScope);
+                expect(element.text()).toEqual('TEST_VER');
+            });
+
+        });
+    });
+});</code></pre></div></div></section><section id="_tests_e2e_concepts"><h2>Tests E2E : Concepts</h2><div class="ulist"><ul><li><p>Les tests end-2-end proposent une tout autre approche et sont complémentaires avec les tests unitaires</p><div class="ulist"><ul><li><p>Simule l’exécution complète de l&#8217;application</p></li><li><p>Plus lent et plus fastidieux à écrire ( → Page Object Pattern)</p></li></ul></div></li><li><p>Utilise Protractor, également développé par Angular</p><div class="ulist"><ul><li><p>S&#8217;appuie sur Selenium</p></li><li><p>Encapsulation de WebdriverJS</p></li></ul></div></li><li><p>Permet le pilotage du browser</p></li><li><p>Permet d&#8217;accéder au DOM facilement</p></li><li><p><a href="https://github.com/angular/protractor/" class="bare">https://github.com/angular/protractor/</a></p></li></ul></div></section><section id="_tests_e2e_api"><h2>Tests E2E : API</h2><div class="ulist"><ul><li><p>L&#8217;API est inspiré de Jasmine</p><div class="ulist"><ul><li><p><code>describe</code>, <code>beforeEach</code>, <code>afterEach</code>, <code>it</code>&#8230;&#8203;</p></li></ul></div></li><li><p>Programmation des interactions séquentielles (le « control flow »)</p><div class="ulist"><ul><li><p>Une mécanique assez complexe gère l’enchaînement des actions quand la précédente est terminée</p></li><li><p>Basé sur les promesses</p></li><li><p>En rupture avec l&#8217;asynchronisme du naturel du JS</p></li><li><p>Nécessite de bien rester dans l&#8217;API</p></li></ul></div></li></ul></div></section><section id="_tests_e2e_api_2"><h2>Tests E2E : API</h2><div class="ulist"><ul><li><p>Pilotage de la page</p><div class="ulist"><ul><li><p><code>browser.get(<a href="http://localhost:8080" class="bare">http://localhost:8080</a>)</code></p></li><li><p><code>element(selector).sendKeys(value)</code></p></li><li><p><code>element(selector).click()</code></p></li></ul></div></li><li><p>Assertions</p><div class="ulist"><ul><li><p><code>expect(future).&lt;matcher&gt;(expected)</code></p></li><li><p><code>future</code> = <code>element</code>, <code>repeater</code>&#8230;&#8203;</p></li><li><p><code>matcher</code> = <code>toBe</code>, <code>toContain</code>, <code>toBeLessThan</code>&#8230;&#8203;</p></li></ul></div></li></ul></div></section><section id="_tests_e2e_api_3"><h2>Tests E2E : API</h2><div class="ulist"><ul><li><p>Sélections</p><div class="ulist"><ul><li><p>locators WebDriver</p><div class="ulist"><ul><li><p><code>element(by.id('foo'))</code></p></li><li><p><code>element(by.className('foo'))</code></p></li></ul></div></li><li><p>locators Protractor (spécifiques Angular)</p><div class="ulist"><ul><li><p><code>element(by.model('contact.name'))</code></p></li><li><p><code>element(by.binding('contact.name'))</code></p></li></ul></div></li></ul></div></li></ul></div></section><section id="_tests_e2e_exemple"><h2>Tests E2E : Exemple</h2><div class="listingblock"><div class="content"><pre class="highlight"><code class="javascript language-javascript">describe('Phone list view', function() {
+    beforeEach(function() {
+        browser.get('http://localhost:8080/phones');
+    });
+    it('represents data correctly', function() {
+        expect(element(by.tagName('h2')).getText())
+            .toBe('Phone list');
+        expect(element.all(by.css('img.thumb')).count()).toBe(6);
+
+        element(by.id('filterInput')).sendKeys('nexus');
+        var phoneRows = element.all(by.repeater('phone in phones'));
+        phoneRows.each(function(element) {
+            expect(element.getText()).toMatch(/nexus/)
+        });
+    });
+});</code></pre></div></div></section><section id="_tests_e2e_module_ngmocke2e"><h2>Tests E2E : Module ngMockE2E</h2><div class="ulist"><ul><li><p>Externaliser dans <strong>angular-mocke2e.js</strong></p></li><li><p>Contient uniquement un <code>$httpBackend</code> « spécial E2E »</p></li><li><p>Permet de mocker certaines requêtes (règles lâches) pour maîtriser les données retournées.</p></li><li><p>Permet de transmettre au service <code>$http</code> « réel » d&#8217;autres requêtes (récupération de template par exemple)</p></li><li><p>Pas de règles strictes (<code>expect(&#8230;&#8203;)</code> nécessitant un <code>.flush()</code>)</p></li></ul></div></section><section id="_tests_e2e_module_ngmocke2e_2"><h2>Tests E2E : Module ngMockE2E</h2><div class="listingblock"><div class="content"><pre class="highlight"><code class="javascript language-javascript">var phones = [{name: 'phone1'}, {name: 'phone2'}] ;
+// Return test datas
+$httpBackend.whenGET('/phones').respond();
+// Delegate to the $http (perform a real request)
+$httpBackend.whenGET(/^\/templates\//).passThrough();</code></pre></div></div></section><section id="_tests_3"><h2>Tests</h2><div class="imageblock" id="TP" style=""><img src="./images//TP9.jpg" alt="TP"></div>
+<div class="paragraph"><p><a href="TPs/TP9/" target="_blank">TP N°9</a> faire un test pour verifier le fonctionnement d&#8217;un composant</p></div></section><section id="_tests_br"><h2>Tests<br></h2><h3>des questions</h3><div class="imageblock" id="question" style=""><img src="./images//question-mark.jpg" alt="question"></div></section><section id="_tests_4"><h2>Tests</h2><div class="ulist"><ul><li><p>Dans ce chapitre nous avons vu les notions de suivantes</p><div class="ulist"><ul><li><p>Les Concepts</p></li><li><p>Jasmine</p></li><li><p>ngMock</p></li><li><p>Karma</p></li><li><p>Test d&#8217;un contrôlleur</p></li><li><p>Test d&#8217;une directive</p></li><li><p>Test end-2-end</p></li><li><p>ngMockE2E</p></li></ul></div></li></ul></div></section></section>
+<section><section id="_aller_plus_loin"><h2>Aller plus loin</h2></section><section id="_aller_plus_loin_2"><h2>Aller plus loin</h2><div class="ulist"><ul><li><p>Dans ce chapitre nous allons voir les points suivants</p></li><li><p>Industrialisation</p></li><li><p>Optimisation des ressources</p></li><li><p>Librairies de composants</p></li></ul></div></section><section id="_au_del_d_angularjs"><h2>Au-delà d&#8217;AngularJS</h2><div class="ulist"><ul><li><p>AngularJS est un framework remarquable pour structurer une application riche en Javascript</p><div class="ulist"><ul><li><p>Mais ce n&#8217;est qu&#8217;un composant de l&#8217;application totale</p></li></ul></div></li><li><p>D&#8217;autres outils, librairies et frameworks peuvent être utilisés en conjonction pour couvrir d&#8217;autres aspects du développement</p><div class="ulist"><ul><li><p>Industrialisation</p></li><li><p>Optimisation des ressources</p></li><li><p>Librairies de composants</p></li></ul></div></li></ul></div></section><section id="_industrialisation_grunt"><h2>Industrialisation : Grunt</h2><div class="imageblock" id="grunt" style=""><img src="./images//grunt.png" alt="Grunt"></div>
+<div class="ulist"><ul><li><p>Grunt, "The JavaScript Task Runner"</p></li><li><p><a href="http://gruntjs.com/" class="bare">http://gruntjs.com/</a></p></li><li><p>Basé sur NodeJS (<a href="http://nodejs.org/" class="bare">http://nodejs.org/</a>)</p></li><li><p>Le couteau suisse du développement web</p><div class="ulist"><ul><li><p>compilation (coffeescript, LESS/SASS, templates…)</p></li><li><p>minification des scripts</p></li><li><p>optimisation des images</p></li><li><p>lancement des tests automatisés</p></li></ul></div></li></ul></div></section><section id="_industrialisation_bower"><h2>Industrialisation : Bower</h2><div class="imageblock" id="bower" style=""><img src="./images//bower.png" alt="Bower"></div>
+<div class="ulist"><ul><li><p>Bower : "A package manager for the web"</p></li><li><p><a href="http://bower.io/" class="bare">http://bower.io/</a></p></li><li><p>Basé sur NodeJS et Git</p></li><li><p>Gestion des dépendances entre composants front-end</p><div class="ulist"><ul><li><p>Le plus souvent des librairies JavaScript</p></li></ul></div></li></ul></div></section><section id="_industrialisation_yeoman"><h2>Industrialisation : Yeoman</h2><div class="imageblock" id="yeoman" style=""><img src="./images//yeoman.png" alt="Yeoman"></div>
+<div class="ulist"><ul><li><p><a href="http://yeoman.io/" class="bare">http://yeoman.io/</a></p></li><li><p>Yeoman est une collection d&#8217;outils permettant</p><div class="literalblock"><div class="content"><pre>  de gérer le cycle de vie d'une application JavaScript
+** Grunt, Bower, Yo (génération de squelette</pre></div></div>
+<div class="literalblock"><div class="content"><pre>d'application (*"scaffolding"*))</pre></div></div></li><li><p>Démarrer rapidement une application</p></li><li><p>La préparer pour une mise en production</p></li><li><p>Gérer ses dépendances</p></li><li><p>Prévisualiser l&#8217;application localement</p></li></ul></div></section><section id="_industrialisation_yeoman_2"><h2>Industrialisation : Yeoman</h2><div class="ulist"><ul><li><p>Exemple d&#8217;utilisation de bout en bout</p></li></ul></div>
+<div class="listingblock"><div class="content"><pre class="highlight"><code class="shell language-shell">// Initialisation de la structure de l'application
+// basée sur le template angular-seed
+mkdir ngapp
+cd ngapp
+yo angular
+
+// Lancement du serveur node.js local
+grunt server
+
+// Lance les tests avec Karma
+grunt test
+
+// Compilation, optimisation et packaging de l'application
+grunt build</code></pre></div></div></section><section id="_optimisation_des_ressources"><h2>Optimisation des ressources</h2><div class="ulist"><ul><li><p>Les ressources d&#8217;une application d&#8217;entreprise doivent être optimisées</p><div class="ulist"><ul><li><p>Réduction de la consommation de bande passante</p></li><li><p>Accélération du chargement de l&#8217;application</p></li></ul></div></li><li><p>Chaque type de ressource dispose de techniques d&#8217;optimisation propres</p><div class="ulist"><ul><li><p>JavaScript</p></li><li><p>Feuilles de style</p></li><li><p>Images</p></li></ul></div></li></ul></div></section><section id="_optimisation_du_code_javascript"><h2>Optimisation du code JavaScript</h2><div class="ulist"><ul><li><p>Les ressources JavaScript peuvent être optimisées</p></li><li><p>Vérification</p><div class="ulist"><ul><li><p>JSLint : <a href="http://jslint.com" class="bare">http://jslint.com</a></p></li><li><p>JSHint : <a href="http://jshint.com" class="bare">http://jshint.com</a></p></li></ul></div></li><li><p>Optimisation et compression</p><div class="ulist"><ul><li><p>UglifyJS : <a href="http://github.com/mishoo/UglifyJS" class="bare">http://github.com/mishoo/UglifyJS</a></p></li><li><p>JSMin : <a href="http://www.crockford.com/javascript/jsmin.html" class="bare">http://www.crockford.com/javascript/jsmin.html</a></p></li></ul></div></li></ul></div></section><section id="_optimisation_des_styles_css"><h2>Optimisation des styles CSS</h2><div class="ulist"><ul><li><p>Les feuilles de style CSS peuvent également bénéficier de certaines optimisations</p><div class="ulist"><ul><li><p>Fusion des feuilles de style</p></li><li><p>Optimisation et déduplication des propriétés CSS</p></li></ul></div></li><li><p>Optimisation</p><div class="ulist"><ul><li><p>CSSLint : <a href="http://csslint.net" class="bare">http://csslint.net</a></p></li></ul></div></li><li><p>Langages alternatifs générant du CSS (support des constantes, mixins, opérations sur les unités…)</p><div class="ulist"><ul><li><p>LESS : <a href="http://lesscss.org" class="bare">http://lesscss.org</a></p></li><li><p>SASS : <a href="http://sass-lang.com" class="bare">http://sass-lang.com</a></p></li></ul></div></li></ul></div></section><section id="_optimisation_des_images"><h2>Optimisation des images</h2><div class="ulist"><ul><li><p>Il existe 2 types d&#8217;optimisations pour les images</p><div class="ulist"><ul><li><p>Optimiser chaque image</p></li><li><p>Grouper toutes les images en une seule, pour les récupérer en une seule requête HTTP</p></li></ul></div></li><li><p>Yeoman embarque deux optimiseurs</p><div class="ulist"><ul><li><p>OptiPNG : <a href="http://optipng.sourceforge.net" class="bare">http://optipng.sourceforge.net</a></p></li><li><p>JPEGTran : <a href="http://jpegclub.org" class="bare">http://jpegclub.org</a></p></li></ul></div></li></ul></div></section><section id="_angular_ui_et_autres_modules"><h2>Angular-UI et autres modules</h2><div class="ulist"><ul><li><p>AngularJS est au centre d&#8217;un écosystème en plein essor</p><div class="ulist"><ul><li><p>Composants additionnels sur étagère</p></li><li><p>Intégration avec d&#8217;autres projets</p></li></ul></div></li><li><p>Projet ngModules (registre de composants) : <a href="http://ngmodules.org" class="bare">http://ngmodules.org</a></p><div class="ulist"><ul><li><p>Angular-UI : <a href="http://angular-ui.github.io" class="bare">http://angular-ui.github.io</a></p><div class="ulist"><ul><li><p>UI Bootstrap (intégration avec Twitter Bootstrap)</p></li><li><p>UI Router (remplacement de <code>$routeService</code>)</p></li></ul></div></li><li><p>Intégration Google Charts, Google Maps</p></li><li><p>Infiniscroll</p></li><li><p>Intégration MongoDB, Firebase</p></li></ul></div></li></ul></div></section><section id="_aller_plus_loin_br"><h2>Aller plus loin<br></h2><h3>des questions</h3><div class="imageblock" id="question" style=""><img src="./images//question-mark.jpg" alt="question"></div></section><section id="_aller_plus_loin_3"><h2>Aller plus loin</h2><div class="ulist"><ul><li><p>Dans ce chapitre nous avons vu les notions de suivantes</p></li><li><p>Industrialisation</p></li><li><p>Optimisation des ressources</p></li><li><p>Librairies de composants</p></li></ul></div></section></section></div></div><script src="./reveal.js/lib/js/head.min.js"></script><script src="./reveal.js/js/reveal.js"></script><script>// See https://github.com/hakimel/reveal.js#configuration for a full list of configuration options
+Reveal.initialize({
+  // Display controls in the bottom right corner
+  controls: true,
+  // Display a presentation progress bar
+  progress: true,
+  // Display the page number of the current slide
+  slideNumber: false,
+  // Push each slide change to the browser history
+  history: true,
+  // Enable keyboard shortcuts for navigation
+  keyboard: true,
+  // Enable the slide overview mode
+  overview: true,
+  // Vertical centering of slides
+  center: true,
+  // Enables touch navigation on devices with touch input
+  touch: true,
+  // Loop the presentation
+  loop: false,
+  // Change the presentation direction to be RTL
+  rtl: false,
+  // Turns fragments on and off globally
+  fragments: true,
+  // Flags if the presentation is running in an embedded mode,
+  // i.e. contained within a limited portion of the screen
+  embedded: false,
+  // Number of milliseconds between automatically proceeding to the
+  // next slide, disabled when set to 0, this value can be overwritten
+  // by using a data-autoslide attribute on your slides
+  autoSlide: 0,
+  // Stop auto-sliding after user input
+  autoSlideStoppable: true,
+  // Enable slide navigation via mouse wheel
+  mouseWheel: true,
+  // Hides the address bar on mobile devices
+  hideAddressBar: true,
+  // Opens links in an iframe preview overlay
+  previewLinks: false,
+  // Theme (e.g., beige, black, league, night, serif, simple, sky, solarized, white)
+  // NOTE setting the theme in the config no longer works in reveal.js 3.x
+  //theme: Reveal.getQueryHash().theme || 'white',
+  // Transition style (e.g., none, fade, slide, convex, concave, zoom)
+  transition: Reveal.getQueryHash().transition || 'slide',
+  // Transition speed (e.g., default, fast, slow)
+  transitionSpeed: 'default',
+  // Transition style for full page slide backgrounds (e.g., none, fade, slide, convex, concave, zoom)
+  backgroundTransition: 'fade',
+  // Number of slides away from the current that are visible
+  viewDistance: 3,
+  // Parallax background image (e.g., "'https://s3.amazonaws.com/hakim-static/reveal-js/reveal-parallax-1.jpg'")
+  parallaxBackgroundImage: '',
+  // Parallax background size in CSS syntax (e.g., "2100px 900px")
+  parallaxBackgroundSize: '',
+
+  // The "normal" size of the presentation, aspect ratio will be preserved
+  // when the presentation is scaled to fit different resolutions. Can be
+  // specified using percentage units.
+  width: 960,
+  height: 700,
+
+  // Factor of the display size that should remain empty around the content
+  margin: 0.1,
+
+  // Bounds for smallest/largest possible scale to apply to content
+  minScale: 0.2,
+  maxScale: 1.5,
+
+  // Optional libraries used to extend on reveal.js
+  dependencies: [
+      { src: './reveal.js/lib/js/classList.js', condition: function() { return !document.body.classList; } },
+      { src: './reveal.js/plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+      { src: './reveal.js/plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+      { src: './reveal.js/plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+      { src: './reveal.js/plugin/zoom-js/zoom.js', async: true, condition: function() { return !!document.body.classList; } },
+      { src: './reveal.js/plugin/notes/notes.js', async: true, condition: function() { return !!document.body.classList; } }
+  ]
+});</script></body></html>

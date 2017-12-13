@@ -1,0 +1,10 @@
+/* Put your css in here */
+
+input.ng-invalid {
+  background-color:red;
+}
+
+div > button {
+  position:right;
+  text-align :right;
+}
